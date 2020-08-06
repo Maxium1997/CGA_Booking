@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="b2ae6215-e0bf-44df-aae2-2373e83c0974" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/CGA_Booking.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rank/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rank/admin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rank/apps.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rank/migrations/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rank/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rank/tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rank/views.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/registration/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/registration/admin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/registration/apps.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/registration/definition.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/registration/migrations/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/registration/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/registration/tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/registration/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CGA_Booking/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/CGA_Booking/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CGA_Booking/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/CGA_Booking/urls.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1fj5sXkUNCf0CmD67HN4ZfT0X4g" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RunManager">
+    <configuration name="CGA_Booking" type="Python.DjangoServer" factoryName="Django server">
+      <module name="CGA_Booking" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b2ae6215-e0bf-44df-aae2-2373e83c0974" name="Default Changelist" comment="" />
+      <created>1596718868839</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1596718868839</updated>
+      <workItem from="1596718870332" duration="3012000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="224" y="76" key="SettingsEditor" timestamp="1596721365605">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="224" y="76" key="SettingsEditor/0.0.1680.1050@0.0.1680.1050" timestamp="1596721365605" />
+  </component>
+</project>
