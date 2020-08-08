@@ -2,26 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b2ae6215-e0bf-44df-aae2-2373e83c0974" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/CGA_Booking.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rank/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rank/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rank/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rank/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rank/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rank/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rank/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/registration/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/registration/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/registration/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/registration/definition.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/registration/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/registration/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/registration/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/registration/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CGA_Booking/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/CGA_Booking/settings.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/booking/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/booking/admin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/booking/apps.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/booking/migrations/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/booking/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/booking/tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/booking/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/booking/views.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/registration/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/css/system.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/footer.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/head.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/header.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CGA_Booking/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/CGA_Booking/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -36,6 +33,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
+        <option value="HTML File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -52,9 +51,11 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -98,7 +99,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1596718868839</updated>
-      <workItem from="1596718870332" duration="3012000" />
+      <workItem from="1596718870332" duration="10959000" />
     </task>
     <servers />
   </component>
