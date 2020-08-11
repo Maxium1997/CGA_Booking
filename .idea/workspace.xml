@@ -2,18 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b2ae6215-e0bf-44df-aae2-2373e83c0974" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/registration/forms.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/registration/templates/register_info.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/messages.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/image/404-error-isometric-illustration/3737256.ai" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/image/404-error-isometric-illustration/3737257.eps" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/image/404-error-isometric-illustration/3737258.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/image/404-error-isometric-illustration/License free.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/image/404-error-isometric-illustration/License premium.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/image/500-internal-server-error-concept-illustration/3805088.ai" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/image/500-internal-server-error-concept-illustration/3805089.eps" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/image/500-internal-server-error-concept-illustration/3805090.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/image/500-internal-server-error-concept-illustration/License free.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/image/500-internal-server-error-concept-illustration/License premium.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/registration/definition.py" beforeDir="false" afterPath="$PROJECT_DIR$/registration/definition.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/registration/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/registration/templates/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/registration/templates/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/registration/templates/register.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/registration/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/registration/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/registration/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/registration/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/header.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CGA_Booking/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/CGA_Booking/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/registration/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/registration/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
