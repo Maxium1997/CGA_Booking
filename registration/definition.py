@@ -7,7 +7,7 @@ class Privilege(Enum):
 
 
 class Identity(Enum):
-    Consumer = (1, 'Consumer', '消費者')
+    Traveler = (1, 'Traveler', '旅客')
     Proprietor = (2, 'Proprietor', '業者')
 
 

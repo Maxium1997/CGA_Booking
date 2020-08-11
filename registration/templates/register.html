@@ -10,7 +10,7 @@
         <p class="lead">To register your account, you will not be able to change your status in the future.</p>
         <div class="row">
             <div class="col-sm-6">
-                <div class="card text-center" style="cursor: pointer" onclick="window.location.href='#traveler'">
+                <div class="card text-center" style="cursor: pointer" onclick="window.location.href='{% url 'traveler_register' %}'">
                     <div class="card-body">
                         <img src="{% static 'image/person-looking-his-phone-map-local-tourism/4023656.jpg' %}" width="90%">
                     </div>
@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="col-sm-6">
-                <div class="card text-center" style="cursor: pointer" onclick="window.location.href='#proprietor'">
+                <div class="card text-center" style="cursor: pointer" onclick="window.location.href='{% url 'proprietor_register' %}'">
                     <div class="card-body">
                         <img src="{% static 'image/vector-flat-illustration-man-working-computer/113.jpg' %}" width="90%">
                     </div>
