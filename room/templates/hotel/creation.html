@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load registration_filters %}
+
+{% block title %}New Hotel{% endblock %}
+
+{% block left_side %}
+    {% if request.user.is_anonymous %}
+    {% else %}
+        {% if request.user|is_proprietor %}
+            <div id="sidebar" class="col-sm-12">
+                <div class="mt-4 text-center">
+                    <button type="button" class="btn btn-outline-primary" onclick="window.location.href='{% url 'hotel_creation' %}'">New hotel</button>
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="col-sm-6">
+        <h1>New hotel</h1>
+        <p class="lead">Please complete the following information about your hotel.</p>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <p>External Appearance</p>
+            <p>{{ form.external_appearance }}</p>
+            <p>Name
+            {{ form.name }}</p>
+            <p>Slug
+            {{ form.slug }}</p>
+            <p>Address
+            {{ form.address }}</p>
+            <p>Phone
+            {{ form.phone }}</p>
+            <p>Website
+            {{ form.website }}</p>
+            <p>Introduction
+            {{ form.introduction }}</p>
+
+            <div class="float-right">
+                <button type="submit" class="btn btn-success">Submit</button>
+                <button type="reset" class="btn btn-light">Reset</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

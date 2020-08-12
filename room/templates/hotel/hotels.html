@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load registration_filters %}
+
+{% block title %}Hotels{% endblock %}
+
+{% block left_side %}
+    {% if request.user.is_anonymous %}
+    {% else %}
+        {% if request.user|is_proprietor %}
+            <div id="sidebar" class="col-sm-12">
+                <div class="mt-4 text-center">
+                    <button type="button" class="btn btn-outline-primary" onclick="window.location.href='{% url 'hotel_creation' %}'">New hotel</button>
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Hotels</h1>
+        <p class="lead">Total: {{ hotels.count }}</p>
+        <div class="row">
+            {% if hotels %}
+                {% for hotel in hotels %}
+                    <div class="col-sm-6">
+                        <div class="card" style="cursor: pointer;" onclick="window.location.href='#hotel_detail'">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        {% if hotel.external_appearance %}
+                                            <img class="card-img-top mt-2 mb-2" src="{{ hotel.external_appearance.url }}" alt="{{ hotel.name }}" >
+                                        {% else %}
+                                            <img src="{% static 'image/ilustracion-concepto-fallo-conexion/3024051.jpg' %}" width="200" height="200">
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div class="mt-2 mb-2">
+                                            <p class="h3">{{ hotel.name }}</p>
+                                            <p class="lead">{{ hotel.address }}</p>
+                                            <p style="font-size: 12px">{{ hotel.introduction }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                No hotel recently.
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
