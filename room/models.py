@@ -9,9 +9,9 @@ class Hotel(models.Model):
     owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     external_appearance = models.ImageField(upload_to='hotels', null=True, blank=True)
     slug = models.SlugField(max_length=255, unique=True, null=False, blank=False)
-    address = models.CharField(max_length=50, unique=True, null=True, blank=True)
-    phone = models.CharField(max_length=20, unique=True, null=True, blank=True)
-    website = models.URLField(unique=True, null=True, blank=True)
+    address = models.CharField(max_length=50, unique=True, null=True)
+    phone = models.CharField(max_length=20, unique=True, null=True)
+    website = models.URLField(unique=True, null=True)
     introduction = models.TextField(null=True, blank=True)
 
     def photo_upload(self, photo):
@@ -48,9 +48,9 @@ class Room(models.Model):
 
 class Dormitory(models.Model):
     room = models.OneToOneField(Room, on_delete=models.CASCADE)
-    washing_fee = models.PositiveSmallIntegerField(default=0, null=True, blank=False)
-    usage_fee = models.PositiveSmallIntegerField(default=0, null=True, blank=False)
-    utility_bill = models.PositiveSmallIntegerField(default=0, null=True, blank=False)
+    washing_fee = models.PositiveSmallIntegerField(default=0, null=True)
+    usage_fee = models.PositiveSmallIntegerField(default=0, null=True)
+    utility_bill = models.PositiveSmallIntegerField(default=0, null=True)
 
     def get_price(self):
         return self.room.price + self.washing_fee + self.usage_fee + self.utility_bill
