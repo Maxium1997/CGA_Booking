@@ -3,7 +3,7 @@ from django import forms
 from room.models import Hotel
 
 
-class HotelCreationForm(forms.ModelForm):
+class HotelForm(forms.ModelForm):
     external_appearance = forms.ImageField()
     name = forms.CharField(required=True,
                            widget=forms.TextInput(attrs={'class': 'form-control'}))

@@ -1,0 +1,30 @@
+{% load registration_filters %}
+
+<button type="button" class="btn text-dark" data-toggle="modal" data-target="#ModalCenter">
+    {{ request.user.username }}
+</button>
+
+<div class="modal fade" id="ModalCenter" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center" style="width: 100%">
+                <h5 class="modal-title" id="ModalLongTitle">Username: {{ request.user.username }}</h5>
+            </div>
+
+            <div id="modal-menu" style="width: 100%">
+                <ul class="list-inline text-center">
+                    <li class="p-3 border-bottom" style="cursor: pointer" onclick="alert('Function is developing. Stay tuned.🤪');">I am civil servant</li>
+                    {% if request.user|is_proprietor %}
+                    <li class="p-3 border-bottom" style="cursor: pointer" onclick="window.location.href='{% url 'my_hotels' %}'">My hotels</li>
+                    {% endif %}
+                    <li class="p-3" style="cursor: pointer" onclick="alert('Function is developing. Stay tuned.🤪');">My bookings</li>
+                </ul>
+            </div>
+{##}
+            <div class="modal-footer" style="width: 100%">
+                <a class="btn btn-light" href="{% url 'logout' %}" onclick="return confirm('Sure to logout?')">Logout</a>
+                <a class="btn btn-outline-secondary" data-dismiss="modal">Cancel</a>
+            </div>
+        </div>
+    </div>
+</div>
