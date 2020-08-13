@@ -39,7 +39,7 @@
                             <td class="text-center">{{ hotel.room_set.count }}</td>
                             <td class="text-center" style="font-size: 12px">
                                 <button class="btn btn-outline-primary" onclick="window.location.href='#new_room'">Add</button>
-                                <button class="btn btn-outline-warning" onclick="window.location.href='#hotel_edition'">Edit</button>
+                                <button class="btn btn-outline-warning" onclick="window.location.href='{% url 'hotel_edition' hotel.slug %}'">Edit</button>
                                 <button class="btn btn-outline-success" onclick="window.location.href='#hotel_room_detail'">View</button>
                             </td>
                         </tr>

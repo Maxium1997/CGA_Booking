@@ -26,7 +26,7 @@
             {% if hotels %}
                 {% for hotel in hotels %}
                     <div class="col-sm-12 mt-2">
-                        <div class="card" style="cursor: pointer;" onclick="window.location.href='#hotel_detail'">
+                        <div class="card" style="cursor: pointer;" onclick="window.location.href='{% url 'hotel_detail' hotel.slug %}'">
                             <div class="container">
                                 <div class="row">
                                     <div class="col-sm-4">
@@ -38,9 +38,9 @@
                                     </div>
                                     <div class="col-sm-8">
                                         <div class="mt-2 mb-2">
-                                            <p class="h3">{{ hotel.name }}</p>
-                                            <p class="lead">{{ hotel.address }}</p>
-                                            <p style="font-size: 12px">{{ hotel.introduction|shorten_to:200 }}</p>
+                                            <p class="h5">{{ hotel.name }}</p>
+                                            <p style="font-size: 12px">{{ hotel.address }}</p>
+                                            <p style="font-size: 10px">{{ hotel.introduction|shorten_to:120 }}</p>
                                         </div>
                                     </div>
                                 </div>

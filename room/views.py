@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, CreateView, View
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -56,3 +56,47 @@ class OwnedHotelView(ListView):
 
     def get_queryset(self):
         return Hotel.objects.filter(owner=self.request.user)
+
+
+class HotelDetailView(View):
+    def get(self, request, slug):
+        hotel = get_object_or_404(Hotel, slug=slug)
+        template = 'hotel/detail.html'
+        context = {
+            'hotel': hotel,
+            'hotels': Hotel.objects.all(),
+            'rooms': hotel.room_set.all()
+        }
+        return render(request, template, context)
+
+
+@method_decorator(login_required, name='dispatch')
+class HotelEditionView(View):
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.identity != Identity.Proprietor.value[0]:
+            raise PermissionDenied
+        return super(HotelEditionView, self).dispatch(request, *args, **kwargs)
+
+    def get(self, request, slug):
+        hotel = get_object_or_404(Hotel, slug=slug)
+
+        if hotel.owner != request.user:
+            messages.error(request, "Permission Denied. You are not this hotel owner.")
+            return redirect('hotels')
+
+        template = 'hotel/edition.html'
+        context = {'form': HotelForm(instance=hotel)}
+
+        return render(request, template, context)
+
+    def post(self, request, slug):
+        hotel = get_object_or_404(Hotel, slug=slug)
+
+        if hotel.owner != request.user:
+            messages.error(request, "Permission Denied. You are not this hotel owner.")
+            return redirect('hotels')
+
+        hotel = HotelForm(request.POST, request.FILES, instance=hotel).save(commit=False)
+        hotel.photo_upload(hotel.external_appearance)
+        messages.success(request, "Successfully Edit.")
+        return redirect('my_hotels')
