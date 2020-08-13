@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load registration_filters %}
+{% load room_filters %}
 
 {% block title %}Hotels{% endblock %}
 
@@ -24,7 +25,7 @@
         <div class="row">
             {% if hotels %}
                 {% for hotel in hotels %}
-                    <div class="col-sm-6">
+                    <div class="col-sm-12 mt-2">
                         <div class="card" style="cursor: pointer;" onclick="window.location.href='#hotel_detail'">
                             <div class="container">
                                 <div class="row">
@@ -39,7 +40,7 @@
                                         <div class="mt-2 mb-2">
                                             <p class="h3">{{ hotel.name }}</p>
                                             <p class="lead">{{ hotel.address }}</p>
-                                            <p style="font-size: 12px">{{ hotel.introduction }}</p>
+                                            <p style="font-size: 12px">{{ hotel.introduction|shorten_to:200 }}</p>
                                         </div>
                                     </div>
                                 </div>
