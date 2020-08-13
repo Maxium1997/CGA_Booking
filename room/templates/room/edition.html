@@ -1,18 +1,9 @@
 {% extends 'base.html' %}
-{% load static %}
-{% load registration_filters %}
 
-{% block title %}New Room{% endblock %}
+{% block title %}Room Edition{% endblock %}
 
 {% block left_side %}
-    {% if request.user.is_anonymous %}
-    {% else %}
-        <div id="sidebar" class="col-sm-12">
-            <div class="mt-4 text-center">
-                <button type="button" class="btn btn-outline-dark" onclick="history.go(-1);">Back</button>
-            </div>
-        </div>
-    {% endif %}
+
 {% endblock %}
 
 {% block content %}

@@ -1,7 +1,7 @@
 from django.urls import path, include
 
 from room.views.hotel.views import HotelsView, HotelCreationView, OwnedHotelView, HotelDetailView, HotelEditionView
-from room.views.room.views import RoomCreationView
+from room.views.room.views import RoomCreationView, RoomEditionView, OwnedRoomView
 
 urlpatterns = [
     path('hotel/', include([
@@ -13,6 +13,10 @@ urlpatterns = [
             path('detail', HotelDetailView.as_view(), name='hotel_detail'),
             path('room/', include([
                 path('creation', RoomCreationView.as_view(), name='room_creation'),
+                path('owned', OwnedRoomView.as_view(), name='my_rooms'),
+                path('<pk>/', include([
+                    path('edition', RoomEditionView.as_view(), name='room_edition'),
+                ])),
             ])),
         ])),
     ])),

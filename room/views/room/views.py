@@ -53,3 +53,60 @@ class RoomCreationView(View):
                    'dormitory_setting_form': DormitorySettingForm()}
 
         return render(request, template, context)
+
+
+@method_decorator(login_required, name='dispatch')
+class RoomEditionView(View):
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.identity != Identity.Proprietor.value[0]:
+            raise PermissionDenied
+        return super(RoomEditionView, self).dispatch(request, *args, **kwargs)
+
+    def get(self, request, slug, pk):
+        hotel = get_object_or_404(Hotel, slug=slug)
+        room = get_object_or_404(Room, pk=pk)
+
+        if hotel.owner != request.user:
+            messages.error(request, "Permission Denied. You are not this hotel owner.")
+            return redirect('hotels')
+
+        template = 'room/edition.html'
+        context = {'room_form': RoomForm(instance=room),
+                   'dormitory_setting_form': DormitorySettingForm(instance=room.dormitory)}
+
+        return render(request, template, context)
+
+    def post(self, request, slug, pk):
+        hotel = get_object_or_404(Hotel, slug=slug)
+        room = get_object_or_404(Room, pk=pk)
+
+        if hotel.owner != request.user:
+            messages.error(request, "Permission Denied. You are not this hotel owner.")
+            return redirect('hotels')
+
+        room = RoomForm(request.POST, instance=room).save(commit=True)
+        DormitorySettingForm(request.POST, instance=room.dormitory).save(commit=True)
+        messages.success(request, "Successfully Edit.")
+        return redirect('my_rooms', slug=hotel.slug)
+
+
+@method_decorator(login_required, name='dispatch')
+class OwnedRoomView(View):
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.identity != Identity.Proprietor.value[0]:
+            messages.warning(request, "Request Reject, you are not proprietor")
+            return redirect('hotels')
+        return super(OwnedRoomView, self).dispatch(request, *args, **kwargs)
+
+    def get(self, request, slug):
+        hotel = get_object_or_404(Hotel, slug=slug)
+
+        if hotel.owner != request.user:
+            messages.error(request, "Permission Denied. You are not this hotel owner.")
+            return redirect('hotels')
+
+        template = 'room/owned.html'
+        context = {'hotel': hotel,
+                   'rooms': hotel.room_set.all()}
+
+        return render(request, template, context)

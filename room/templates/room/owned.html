@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load registration_filters %}
+
+{% block title %}My Rooms{% endblock %}
+
+{% block left_side %}
+    <div id="sidebar" class="col-sm-12">
+        <div class="mt-4 text-center">
+            <button type="button" class="btn btn-outline-dark" onclick="history.go(-1);">Back</button>
+        </div>
+    </div>
+    {% if request.user.is_anonymous %}
+    {% else %}
+        {% if request.user|is_proprietor %}
+            <div id="sidebar" class="col-sm-12">
+                <div class="mt-4 text-center">
+                    <button type="button" class="btn btn-outline-primary" onclick="window.location.href='{% url 'room_creation' hotel.slug %}'">New room</button>
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Rooms in {{ hotel.name }}</h1>
+        <p class="lead">Total: {{ rooms.count }}</p>
+        <div class="row">
+            {% if rooms %}
+                <table class="table-responsive" style="font-size: 12px">
+                    <thead>
+                        <tr>
+                            <th style="width: 10%">Name</th>
+                            <th style="width: 10%" class="text-center">Price</th>
+                            <th style="width: 10%" class="text-center">Washing</th>
+                            <th style="width: 10%" class="text-center">Usage</th>
+                            <th style="width: 10%" class="text-center">Utility Bill</th>
+                            <th style="width: 10%" class="text-center">Total</th>
+                            <th style="width: 40%" class="text-center">Features</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for room in rooms %}
+                        <tr class="border-top">
+                            <td>{{ room.name }}</td>
+                            <td class="text-center">{{ room.price }}</td>
+                            <td class="text-center">{{ room.dormitory.washing_fee }}</td>
+                            <td class="text-center">{{ room.dormitory.usage_fee }}</td>
+                            <td class="text-center">{{ room.dormitory.utility_bill }}</td>
+                            <td class="text-center">{{ room.dormitory.get_price }}</td>
+                            <td class="text-center" style="font-size: 12px">
+                                <button class="btn btn-outline-warning" onclick="window.location.href='{% url 'room_edition' hotel.slug room.pk %}'">Edit</button>
+{#                                <button class="btn btn-outline-success" onclick="window.location.href='{% url 'my_rooms' hotel.slug %}'">View</button>#}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                You don't have your hotel recently.
+            {% endif %}
+        </div>
+    </div>
+    <style>
+        button{
+            font-size: 12px;
+        }
+    </style>
+{% endblock %}

@@ -38,10 +38,6 @@ class HotelCreationView(CreateView):
         return redirect('hotels')
 
 
-# @method_decorator(login_required, name='dispatch')
-# class HotelEditionView(View):
-#
-
 @method_decorator(login_required, name='dispatch')
 class OwnedHotelView(ListView):
     model = Hotel

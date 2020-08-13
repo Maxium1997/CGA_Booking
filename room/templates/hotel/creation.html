@@ -5,6 +5,11 @@
 {% block title %}New Hotel{% endblock %}
 
 {% block left_side %}
+    <div id="sidebar" class="col-sm-12">
+        <div class="mt-4 text-center">
+            <button type="button" class="btn btn-outline-dark" onclick="history.go(-1);">Back</button>
+        </div>
+    </div>
     {% if request.user.is_anonymous %}
     {% else %}
         {% if request.user|is_proprietor %}
