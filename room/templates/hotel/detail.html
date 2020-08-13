@@ -1,15 +1,17 @@
 {% extends 'base.html' %}
+{% load static %}
 {% load registration_filters %}
+{% load room_filters %}
 
 {% block title %}{{ hotel.name }}{% endblock %}
 
 {% block left_side %}
     {% if request.user.is_anonymous %}
     {% else %}
-        {% if request.user|is_proprietor %}
+        {% if request.user|is_proprietor and request.user|is_hotel_owner:hotel %}
             <div id="sidebar" class="col-sm-12">
                 <div class="mt-4 text-center">
-                    <button type="button" class="btn btn-outline-primary" onclick="window.location.href='#add_room'">New room</button>
+                    <button type="button" class="btn btn-outline-primary" onclick="window.location.href='{% url 'room_creation' hotel.slug %}'">New room</button>
                 </div>
             </div>
         {% endif %}
@@ -26,17 +28,43 @@
 {% block content %}
     <div class="col-sm-12 mt-2">
         <h3>{{ hotel.name }}</h3>
-        <p class="lead">Rooms: {{ hotel.room_set.all.count }}</p>
-        {% for room in rooms %}
-            <div class="card col-sm-3">
-                <div class="card-body">
-
-                </div>
-                <div class="card-footer">
-
-                </div>
+        <p class="lead">
+            <strong>Rooms</strong>: {{ hotel.room_set.all.count }}<br>
+            <strong>Address</strong>: {{ hotel.address }}<br>
+            <strong>Phone</strong>: {{ hotel.phone }}<br>
+            <strong>Website</strong>: <a href="{{ hotel.website }}">{{ hotel.website }}</a><br>
+            <strong>Introduction</strong><br>{{ hotel.introduction }}
+        </p>
+        <div class="container">
+            <div class="row">
+                {% for room in rooms %}
+                    <div class="col-sm-4">
+                        <div class="card">
+                            <div class="card-body">
+                                {% if room.photo %}
+                                    <img class="card-img-top mt-2 mb-2" src="{{ room.photo.url }}" alt="{{ room.name }}" >
+                                {% else %}
+                                    <img src="{% static 'image/ilustracion-concepto-fallo-conexion/3024051.jpg' %}" width="200" height="200">
+                                {% endif %}
+                            </div>
+                            <div class="card-footer">
+                                <p>
+                                    <strong>{{ room.name }}</strong><br>
+                                    Washing: {{ room.dormitory.washing_fee }}<br>
+                                    Usage: {{ room.dormitory.usage_fee }}<br>
+                                    Utility Bill: {{ room.dormitory.utility_bill }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
-        {% empty %}
-        {% endfor %}
+        </div>
     </div>
+    <style>
+        img{
+            width: 100%;
+            height: auto;
+        }
+    </style>
 {% endblock %}

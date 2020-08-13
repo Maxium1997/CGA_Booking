@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load registration_filters %}
+
+{% block title %}New Room{% endblock %}
+
+{% block left_side %}
+{#    {% if request.user.is_anonymous %}#}
+{#    {% else %}#}
+{#        {% if request.user|is_proprietor %}#}
+{#            <div id="sidebar" class="col-sm-12">#}
+{#                <div class="mt-4 text-center">#}
+{#                    <button type="button" class="btn btn-outline-primary" onclick="window.location.href='{% url 'hotel_creation' %}'">New hotel</button>#}
+{#                </div>#}
+{#            </div>#}
+{#        {% endif %}#}
+{#    {% endif %}#}
+{% endblock %}
+
+{% block content %}
+    <div class="col-sm-10">
+        <h3>New Room in {{ hotel }}</h3>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <p>Name
+            {{ room_form.name }}</p>
+            <p>Price
+            {{ room_form.price }}</p>
+            <p>Single Bed
+            {{ room_form.single_bed }}</p>
+            <p>Double Bed
+            {{ room_form.double_bed }}</p>
+            <p>Size
+            {{ room_form.size }}</p>
+            <p>Washing fee
+            {{ dormitory_setting_form.washing_fee }}</p>
+            <p>Usage Fee
+            {{ dormitory_setting_form.usage_fee }}</p>
+            <p>Utility Bill
+            {{ dormitory_setting_form.utility_bill }}</p>
+
+            <div class="float-right">
+                <button type="submit" class="btn btn-success">Submit</button>
+                <button type="reset" class="btn btn-light">Reset</button>
+                <button type="button" class="btn btn-secondary" onclick="history.go(-1)">Cancel</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

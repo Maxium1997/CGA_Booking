@@ -1,6 +1,6 @@
 from django import forms
 
-from room.models import Hotel
+from room.models import Hotel, Room, Dormitory
 
 
 class HotelForm(forms.ModelForm):
@@ -13,9 +13,11 @@ class HotelForm(forms.ModelForm):
     address = forms.CharField(required=True,
                               widget=forms.TextInput(attrs={'class': 'form-control'}))
     phone = forms.CharField(required=True,
-                            widget=forms.TextInput(attrs={'class': 'form-control'}))
+                            widget=forms.TextInput(attrs={'class': 'form-control',
+                                                          'type': 'number'}))
     website = forms.URLField(required=True,
-                             widget=forms.TextInput(attrs={'class': 'form-control'}))
+                             widget=forms.TextInput(attrs={'class': 'form-control',
+                                                           'type': 'url'}))
     introduction = forms.CharField(required=False,
                                    widget=forms.Textarea(attrs={'rows': 10,
                                                                 'cols': 50,
@@ -25,3 +27,42 @@ class HotelForm(forms.ModelForm):
     class Meta:
         model = Hotel
         fields = ['external_appearance', 'name', 'slug', 'address', 'phone', 'website', 'introduction']
+
+
+class RoomForm(forms.ModelForm):
+    name = forms.CharField(required=True,
+                           widget=forms.TextInput(attrs={'class': 'form-control'}))
+    price = forms.CharField(required=True,
+                            widget=forms.TextInput(attrs={'class': 'form-control',
+                                                          'type': 'number',
+                                                          'placeholder:': 'If you don\'t want to set, please enter 0.'}))
+    single_bed = forms.IntegerField(required=True,
+                                    widget=forms.NumberInput(attrs={'class': 'form-control',
+                                                                    'type': 'number'}))
+    double_bed = forms.IntegerField(required=True,
+                                    widget=forms.NumberInput(attrs={'class': 'form-control',
+                                                                    'type': 'number'}))
+    size = forms.CharField(required=True,
+                           widget=forms.NumberInput(attrs={'class': 'form-control',
+                                                           'type': 'number',
+                                                           'placeholder:': 'If you don\'t want to set, please enter 0.'}))
+
+    class Meta:
+        model = Room
+        fields = ['name', 'price', 'single_bed', 'double_bed', 'size']
+
+
+class DormitorySettingForm(forms.ModelForm):
+    washing_fee = forms.IntegerField(required=False,
+                                     widget=forms.NumberInput(attrs={'class': 'form-control',
+                                                                     'type': 'number'}))
+    usage_fee = forms.IntegerField(required=False,
+                                   widget=forms.NumberInput(attrs={'class': 'form-control',
+                                                                   'type': 'number'}))
+    utility_bill = forms.IntegerField(required=False,
+                                      widget=forms.NumberInput(attrs={'class': 'form-control',
+                                                                      'type': 'number'}))
+
+    class Meta:
+        model = Dormitory
+        fields = ['washing_fee', 'usage_fee', 'utility_bill']

@@ -1,6 +1,7 @@
 from django.urls import path, include
 
-from room.views import HotelsView, HotelCreationView, OwnedHotelView, HotelDetailView, HotelEditionView
+from room.views.hotel.views import HotelsView, HotelCreationView, OwnedHotelView, HotelDetailView, HotelEditionView
+from room.views.room.views import RoomCreationView
 
 urlpatterns = [
     path('hotel/', include([
@@ -10,6 +11,9 @@ urlpatterns = [
         path('<slug:slug>/', include([
             path('edition', HotelEditionView.as_view(), name='hotel_edition'),
             path('detail', HotelDetailView.as_view(), name='hotel_detail'),
+            path('room/', include([
+                path('creation', RoomCreationView.as_view(), name='room_creation'),
+            ])),
         ])),
-    ]))
+    ])),
 ]
