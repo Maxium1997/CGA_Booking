@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load registration_filters %}
+{% load room_filters %}
+
+{% block title %}{{ room.name }}｜{{ hotel.name }}{% endblock %}
+
+{% block left_side %}
+    <div id="sidebar" class="col-sm-12">
+        <div class="mt-4 text-center">
+            <button type="button" class="btn btn-outline-dark" onclick="history.go(-1);">Back</button>
+        </div>
+    </div>
+    {% if request.user.is_anonymous %}
+    {% else %}
+        {% if request.user|is_proprietor and request.user|is_hotel_owner:hotel %}
+            <div id="sidebar" class="col-sm-12">
+                <div class="mt-4 text-center">
+                    <button type="button" class="btn btn-outline-primary" onclick="window.location.href='{% url 'room_creation' hotel.slug %}'">New room</button>
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
+    <div id="sidebar" class="col-sm-12">
+        {% for room in rooms %}
+            <div class="mt-4 text-center">
+                <a href="{% url 'room_detail' hotel.slug room.pk %}" class="btn btn-outline-primary" >{{ room.name }}</a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="col-sm-12 mt-2">
+        <div class="room-photo">
+            {% if room.photo %}
+                <img class="card-img-top mt-2 mb-2" src="{{ room.photo.url }}" alt="{{ room.name }}" >
+            {% else %}
+                <img src="{% static 'image/ilustracion-concepto-fallo-conexion/3024051.jpg' %}">
+            {% endif %}
+            {% if request.user|is_proprietor and request.user|is_hotel_owner:hotel %}
+                <button class="btn btn-outline-primary align-bottom" data-toggle="modal" data-target="#ModalPhotoUpload">Photo Upload</button>
+                <div class="modal fade" id="ModalPhotoUpload" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header text-center">
+                                <h5 class="modal-title" id="ModalLongTitle">Photo Upload</h5>
+                            </div>
+                            <div id="modal-menu">
+                            <ul class="list-inline text-center">
+                                {% if room.photo %}
+                                    <img class="card-img-top mt-2 mb-2" src="{{ room.photo.url }}" alt="{{ room.name }}" >
+                                {% else %}
+                                    <img src="{% static 'image/ilustracion-concepto-fallo-conexion/3024051.jpg' %}">
+                                {% endif %}
+                                <form action="{% url 'room_photo_upload' hotel.slug room.pk %}" enctype="multipart/form-data" method="post">
+                                    {% csrf_token %}
+                                    <div class="input-group">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="photo_file" name="photo_file" accept="image/*">
+                                            <label class="custom-file-label" for="photo_file">Choose Photo</label>
+                                        </div>
+                                        <div>
+                                            <button type="submit" class="btn btn-primary">Upload</button>
+                                        </div>
+                                    </div>
+                                    <script>
+                                        // to change the label, the selected file name will display
+                                        $(".custom-file-input").on("change", function() {
+                                            var fileName = $(this).val().split("\\").pop();
+                                            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+                                        });
+                                    </script>
+                                </form>
+                            </ul>
+                        </div>
+                        <div id="modal-footer">
+                            <ul class="list-inline text-center">
+                                <li>
+                                    <a class="btn btn-secondary text-white" data-dismiss="modal">Cancel</a>
+                                </li>
+                            </ul>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        <h3>{{ hotel.name }}｜{{ room.name }}</h3>
+        <p class="lead" style="font-size: 1.5em">
+            <strong>Single Bed</strong>: {{ room.single_bed }}<br>
+            <strong>Double Bed</strong>: {{ room.double_bed }}<br>
+            <strong>Price(per/night)</strong>: {% if room.dormitory %}{{ room.dormitory.get_price }}{% else %}{{ room.get_price }}{% endif %}
+            <ul style="font-size: 1.2em">
+                <li>Washing Fee: {{ room.dormitory.washing_fee }}</li>
+                <li>Usage Fee: {{ room.dormitory.usage_fee }}</li>
+                <li>Utility Bill: {{ room.dormitory.utility_bill }}</li>
+            </ul>
+        </p>
+
+        {% for image in photo_list %}
+            <div id="photo-list-item" class="text-center mt-2">
+                <img class="card-img-top" src="{{ image }}" alt="{{ room.name }}">
+            </div>
+        {% endfor %}
+
+        <div style="font-size: 1.2em">
+            <ol type="1"><strong>＊注意事項</strong>
+                <li>申請住宿應於住宿二週前填妥申請表傳真本分署秘書室辦理。</li>
+                <li>辦理住宿登記時，管理人員須向住宿人員說明住宿規範及收費規定。</li>
+                <li>人員住宿時管理人員須查驗身分證件，以維住宿人員安全。</li>
+                <li>住宿時間：下午3點以後，退房時間：中午12點以前。</li>
+                <li>住宿時間計算，以當日登記之時至次日中午12時止為一天。</li>
+                <li>住宿人員應愛惜各項物品及設施，如有人為使用不當損壞，應予照價賠償。</li>
+                <li>住宿人員應自行保管貴重物品及財物，如有遺失、損壞，管理單位不負賠償之責。</li>
+                <li>除吸煙區外，住宿人員不得於任何處所（室內）吸煙，以維環保及安全。</li>
+                <li>住宿人員應遵守住宿規範，違者將取消住宿資格。</li>
+                <li>住宿費用未含盥洗清潔用品，本分署亦未提供代購服務，住宿人員請自備個人清潔用品。</li>
+            </ol>
+            <ol type="1"><strong>＊住宿規範</strong>
+                <li>本眷探處所僅供申請人借用，嚴禁外人留宿。</li>
+                <li>房間內應保持寧靜，就寢時間以不超過夜間十一時為原則，就寢時間，不得喧嘩、吵鬧及其他妨礙安寧之行為。</li>
+                <li>個人內務力求簡單、整齊、清潔，以維護住宿品質。</li>
+                <li>房間內不得擅自改變電線線路或使用電爐、酒精爐及大型家電用品等，並嚴禁存放違禁或危險物品。</li>
+                <li>遇颱風、地震、空襲、火警、水患或其他意外情事發生時，應聽從管理人員之勸告，採取緊急措施，以維公共安全。</li>
+                <li>房間內公有家俱、水電、衛生及安全設備等，應愛惜使用，如因人為不當使用或疏失，以致遺失或損壞，應照價賠償。</li>
+                <li>房間內外應保持整潔，並不得於公共區域堆置私人物品，嚴禁亂拋雜物，確保公共衛生。</li>
+                <li>房間內嚴禁酗酒、賭博、吸毒、張貼不雅圖片或攜帶男（女）朋友入室休息及其他不正當之行為。</li>
+                <li>水、電費及使用費按住宿日數加計費。</li>
+                <li>洗滌費係按實際使用（更換）床套組件數收取，於送後將據或 發票交付住宿人員。 發票交付住宿人員。 發票交付住宿人員。</li>
+            </ol>
+        </div>
+    </div>
+    <style>
+        .room-photo img{
+            width: 40%;
+            height: auto;
+        }
+        #photo-list-item img{
+            width: 60%;
+            height: auto;
+        }
+    </style>
+{% endblock %}

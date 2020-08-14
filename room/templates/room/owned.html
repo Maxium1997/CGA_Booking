@@ -48,7 +48,7 @@
                             <td class="text-center">{{ room.dormitory.utility_bill }}</td>
                             <td class="text-center">
                                 <button class="btn btn-outline-warning" onclick="window.location.href='{% url 'room_edition' hotel.slug room.pk %}'">Edit</button>
-{#                                <button class="btn btn-outline-success" onclick="window.location.href='{% url 'my_rooms' hotel.slug %}'">View</button>#}
+                                <button class="btn btn-outline-danger" onclick="deletion_check('{{ room.name }}');">Delete</button>
                             </td>
                         </tr>
                     {% endfor %}
@@ -59,9 +59,14 @@
             {% endif %}
         </div>
     </div>
-    <style>
-        button{
-            font-size: 12px;
+    <script type="text/javascript">
+        function deletion_check(name) {
+            var input = prompt("Please enter \"" + name + "\" to delete this room.");
+            if (input === name) {
+                document.location.href='{% url 'index' %}';
+            } else {
+                alert("Doesn\'t match.");
+            }
         }
-    </style>
+    </script>
 {% endblock %}

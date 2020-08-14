@@ -37,7 +37,7 @@ class Room(models.Model):
         return self.price
 
     def photo_upload(self, photo):
-        self.photo.save(self.hotel.name+'/{}'.format(self.hotel.external_appearance),
+        self.photo.save(self.hotel.name+'/{}/{}'.format(self.name, photo),
                         photo,
                         save=True)
         self.save()
@@ -54,12 +54,6 @@ class Dormitory(models.Model):
 
     def get_price(self):
         return self.room.price + self.washing_fee + self.usage_fee + self.utility_bill
-
-    def photo_upload(self, photo):
-        self.room.photo.save(self.room.hotel.name+'/{}'.format(self.room.hotel.external_appearance),
-                             photo,
-                             save=True)
-        self.save()
 
     def __str__(self):
         return self.room.hotel.name + ' ' + self.room.name

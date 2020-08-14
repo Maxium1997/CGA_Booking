@@ -27,8 +27,15 @@
 
 {% block content %}
     <div class="col-sm-12 mt-2">
+        <div class="hotel-external-appearance">
+            {% if hotel.external_appearance %}
+                <img class="card-img-top mt-2 mb-2" src="{{ hotel.external_appearance.url }}" alt="{{ hotel.name }}" >
+            {% else %}
+                <img src="{% static 'image/ilustracion-concepto-fallo-conexion/3024051.jpg' %}">
+            {% endif %}
+        </div>
         <h3>{{ hotel.name }}</h3>
-        <p class="lead" style="font-size: 1em">
+        <p class="lead" style="font-size: 1.5em">
             <strong>Rooms</strong>: {{ hotel.room_set.all.count }}<br>
             <strong>Address</strong>: {{ hotel.address }}<br>
             <strong>Phone</strong>: {{ hotel.phone }}<br>
@@ -39,8 +46,8 @@
             <div class="row">
                 {% for room in rooms %}
                     <div class="col-sm-4">
-                        <div class="card">
-                            <div class="card-body">
+                        <div class="card" style="cursor: pointer" onclick="window.location.href='{% url 'room_detail' hotel.slug room.pk %}'">
+                            <div class="card-body room-photo">
                                 {% if room.photo %}
                                     <img class="card-img-top mt-2 mb-2" src="{{ room.photo.url }}" alt="{{ room.name }}" >
                                 {% else %}
@@ -50,6 +57,8 @@
                             <div class="card-footer">
                                 <p>
                                     <strong>{{ room.name }}</strong><br>
+                                    Single Bed: {{ room.single_bed }}<br>
+                                    Double Bed: {{ room.double_bed }}<br>
                                     Washing: {{ room.dormitory.washing_fee }}<br>
                                     Usage: {{ room.dormitory.usage_fee }}<br>
                                     Utility Bill: {{ room.dormitory.utility_bill }}
@@ -62,7 +71,11 @@
         </div>
     </div>
     <style>
-        img{
+        .hotel-external-appearance img{
+            width: 50%;
+            height: auto;
+        }
+        .room-photo img{
             width: 100%;
             height: auto;
         }

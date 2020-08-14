@@ -1,10 +1,13 @@
+from os import listdir
+
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import ListView, CreateView, View
+from django.views.generic import View, DetailView
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.utils.decorators import method_decorator
 from django.core.exceptions import PermissionDenied
 
+from CGA_Booking.settings import MEDIA_ROOT
 from registration.definition import Identity
 from room.models import Hotel, Room, Dormitory
 from room.forms import RoomForm, DormitorySettingForm
@@ -71,7 +74,9 @@ class RoomEditionView(View):
             return redirect('hotels')
 
         template = 'room/edition.html'
-        context = {'room_form': RoomForm(instance=room),
+        context = {'room': room,
+                   'hotel': hotel,
+                   'room_form': RoomForm(instance=room),
                    'dormitory_setting_form': DormitorySettingForm(instance=room.dormitory)}
 
         return render(request, template, context)
@@ -110,3 +115,48 @@ class OwnedRoomView(View):
                    'rooms': hotel.room_set.all()}
 
         return render(request, template, context)
+
+
+class RoomDetailView(View):
+    def get(self, request, slug, pk):
+        hotel = get_object_or_404(Hotel, slug=slug)
+        room = get_object_or_404(Room, pk=pk)
+
+        photo_path_list = []
+
+        album_path = MEDIA_ROOT + 'hotels/' + hotel.name + '/' + room.name
+
+        try:
+            for file in listdir(album_path):
+                if file.endswith('.jpg') or file.endswith('.jpeg') or file.endswith('.png'):
+                    photo_path_list.append(
+                        '/' + MEDIA_ROOT.split('/')[
+                            -2] + '/hotels/' + hotel.name + '/' + room.name + '/' + file)
+        except FileNotFoundError:
+            pass
+
+        template = 'room/detail.html'
+        context = {'hotel': hotel,
+                   'room': room,
+                   'rooms': hotel.room_set.all(),
+                   'photo_list': photo_path_list}
+
+        return render(request, template, context)
+
+
+@login_required
+def room_photo_upload(request, slug, pk):
+    hotel = get_object_or_404(Hotel, slug=slug)
+    room = get_object_or_404(Room, pk=pk)
+
+    if request.method == 'POST':
+        if hotel.owner == request.user:
+            try:
+                photo = request.FILES.get('photo_file')
+                room.photo_upload(photo)
+                messages.success(request, "Successfully uploaded.")
+            except AttributeError:
+                pass
+
+    return redirect('room_detail', slug=slug, pk=pk)
+
