@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import auth
-from django.views.generic import TemplateView, CreateView
+from django.views.generic import TemplateView, CreateView, View
 
 from registration.models import User
 from registration.forms import TravelerRegisterForm, ProprietorRegisterForm
@@ -31,3 +31,7 @@ class ProprietorRegisterView(CreateView):
         user = form.save()
         auth.login(self.request, user)
         return redirect('index')
+
+
+class DashboardView(View):
+    pass

@@ -2,15 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b2ae6215-e0bf-44df-aae2-2373e83c0974" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/room/templates/room/detail.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/registration/templates/admin/dashboard.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/room/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/room/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/room/templates/hotel/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/room/templates/hotel/detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/room/templates/hotel/hotels.html" beforeDir="false" afterPath="$PROJECT_DIR$/room/templates/hotel/hotels.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/room/templates/room/edition.html" beforeDir="false" afterPath="$PROJECT_DIR$/room/templates/room/edition.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/room/templates/room/owned.html" beforeDir="false" afterPath="$PROJECT_DIR$/room/templates/room/owned.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/room/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/room/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/room/views/room/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/room/views/room/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rank/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/rank/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/registration/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/registration/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +28,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="JupyterTrust" id="baa81d5d-44fe-4cf3-82d7-98810058acb0" />
   <component name="ProjectId" id="1fj5sXkUNCf0CmD67HN4ZfT0X4g" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -125,5 +121,9 @@
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="224" y="76" key="SettingsEditor/0.0.1680.1050@0.0.1680.1050" timestamp="1597326281519" />
+    <state x="682" y="308" width="411" height="433" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1" timestamp="1597549502383">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="682" y="308" width="411" height="433" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1/0.0.1680.1050@0.0.1680.1050" timestamp="1597549502383" />
   </component>
 </project>
