@@ -13,6 +13,9 @@
 
             <div id="modal-menu" style="width: 100%">
                 <ul class="list-inline text-center">
+                    {% if request.user.is_superuser %}
+                    <li class="p-3 border-bottom" style="cursor: pointer" onclick="window.location.href='{% url 'dashboard' %}'">Dashboard</li>
+                    {% endif %}
                     <li class="p-3 border-bottom" style="cursor: pointer" onclick="alert('Function is developing. Stay tuned.🤪');">I am civil servant</li>
                     {% if request.user|is_proprietor %}
                     <li class="p-3 border-bottom" style="cursor: pointer" onclick="window.location.href='{% url 'my_hotels' %}'">My hotels</li>

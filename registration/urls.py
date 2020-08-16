@@ -2,9 +2,14 @@ from django.urls import path, include
 
 from django.contrib.auth.views import LoginView, LogoutView
 
+from registration.views import DashboardView
 from registration.views import RegisterView, TravelerRegisterView, ProprietorRegisterView
 
 urlpatterns = [
+    path('admin/', include([
+        path('dashboard', DashboardView.as_view(), name='dashboard'),
+    ])),
+
     path('accounts/', include([
         path('register', RegisterView.as_view(), name='register'),
         path('register/', include([

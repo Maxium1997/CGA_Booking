@@ -15,6 +15,9 @@ class User(AbstractUser):
     birthday = models.DateField(auto_now=False, null=True)
     update_time = models.DateField(auto_now=True)
 
+    class Meta:
+        ordering = ('-is_superuser',)
+
 
 class Officer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
