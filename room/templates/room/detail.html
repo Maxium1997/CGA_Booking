@@ -87,11 +87,12 @@
             {% endif %}
         </div>
         <h3>{{ hotel.name }}｜{{ room.name }}</h3>
-        <p class="lead" style="font-size: 1.5em">
+        <button class="btn btn-primary float-right" onclick="window.location.href='{% url 'booking' hotel.slug room.pk %}'">Booking</button>
+        <p class="lead">
             <strong>Single Bed</strong>: {{ room.single_bed }}<br>
             <strong>Double Bed</strong>: {{ room.double_bed }}<br>
             <strong>Price(per/night)</strong>: {% if room.dormitory %}{{ room.dormitory.get_price }}{% else %}{{ room.get_price }}{% endif %}
-            <ul style="font-size: 1.2em">
+            <ul>
                 <li>Washing Fee: {{ room.dormitory.washing_fee }}</li>
                 <li>Usage Fee: {{ room.dormitory.usage_fee }}</li>
                 <li>Utility Bill: {{ room.dormitory.utility_bill }}</li>
@@ -104,7 +105,7 @@
             </div>
         {% endfor %}
 
-        <div style="font-size: 1.2em">
+        <div style="font-size: 1em">
             <ol type="1"><strong>＊注意事項</strong>
                 <li>申請住宿應於住宿二週前填妥申請表傳真本分署秘書室辦理。</li>
                 <li>辦理住宿登記時，管理人員須向住宿人員說明住宿規範及收費規定。</li>

@@ -53,7 +53,16 @@ class Dormitory(models.Model):
     utility_bill = models.PositiveSmallIntegerField(default=0, null=True)
 
     def get_price(self):
-        return self.room.price + self.washing_fee + self.usage_fee + self.utility_bill
+        total_price = 0
+        if self.room.price:
+            total_price += self.room.price
+        if self.washing_fee:
+            total_price += self.washing_fee
+        if self.usage_fee:
+            total_price += self.usage_fee
+        if self.utility_bill:
+            total_price += self.utility_bill
+        return total_price
 
     def __str__(self):
         return self.room.hotel.name + ' ' + self.room.name

@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Booking｜{{ room.name }}｜{{ hotel.name }}{% endblock %}
+
+{% block main %}
+    <div class="col-sm-12">
+        <form method="post">
+            {% csrf_token %}
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h3>Booking</h3>
+                        <div class="room-photo">
+                            {% if room.photo %}
+                                <img class="card-img-top mt-2 mb-2" src="{{ room.photo.url }}" alt="{{ room.name }}" >
+                            {% else %}
+                                <img src="{% static 'image/ilustracion-concepto-fallo-conexion/3024051.jpg' %}" alt="{{ room.name }}">
+                            {% endif %}
+                        </div>
+                        <div class="room-info">
+                            <p>
+                                <strong>Room</strong>: {{ hotel.name }} - {{ room.name }}<br>
+                                <strong>Single Bed</strong>: {{ room.single_bed }}<br>
+                                <strong>Double Bed</strong>: {{ room.double_bed }}
+                            </p>
+                            <table class="table-responsive-sm">
+                                <thead class="text-center table-dark">
+                                    <tr>
+                                        <td style="width: 20%">Washing fee</td>
+                                        <td style="width: 20%">Usage fee</td>
+                                        <td style="width: 20%">Utility bill</td>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-center table-active">
+                                    <tr>
+                                        <td>{{ room.dormitory.washing_fee }}</td>
+                                        <td>{{ room.dormitory.usage_fee }}</td>
+                                        <td>{{ room.dormitory.utility_bill }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <h3>Application Form</h3>
+                        <p class="border-bottom pb-1">
+                            <strong>Unit of Applicant</strong>
+                            {{ booking_form.unit_of_applicant }}
+                        </p>
+                        <p class="border-bottom pb-1">
+                            <strong>Use</strong>
+                            {{ booking_form.use }}
+                        </p>
+                        <p class="border-bottom pb-1">
+                            <strong>Check in Time</strong><br>
+                            {{ booking_form.check_in_time }}
+                        </p>
+                        <p class="border-bottom pb-1">
+                            <strong>Days</strong>
+                            {{ booking_form.days }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h3>Guest Information Form</h3>
+                        <div class="table-responsive-sm" style="font-size: 0.5em">
+                            {{ guest_info_form }}
+                            <table class="table">
+                                <thead class="text-center">
+                                    <tr>
+                                        <td>Name</td>
+                                        <td>ID Number</td>
+                                        <td>Rank</td>
+                                        <td>Relationship</td>
+                                        <td>Gender</td>
+                                        <td>Birthday</td>
+                                        <td>Phone</td>
+                                        <td>License Plate</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for guest_info_form in guest_info_forms %}
+                                    <tr>
+                                        <td>{{ guest_info_form.name }}</td>
+                                        <td>{{ guest_info_form.ID_Number }}</td>
+                                        <td>{{ guest_info_form.rank }}</td>
+                                        <td>{{ guest_info_form.relationship }}</td>
+                                        <td>{{ guest_info_form.gender }}</td>
+                                        <td>{{ guest_info_form.date_of_birth }}</td>
+                                        <td>{{ guest_info_form.phone }}</td>
+                                        <td>{{ guest_info_form.license_plate }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+
+                            <div class="text-right">
+                                <button type="submit" class="btn btn-outline-success">Submit</button>
+                                <button type="button" class="btn btn-outline-default" onclick="history.go(-1);">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <style>
+        .room-photo img{
+            width: 70%;
+            height: auto;
+        }
+        .table input{
+            padding: 2px 4px;
+            border: 1px darkgray solid;
+            -webkit-border-radius: 1px;
+            border-radius: 4px;
+        }
+    </style>
+{% endblock %}

@@ -26,8 +26,8 @@
         <h1>Rooms in {{ hotel.name }}</h1>
         <p class="lead">Total: {{ rooms.count }}</p>
         <div class="row">
-            {% if rooms %}
-                <table class="table-responsive" style="font-size: 1em">
+            <div class="table-responsive">
+                <table class="table">
                     <thead>
                         <tr>
                             <th style="width: 15%">Name</th>
@@ -51,12 +51,14 @@
                                 <button class="btn btn-outline-danger" onclick="deletion_check('{{ room.name }}');">Delete</button>
                             </td>
                         </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="6">You don't have your hotel recently.</td>
+                        </tr>
                     {% endfor %}
                     </tbody>
                 </table>
-            {% else %}
-                You don't have your hotel recently.
-            {% endif %}
+            </div>
         </div>
     </div>
     <script type="text/javascript">

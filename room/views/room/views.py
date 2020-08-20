@@ -130,8 +130,7 @@ class RoomDetailView(View):
             for file in listdir(album_path):
                 if file.endswith('.jpg') or file.endswith('.jpeg') or file.endswith('.png'):
                     photo_path_list.append(
-                        '/' + MEDIA_ROOT.split('/')[
-                            -2] + '/hotels/' + hotel.name + '/' + room.name + '/' + file)
+                        '/' + MEDIA_ROOT.split('/')[-2] + '/hotels/' + hotel.name + '/' + room.name + '/' + file)
         except FileNotFoundError:
             pass
 

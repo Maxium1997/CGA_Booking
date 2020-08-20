@@ -35,8 +35,8 @@
             {% endif %}
         </div>
         <h3>{{ hotel.name }}</h3>
-        <p class="lead" style="font-size: 1.5em">
-            <strong>Rooms</strong>: {{ hotel.room_set.all.count }}<br>
+        <p class="lead">
+            <strong style="font">Rooms</strong>: {{ hotel.room_set.all.count }}<br>
             <strong>Address</strong>: {{ hotel.address }}<br>
             <strong>Phone</strong>: {{ hotel.phone }}<br>
             <strong>Website</strong>: <a href="{{ hotel.website }}">{{ hotel.website }}</a><br>

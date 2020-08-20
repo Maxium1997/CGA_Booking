@@ -4,6 +4,8 @@ from room.views.hotel.views import HotelsView, HotelCreationView, OwnedHotelView
 from room.views.room.views import RoomCreationView, RoomEditionView, OwnedRoomView, RoomDetailView
 from room.views.room.views import room_photo_upload
 
+from booking.views import BookingView
+
 urlpatterns = [
     path('hotel/', include([
         path('list', HotelsView.as_view(), name='hotels'),
@@ -21,6 +23,7 @@ urlpatterns = [
                 path('<pk>/', include([
                     path('edition', RoomEditionView.as_view(), name='room_edition'),
                     path('detail', RoomDetailView.as_view(), name='room_detail'),
+                    path('booking', BookingView.as_view(), name='booking'),
 
                     path('photo/', include([
                         path('upload', room_photo_upload, name='room_photo_upload'),
