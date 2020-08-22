@@ -13,7 +13,6 @@ class Booking(models.Model):
     use = models.PositiveSmallIntegerField(default=Use.OfficialBusiness.value[0])
     check_in_time = models.DateTimeField(null=False, blank=False)
     check_out_time = models.DateTimeField(null=False, blank=False)
-    # guest_number = models.PositiveSmallIntegerField(default=1, null=False, blank=False)
     state = models.PositiveSmallIntegerField(default=State.Outstanding.value[0])
     booked_room = models.ForeignKey(Room, on_delete=models.SET_NULL, null=True)
     created_time = models.DateTimeField(auto_now_add=True)
