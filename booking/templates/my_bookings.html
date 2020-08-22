@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load booking_filters %}
+
+{% block title %}My Bookings{% endblock %}
+
+{% block content %}
+    {{ my_bookings }}
+    <div class="container">
+        <div class="row">
+            {% for booking in my_bookings %}
+                <div class="col-sm-4">
+                    <div class="card mt-2 shadow" style="cursor: pointer" onclick="window.location.href='{% url 'room_detail' booking.booked_room.hotel.slug booking.booked_room.pk %}'">
+                        <div class="card-body room-photo">
+                            {% if booking.booked_room.photo %}
+                                <img class="card-img-top mt-2 mb-2" src="{{ booking.booked_room.photo.url }}" alt="{{ booking.booked_room.name }}" >
+                            {% else %}
+                                <img src="{% static 'image/ilustracion-concepto-fallo-conexion/3024051.jpg' %}" width="200" height="200">
+                            {% endif %}
+                        </div>
+                        <div class="card-footer">
+                            <p>
+                                <strong>{{ booking.booked_room.hotel.name }}｜{{ booking.booked_room.name }}</strong><br>
+                                <strong>Check In</strong>: {{ booking.check_in_time|date:'Y/m/d H:i' }}<br>
+                                <strong>Check Out</strong>: {{ booking.check_out_time|date:'Y/m/d H:i' }}<br>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <style>
+        .room-photo img{
+            width: 100%;
+            height: auto;
+        }
+    </style>
+{% endblock %}

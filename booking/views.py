@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import TemplateView, View
+from django.views.generic import TemplateView, View, DetailView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib import messages
@@ -89,3 +89,14 @@ class BookingView(View):
 
             messages.warning(request, "Time Conflict.")
             return render(request, template, context)
+
+
+@method_decorator(login_required, name='dispatch')
+class MyBookingsView(View):
+    def get(self, request):
+        bookings = Booking.objects.filter(applicant=request.user).order_by('check_in_time')
+
+        template = 'my_bookings.html'
+        context = {'my_bookings': bookings}
+
+        return render(request, template, context)

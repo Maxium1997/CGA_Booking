@@ -20,7 +20,7 @@
                     {% if request.user|is_proprietor %}
                     <li class="p-3 border-bottom" style="cursor: pointer" onclick="window.location.href='{% url 'my_hotels' %}'">My hotels</li>
                     {% endif %}
-                    <li class="p-3" style="cursor: pointer" onclick="alert('Function is developing. Stay tuned.🤪');">My bookings</li>
+                    <li class="p-3" style="cursor: pointer" onclick="window.location.href='{% url 'my_bookings' %}'">My bookings</li>
                 </ul>
             </div>
 {##}
