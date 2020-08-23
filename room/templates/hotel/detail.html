@@ -46,7 +46,7 @@
             <div class="row">
                 {% for room in rooms %}
                     <div class="col-sm-4">
-                        <div class="card" style="cursor: pointer" onclick="window.location.href='{% url 'room_detail' hotel.slug room.pk %}'">
+                        <div class="card shadow" style="cursor: pointer" onclick="window.location.href='{% url 'room_detail' hotel.slug room.pk %}'">
                             <div class="card-body room-photo">
                                 {% if room.photo %}
                                     <img class="card-img-top mt-2 mb-2" src="{{ room.photo.url }}" alt="{{ room.name }}" >

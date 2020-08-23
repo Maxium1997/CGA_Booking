@@ -33,11 +33,29 @@
 {% block content %}
     <div class="col-sm-12 mt-2">
         <div class="room-photo">
-            {% if room.photo %}
-                <img class="card-img-top mt-2 mb-2" src="{{ room.photo.url }}" alt="{{ room.name }}" >
-            {% else %}
-                <img src="{% static 'image/ilustracion-concepto-fallo-conexion/3024051.jpg' %}">
-            {% endif %}
+            <div id="photo-Controls" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner text-center">
+                    {% for image in photo_list %}
+                        {% if forloop.counter == 1 %}
+                            <div id="photo-list-item" class="carousel-item active">
+                                <img class="card-img-top" src="{{ image }}" alt="{{ room.name }}">
+                            </div>
+                        {% else %}
+                            <div id="photo-list-item" class="carousel-item">
+                                <img class="card-img-top" src="{{ image }}" alt="{{ room.name }}">
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <a class="carousel-control-prev" href="#photo-Controls" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#photo-Controls" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
             {% if request.user|is_proprietor and request.user|is_hotel_owner:hotel %}
                 <button class="btn btn-outline-primary align-bottom" data-toggle="modal" data-target="#ModalPhotoUpload">Photo Upload</button>
                 <div class="modal fade" id="ModalPhotoUpload" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
@@ -99,11 +117,7 @@
             </ul>
         </p>
 
-        {% for image in photo_list %}
-            <div id="photo-list-item" class="text-center mt-2">
-                <img class="card-img-top" src="{{ image }}" alt="{{ room.name }}">
-            </div>
-        {% endfor %}
+
 
         <div style="font-size: 1em">
             <ol type="1"><strong>＊注意事項</strong>

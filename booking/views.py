@@ -94,9 +94,13 @@ class BookingView(View):
 @method_decorator(login_required, name='dispatch')
 class MyBookingsView(View):
     def get(self, request):
-        bookings = Booking.objects.filter(applicant=request.user).order_by('check_in_time')
+        past = Booking.objects.filter(applicant=request.user, check_out_time__lt=datetime.now())
+        future = Booking.objects.filter(applicant=request.user, check_in_time__gt=datetime.now())
+        canceled = Booking.objects.filter(applicant=request.user, state=3)
 
         template = 'my_bookings.html'
-        context = {'my_bookings': bookings}
+        context = {'past_bookings': past,
+                   'future_bookings': future,
+                   'canceled_bookings': canceled}
 
         return render(request, template, context)
