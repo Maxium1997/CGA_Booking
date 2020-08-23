@@ -75,6 +75,8 @@ class BookingView(View):
                                                          licence_plate=guest_info_form['license_plate'].data)
                         new_guest.save()
 
+
+
             messages.success(request, "Booked Successfully.")
             return redirect('index')    # Modified to 'my_bookings' after
         else:
@@ -94,13 +96,15 @@ class BookingView(View):
 @method_decorator(login_required, name='dispatch')
 class MyBookingsView(View):
     def get(self, request):
-        past = Booking.objects.filter(applicant=request.user, check_out_time__lt=datetime.now())
-        future = Booking.objects.filter(applicant=request.user, check_in_time__gt=datetime.now())
-        canceled = Booking.objects.filter(applicant=request.user, state=3)
+        all_bookings = Booking.objects.filter(applicant=request.user)
+        past_bookings = Booking.objects.filter(applicant=request.user, check_out_time__lt=datetime.now())
+        future_bookings = Booking.objects.filter(applicant=request.user, check_in_time__gt=datetime.now())
+        canceled_bookings = Booking.objects.filter(applicant=request.user, state=3)
 
         template = 'my_bookings.html'
-        context = {'past_bookings': past,
-                   'future_bookings': future,
-                   'canceled_bookings': canceled}
+        context = {'all_bookings': all_bookings,
+                   'past_bookings': past_bookings,
+                   'future_bookings': future_bookings,
+                   'canceled_bookings': canceled_bookings}
 
         return render(request, template, context)
