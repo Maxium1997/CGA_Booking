@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 from room.models import Room
+from booking.models import Booking
 
 
 def check_time_is_valid(room, check_in_time, days):
@@ -18,3 +19,8 @@ def check_time_is_valid(room, check_in_time, days):
             return False
 
     return True
+
+
+def calculate_booking_price(booking: Booking):
+    guest_num = booking.guest_set.all().count()
+    pass

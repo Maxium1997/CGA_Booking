@@ -36,6 +36,9 @@ class Room(models.Model):
     def get_price(self):
         return self.price
 
+    def get_room_max_num(self):
+        return self.single_bed + self.double_bed
+
     def photo_upload(self, photo):
         self.photo.save(self.hotel.name+'/{}/{}'.format(self.name, photo),
                         photo,
