@@ -6,27 +6,29 @@
 {% block title %}{{ room.name }}｜{{ hotel.name }}{% endblock %}
 
 {% block left_side %}
-    <div id="sidebar" class="col-sm-12">
-        <div class="mt-4 text-center">
-            <button type="button" class="btn btn-outline-dark" onclick="history.go(-1);">Back</button>
-        </div>
-    </div>
     {% if request.user.is_anonymous %}
     {% else %}
         {% if request.user|is_proprietor and request.user|is_hotel_owner:hotel %}
             <div id="sidebar" class="col-sm-12">
                 <div class="mt-4 text-center">
-                    <button type="button" class="btn btn-outline-primary" onclick="window.location.href='{% url 'room_creation' hotel.slug %}'">New room</button>
+                    <button type="button" class="btn btn-outline-success" onclick="window.location.href='{% url 'room_creation' hotel.slug %}'">New room</button>
                 </div>
             </div>
         {% endif %}
     {% endif %}
+
     <div id="sidebar" class="col-sm-12">
-        {% for room in rooms %}
-            <div class="mt-4 text-center">
-                <a href="{% url 'room_detail' hotel.slug room.pk %}" class="btn btn-outline-primary" >{{ room.name }}</a>
-            </div>
-        {% endfor %}
+        <div class="mt-4 text-center">
+            <button type="button" class="btn btn-outline-dark" onclick="window.location.href='{% url 'hotel_detail' hotel.slug %}'">Back</button>
+        </div>
+    </div>
+
+    <div id="sidebar" class="col-sm-12">
+        <div class="mt-4 text-center">
+            {% for room in rooms %}
+                <a href="{% url 'room_detail' hotel.slug room.pk %}" class="btn btn-outline-primary mt-1" >{{ room.name }}</a>
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}
 
@@ -104,6 +106,7 @@
                 </div>
             {% endif %}
         </div>
+
         <h3>{{ hotel.name }}｜{{ room.name }}</h3>
         <button class="btn btn-primary float-right" onclick="window.location.href='{% url 'booking' hotel.slug room.pk %}'">Booking</button>
         <p class="lead">
@@ -116,8 +119,6 @@
                 <li>Utility Bill: {{ room.dormitory.utility_bill }}</li>
             </ul>
         </p>
-
-
 
         <div style="font-size: 1em">
             <ol type="1"><strong>＊注意事項</strong>

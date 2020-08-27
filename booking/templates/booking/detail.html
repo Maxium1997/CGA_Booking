@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load registration_filters %}
+{% load booking_filters %}
+
+{% block title %}Booking Detail{% endblock %}
+
+{% block js %}
+    window.onload = function(){
+        alert("If you want to print this page, please operate the following step:\nMac: press command⌘ + P\nWindows: press ctrl + P");
+    }
+{% endblock %}
+
+{% block main %}
+    <div class="table-responsive">
+        <h3 class="text-center">海洋委員會海巡署東部分署眷探處所住宿申請表</h3>
+        <h6 class="text-right">Applicant Date: {{ booking.created_time|date:'Y/m/d, H:i' }}</h6>
+        <table>
+            <tr class="text-center">
+                <td class="align-middle" rowspan="2">Unit of Applicant</td>
+                <td class="align-middle" rowspan="2" colspan="2">{{ booking.unit_of_applicant }}</td>
+                <td class="align-middle" rowspan="2">Contact</td>
+                <td class="align-middle">Applicant</td>
+                <td class="align-middle" colspan="2">{{ booking.applicant }}</td>
+            </tr>
+            <tr class="text-center">
+                <td class="align-middle">Applicant phone</td>
+                <td class="align-middle" colspan="2">{{ booking.applicant.phone_Number }}</td>
+            </tr>
+            <tr class="text-center">
+                <td class="align-middle">Use</td>
+                <td class="text-left" colspan="6">
+                    {% for use in uses %}
+                        {% if use.value.0 == booking.use %}
+                            ◼︎{{ use.value.0|readableUse }}{% if forloop.counter|divisibleby:2 %}<br>{% endif %}
+                        {% else %}
+                            ☐{{ use.value.0|readableUse }}
+                        {% endif %}
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr class="text-center">
+                <td class="align-middle" rowspan="4">Hotel</td>
+                <td class="align-middle" rowspan="4" colspan="2">{{ booking.booked_room.hotel }}</td>
+                <td class="align-middle" rowspan="4">Date</td>
+                <td class="align-middle" colspan="2">From</td>
+                <td class="align-middle">Room</td>
+            </tr>
+            <tr class="text-center">
+                <td class="align-middle" colspan="2">{{ booking.check_in_time|date:'Y/m/d, H:i' }}</td>
+                <td class="align-middle">{{ booking.booked_room }}</td>
+            </tr>
+            <tr class="text-center">
+                <td class="align-middle" colspan="2">To</td>
+                <td class="align-middle">Guest Number</td>
+            </tr>
+            <tr class="text-center">
+                <td class="align-middle" colspan="2">{{ booking.check_out_time|date:'Y/m/d, H:i' }}</td>
+                <td class="align-middle">{{ booking.guest_set.all.count }}</td>
+            </tr>
+            <tr class="text-center">
+                <td>Name</td>
+                <td>Rank(Relationship)</td>
+                <td>ID Number</td>
+                <td>Gender</td>
+                <td>Birthday</td>
+                <td>Phone</td>
+                <td>License Plate</td>
+            </tr>
+            {% for guest in guests %}
+            <tr class="text-center">
+                <td>{{ guest.name }}</td>
+                <td>
+                    {{ guest.rank }}（{{ guest.relationship }}）
+                </td>
+                <td>{{ guest.ID_Number }}</td>
+                <td>{{ guest.gender }}</td>
+                <td>{{ guest.date_of_birth|date:'Y/m/d' }}</td>
+                <td>{{ guest.phone }}</td>
+                <td>{{ guest.license_plate }}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="7">
+                    ※注意事項
+                    <ol type="1">
+                        <li>申請住宿應於住宿二週前填妥申請表傳真本分署秘書室辦理。</li>
+                        <li>辦理住宿登記時，管理人員須向住宿人員說明住宿規範及收費規定。</li>
+                        <li>人員住宿時管理人員須查驗身分證件，以維住宿人員安全。</li>
+                        <li>住宿時間：下午3點以後，退房時間：中午12點以前。</li>
+                        <li>住宿時間計算，以當日登記之時至次日中午12時止為一天。</li>
+                        <li>住宿人員應愛惜各項物品及設施，如有人為使用不當損壞，應予照價賠償。</li>
+                        <li>住宿人員應自行保管貴重物品及財物，如有遺失、損壞，管理單位不負賠償之責。</li>
+                        <li>除吸煙區外，住宿人員不得於任何處所（室內）吸煙，以維環保及安全。</li>
+                        <li>住宿人員應遵守住宿規範，違者將取消住宿資格。</li>
+                        <li>住宿費用未含盥洗清潔用品，本分署亦未提供代購服務，住宿人員請自備個人清潔用品。</li>
+                    </ol>
+                </td>
+            </tr>
+            <tr class="text-center">
+                <td colspan="7">權責核准機關</td>
+            </tr>
+            <tr>
+                <td class="text-center align-middle" rowspan="3">擬<br>辦</td>
+                <td colspan="2">科員</td>
+                <td class="text-center align-middle" rowspan="3">批<br>示</td>
+                <td rowspan="3" colspan="3"></td>
+            </tr>
+            <tr>
+                <td colspan="2">專員</td>
+            </tr>
+            <tr>
+                <td colspan="2">主任</td>
+            </tr>
+            <tr>
+                <td class="text-center align-middle" rowspan="2">敬會：人事室</td>
+                <td colspan="2">辦事員</td>
+                <td class="text-center align-middle" rowspan="2">敬會：主計室</td>
+                <td colspan="3">科員</td>
+            </tr>
+            <tr>
+                <td colspan="2">主任</td>
+                <td colspan="3">主任</td>
+            </tr>
+            <tr class="text-center">
+                <td>備註</td>
+                <td class="text-left" colspan="6">Total Price: {{ booking.total_price }}</td>
+            </tr>
+        </table>
+    </div>
+    <style>
+        table{
+            width: 99%;
+        }
+        table, tr, td{
+            border: 1px black solid;
+
+            padding-top: 12px;
+            padding-bottom: 12px;
+        }
+    </style>
+{% endblock %}

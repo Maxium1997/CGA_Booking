@@ -26,7 +26,7 @@
                         <div class="row justify-content-center">
                             {% for booking in all_bookings %}
                                 <div class="col-sm-4">
-                                    <div class="card mt-2 shadow" style="cursor: pointer" onclick="window.location.href='{% url 'room_detail' booking.booked_room.hotel.slug booking.booked_room.pk %}'">
+                                    <div class="card mt-4 shadow" style="cursor: pointer" onclick="window.location.href='{% url 'booking_detail' booking.pk %}'">
                                         <div class="card-body room-photo">
                                             {% if booking.booked_room.photo %}
                                                 <img class="card-img-top mt-2 mb-2" src="{{ booking.booked_room.photo.url }}" alt="{{ booking.booked_room.name }}" >
@@ -52,7 +52,7 @@
                         <div class="row justify-content-center">
                             {% for booking in future_bookings %}
                                 <div class="col-sm-4">
-                                    <div class="card mt-2 shadow" style="cursor: pointer" onclick="window.location.href='{% url 'room_detail' booking.booked_room.hotel.slug booking.booked_room.pk %}'">
+                                    <div class="card mt-4 shadow" style="cursor: pointer" onclick="window.location.href='{% url 'booking_detail' booking.pk %}'">
                                         <div class="card-body room-photo">
                                             {% if booking.booked_room.photo %}
                                                 <img class="card-img-top mt-2 mb-2" src="{{ booking.booked_room.photo.url }}" alt="{{ booking.booked_room.name }}" >
@@ -78,7 +78,7 @@
                         <div class="row justify-content-center">
                             {% for booking in past_bookings %}
                                 <div class="col-sm-4">
-                                    <div class="card mt-2 shadow" style="cursor: pointer" onclick="window.location.href='{% url 'room_detail' booking.booked_room.hotel.slug booking.booked_room.pk %}'">
+                                    <div class="card mt-4 shadow" style="cursor: pointer" onclick="window.location.href='{% url 'booking_detail' booking.pk %}'">
                                         <div class="card-body room-photo">
                                             {% if booking.booked_room.photo %}
                                                 <img class="card-img-top mt-2 mb-2" src="{{ booking.booked_room.photo.url }}" alt="{{ booking.booked_room.name }}" >
@@ -104,7 +104,7 @@
                         <div class="row justify-content-center">
                             {% for booking in canceled_bookings %}
                                 <div class="col-sm-4">
-                                    <div class="card mt-2 shadow" style="cursor: pointer" onclick="window.location.href='{% url 'room_detail' booking.booked_room.hotel.slug booking.booked_room.pk %}'">
+                                    <div class="card mt-4 shadow" style="cursor: pointer" onclick="window.location.href='{% url 'booking_detail' booking.pk %}'">
                                         <div class="card-body room-photo">
                                             {% if booking.booked_room.photo %}
                                                 <img class="card-img-top mt-2 mb-2" src="{{ booking.booked_room.photo.url }}" alt="{{ booking.booked_room.name }}" >

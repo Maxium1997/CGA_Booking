@@ -16,6 +16,7 @@ class Booking(models.Model):
     state = models.PositiveSmallIntegerField(default=State.Outstanding.value[0])
     booked_room = models.ForeignKey(Room, on_delete=models.SET_NULL, null=True)
     created_time = models.DateTimeField(auto_now_add=True)
+    total_price = models.PositiveIntegerField(default=0, null=False)
 
 
 class Guest(models.Model):
@@ -27,4 +28,4 @@ class Guest(models.Model):
     gender = models.CharField(max_length=4, default=Gender.Male.value[2])
     date_of_birth = models.DateField(auto_now=False)
     phone = models.CharField(max_length=20, null=False)
-    licence_plate = models.CharField(max_length=10, null=True)
+    license_plate = models.CharField(max_length=10, null=True)

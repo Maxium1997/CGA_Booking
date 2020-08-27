@@ -34,10 +34,10 @@
                     <tbody>
                     {% for hotel in my_hotels %}
                         <tr class="border-top">
-                            <td>{{ hotel.name }}</td>
-                            <td>{{ hotel.address }}</td>
-                            <td class="text-center">{{ hotel.room_set.count }}</td>
-                            <td class="text-center">
+                            <td class="align-middle">{{ hotel.name }}</td>
+                            <td class="align-middle">{{ hotel.address }}</td>
+                            <td class="text-center align-middle">{{ hotel.room_set.count }}</td>
+                            <td class="text-center align-middle">
                                 <button class="btn btn-outline-primary" onclick="window.location.href='{% url 'room_creation' hotel.slug %}'">Add</button>
                                 <button class="btn btn-outline-warning" onclick="window.location.href='{% url 'hotel_edition' hotel.slug %}'">Edit</button>
                                 <button class="btn btn-outline-success" onclick="window.location.href='{% url 'my_rooms' hotel.slug %}'">View</button>

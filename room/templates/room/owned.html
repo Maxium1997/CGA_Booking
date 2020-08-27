@@ -41,12 +41,12 @@
                     <tbody>
                     {% for room in rooms %}
                         <tr class="border-top">
-                            <td>{{ room.name }}</td>
-                            <td class="text-center">{{ room.price }}</td>
-                            <td class="text-center">{{ room.dormitory.washing_fee }}</td>
-                            <td class="text-center">{{ room.dormitory.usage_fee }}</td>
-                            <td class="text-center">{{ room.dormitory.utility_bill }}</td>
-                            <td class="text-center">
+                            <td class="align-middle">{{ room.name }}</td>
+                            <td class="text-center align-middle">{{ room.price }}</td>
+                            <td class="text-center align-middle">{{ room.dormitory.washing_fee }}</td>
+                            <td class="text-center align-middle">{{ room.dormitory.usage_fee }}</td>
+                            <td class="text-center align-middle">{{ room.dormitory.utility_bill }}</td>
+                            <td class="text-center align-middle">
                                 <button class="btn btn-outline-warning" onclick="window.location.href='{% url 'room_edition' hotel.slug room.pk %}'">Edit</button>
                                 <button class="btn btn-outline-danger" onclick="deletion_check('{{ room.name }}');">Delete</button>
                             </td>
