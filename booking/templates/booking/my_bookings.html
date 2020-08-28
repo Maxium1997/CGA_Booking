@@ -1,0 +1,417 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load registration_filters %}
+{% load booking_filters %}
+
+{% block title %}My Bookings{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <ul class="nav nav-tabs" id="dashboardTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="all-tab" data-toggle="tab" href="#all" role="tab" aria-controls="all" aria-selected="true">All</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="future-tab" data-toggle="tab" href="#future" role="tab" aria-controls="future" aria-selected="true">Future</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="past-tab" data-toggle="tab" href="#past" role="tab" aria-controls="past" aria-selected="true">Past</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="canceled-tab" data-toggle="tab" href="#canceled" role="tab" aria-controls="canceled" aria-selected="true">Canceled</a>
+            </li>
+        </ul>
+        {% if request.user|is_proprietor %}
+            <div class="tab-content" id="tabContent">
+                <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr class="text-center">
+                                            <th>Applicant</th>
+                                            <th>Room</th>
+                                            <th>Check In</th>
+                                            <th>Check Out</th>
+                                            <th>State</th>
+                                            <th>Features</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for booking in all_bookings %}
+                                        <tr class="text-center">
+                                            <td class="align-middle">{{ booking.applicant }}</td>
+                                            <td class="align-middle">{{ booking.booked_room }}</td>
+                                            <td class="align-middle">{{ booking.check_in_time|date:'Y/m/d' }}</td>
+                                            <td class="align-middle">{{ booking.check_out_time|date:'Y/m/d' }}</td>
+                                            <td class="align-middle">{{ booking.state|readableState }}</td>
+                                            <td class="align-middle">
+                                                <button type="button" class="btn btn-outline-success">Paid</button>
+                                                <button type="button" class="btn btn-outline-danger" onclick="window.location.href='{% url 'booking_check_out' booking.pk %}'" {% if booking.state == State.CheckedOut.value.0 %}disabled{% endif %}>CheckOut</button>
+                                                <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#more-modal">More</button>
+                                            </td>
+                                        </tr>
+                                        <div class="modal fade" id="more-modal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header text-center" style="width: 100%">
+                                                        <h5 class="modal-title" id="ModalLongTitle">Booking Detail</h5>
+                                                    </div>
+
+                                                    <div id="mode-menu" style="width: 100%">
+                                                        <ul>
+                                                            <li><strong>Unit of Applicant</strong>: {{ booking.unit_of_applicant }}</li>
+                                                            <li><strong>Applicant</strong>: {{ booking.applicant }}</li>
+                                                            <li><strong>Use</strong>: {{ booking.use|readableUse }}</li>
+                                                            <li><strong>Room</strong>: {{ booking.booked_room }}</li>
+                                                            <li><strong>Check In</strong>: {{ booking.check_in_time|date:'Y/m/d' }}</li>
+                                                            <li><strong>Check Out</strong>: {{ booking.check_out_time|date:'Y/m/d' }}</li>
+                                                            <li><strong>Guest Number</strong>: {{ booking.guest_set.all.count }}</li>
+                                                            <li><strong>Price</strong>: {{ booking.total_price }}</li>
+                                                            <li><strong>State</strong>: {{ booking.state|readableState }}</li>
+                                                        </ul>
+                                                    </div>
+
+                                                    <div class="modal-footer" style="width: 100%">
+                                                        <a class="btn btn-outline-dark" data-dismiss="modal">Close</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="future" role="tabpanel" aria-labelledby="future-tab">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr class="text-center">
+                                            <th>Applicant</th>
+                                            <th>Room</th>
+                                            <th>Check In</th>
+                                            <th>Check Out</th>
+                                            <th>State</th>
+                                            <th>Features</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for booking in future_bookings %}
+                                        <tr class="text-center">
+                                            <td class="align-middle">{{ booking.applicant }}</td>
+                                            <td class="align-middle">{{ booking.booked_room }}</td>
+                                            <td class="align-middle">{{ booking.check_in_time|date:'Y/m/d' }}</td>
+                                            <td class="align-middle">{{ booking.check_out_time|date:'Y/m/d' }}</td>
+                                            <td class="align-middle">{{ booking.state|readableState }}</td>
+                                            <td class="align-middle">
+                                                <button type="button" class="btn btn-outline-success">Paid</button>
+                                                <button type="button" class="btn btn-outline-danger" onclick="window.location.href='{% url 'booking_check_out' booking.pk %}'" {% if booking.state == State.CheckedOut.value.0 %}disabled{% endif %}>CheckOut</button>
+                                                <button type="button" class="btn btn-outline-warning" onclick="window.location.href='{% url 'booking_cancel' booking.pk %}'">Canceled</button>
+                                                <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#more-modal">More</button>
+                                            </td>
+                                        </tr>
+                                        <div class="modal fade" id="more-modal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header text-center" style="width: 100%">
+                                                        <h5 class="modal-title" id="ModalLongTitle">Booking Detail</h5>
+                                                    </div>
+
+                                                    <div id="mode-menu" style="width: 100%">
+                                                        <ul>
+                                                            <li><strong>Unit of Applicant</strong>: {{ booking.unit_of_applicant }}</li>
+                                                            <li><strong>Applicant</strong>: {{ booking.applicant }}</li>
+                                                            <li><strong>Use</strong>: {{ booking.use|readableUse }}</li>
+                                                            <li><strong>Room</strong>: {{ booking.booked_room }}</li>
+                                                            <li><strong>Check In</strong>: {{ booking.check_in_time|date:'Y/m/d' }}</li>
+                                                            <li><strong>Check Out</strong>: {{ booking.check_out_time|date:'Y/m/d' }}</li>
+                                                            <li><strong>Guest Number</strong>: {{ booking.guest_set.all.count }}</li>
+                                                            <li><strong>Price</strong>: {{ booking.total_price }}</li>
+                                                            <li><strong>State</strong>: {{ booking.state|readableState }}</li>
+                                                        </ul>
+                                                    </div>
+
+                                                    <div class="modal-footer" style="width: 100%">
+                                                        <a class="btn btn-outline-dark" data-dismiss="modal">Close</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="past" role="tabpanel" aria-labelledby="past-tab">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr class="text-center">
+                                            <th>Applicant</th>
+                                            <th>Room</th>
+                                            <th>Check In</th>
+                                            <th>Check Out</th>
+                                            <th>State</th>
+                                            <th>Features</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for booking in past_bookings %}
+                                        <tr class="text-center">
+                                            <td class="align-middle">{{ booking.applicant }}</td>
+                                            <td class="align-middle">{{ booking.booked_room }}</td>
+                                            <td class="align-middle">{{ booking.check_in_time|date:'Y/m/d' }}</td>
+                                            <td class="align-middle">{{ booking.check_out_time|date:'Y/m/d' }}</td>
+                                            <td class="align-middle">{{ booking.state|readableState }}</td>
+                                            <td class="align-middle">
+                                                <button type="button" class="btn btn-outline-success">Paid</button>
+                                                <button type="button" class="btn btn-outline-danger" onclick="window.location.href='{% url 'booking_check_out' booking.pk %}'" {% if booking.state == State.CheckedOut.value.0 %}disabled{% endif %}>CheckOut</button>
+                                                <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#more-modal">More</button>
+                                            </td>
+                                        </tr>
+                                        <div class="modal fade" id="more-modal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header text-center" style="width: 100%">
+                                                        <h5 class="modal-title" id="ModalLongTitle">Booking Detail</h5>
+                                                    </div>
+
+                                                    <div id="mode-menu" style="width: 100%">
+                                                        <ul>
+                                                            <li><strong>Unit of Applicant</strong>: {{ booking.unit_of_applicant }}</li>
+                                                            <li><strong>Applicant</strong>: {{ booking.applicant }}</li>
+                                                            <li><strong>Use</strong>: {{ booking.use|readableUse }}</li>
+                                                            <li><strong>Room</strong>: {{ booking.booked_room }}</li>
+                                                            <li><strong>Check In</strong>: {{ booking.check_in_time|date:'Y/m/d' }}</li>
+                                                            <li><strong>Check Out</strong>: {{ booking.check_out_time|date:'Y/m/d' }}</li>
+                                                            <li><strong>Guest Number</strong>: {{ booking.guest_set.all.count }}</li>
+                                                            <li><strong>Price</strong>: {{ booking.total_price }}</li>
+                                                            <li><strong>State</strong>: {{ booking.state|readableState }}</li>
+                                                        </ul>
+                                                    </div>
+
+                                                    <div class="modal-footer" style="width: 100%">
+                                                        <a class="btn btn-outline-dark" data-dismiss="modal">Close</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="canceled" role="tabpanel" aria-labelledby="canceled-tab">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr class="text-center">
+                                            <th>Applicant</th>
+                                            <th>Room</th>
+                                            <th>Check In</th>
+                                            <th>Check Out</th>
+                                            <th>State</th>
+                                            <th>Features</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for booking in canceled_bookings %}
+                                        <tr class="text-center">
+                                            <td class="align-middle">{{ booking.applicant }}</td>
+                                            <td class="align-middle">{{ booking.booked_room }}</td>
+                                            <td class="align-middle">{{ booking.check_in_time|date:'Y/m/d' }}</td>
+                                            <td class="align-middle">{{ booking.check_out_time|date:'Y/m/d' }}</td>
+                                            <td class="align-middle">{{ booking.state|readableState }}</td>
+                                            <td class="align-middle">
+                                                <button type="button" class="btn btn-outline-success">Paid</button>
+                                                <button type="button" class="btn btn-outline-danger" onclick="window.location.href='{% url 'booking_check_out' booking.pk %}'" {% if booking.state == State.CheckedOut.value.0 %}disabled{% endif %}>CheckOut</button>
+                                                <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#more-modal">More</button>
+                                            </td>
+                                        </tr>
+                                        <div class="modal fade" id="more-modal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header text-center" style="width: 100%">
+                                                        <h5 class="modal-title" id="ModalLongTitle">Booking Detail</h5>
+                                                    </div>
+
+                                                    <div id="mode-menu" style="width: 100%">
+                                                        <ul>
+                                                            <li><strong>Unit of Applicant</strong>: {{ booking.unit_of_applicant }}</li>
+                                                            <li><strong>Applicant</strong>: {{ booking.applicant }}</li>
+                                                            <li><strong>Use</strong>: {{ booking.use|readableUse }}</li>
+                                                            <li><strong>Room</strong>: {{ booking.booked_room }}</li>
+                                                            <li><strong>Check In</strong>: {{ booking.check_in_time|date:'Y/m/d' }}</li>
+                                                            <li><strong>Check Out</strong>: {{ booking.check_out_time|date:'Y/m/d' }}</li>
+                                                            <li><strong>Guest Number</strong>: {{ booking.guest_set.all.count }}</li>
+                                                            <li><strong>Price</strong>: {{ booking.total_price }}</li>
+                                                            <li><strong>State</strong>: {{ booking.state|readableState }}</li>
+                                                        </ul>
+                                                    </div>
+
+                                                    <div class="modal-footer" style="width: 100%">
+                                                        <a class="btn btn-outline-dark" data-dismiss="modal">Close</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="tab-content" id="tabContent">
+                <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            {% for booking in all_bookings %}
+                                <div class="col-sm-4">
+                                    <div class="card mt-4 shadow" style="cursor: pointer" data-toggle="modal" data-target="#booking-modal">
+                                        <div class="card-body room-photo">
+                                            {% if booking.booked_room.photo %}
+                                                <img class="card-img-top mt-2 mb-2" src="{{ booking.booked_room.photo.url }}" alt="{{ booking.booked_room.name }}" >
+                                            {% else %}
+                                                <img src="{% static 'image/ilustracion-concepto-fallo-conexion/3024051.jpg' %}" width="200" height="200">
+                                            {% endif %}
+                                        </div>
+                                        <div class="card-footer">
+                                            <p>
+                                                <strong>{{ booking.booked_room.hotel.name }}｜{{ booking.booked_room.name }}</strong><br>
+                                                <strong>Check In</strong>: {{ booking.check_in_time|date:'Y/m/d H:i' }}<br>
+                                                <strong>Check Out</strong>: {{ booking.check_out_time|date:'Y/m/d H:i' }}<br>
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal fade" id="booking-modal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header text-center" style="width: 100%">
+                                                    <h5 class="modal-title" id="ModalLongTitle">Booking Menu</h5>
+                                                </div>
+
+                                                <div id="modal-menu" style="width: 100%">
+                                                    <ul class="list-inline text-center">
+                                                        <li class="p-3 border-bottom" style="cursor: pointer" onclick="window.location.href='{% url 'booking_detail' booking.pk %}'">View Booking</li>
+                                                        <li class="p-3 border-bottom" style="cursor: pointer" onclick="window.location.href='#add_guest'">Add Guest</li>
+                                                        <li class="p-3" style="cursor: pointer" onclick="window.location.href='{% url 'my_bookings' %}'">Edit Guest Member</li>
+                                                    </ul>
+                                                </div>
+
+                                                <div class="modal-footer" style="width: 100%">
+                                                    <a class="btn btn-outline-secondary" data-dismiss="modal">Close</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="future" role="tabpanel" aria-labelledby="future-tab">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            {% for booking in future_bookings %}
+                                <div class="col-sm-4">
+                                    <div class="card mt-4 shadow" style="cursor: pointer" onclick="window.location.href='{% url 'booking_detail' booking.pk %}'">
+                                        <div class="card-body room-photo">
+                                            {% if booking.booked_room.photo %}
+                                                <img class="card-img-top mt-2 mb-2" src="{{ booking.booked_room.photo.url }}" alt="{{ booking.booked_room.name }}" >
+                                            {% else %}
+                                                <img src="{% static 'image/ilustracion-concepto-fallo-conexion/3024051.jpg' %}" width="200" height="200">
+                                            {% endif %}
+                                        </div>
+                                        <div class="card-footer">
+                                            <p>
+                                                <strong>{{ booking.booked_room.hotel.name }}｜{{ booking.booked_room.name }}</strong><br>
+                                                <strong>Check In</strong>: {{ booking.check_in_time|date:'Y/m/d H:i' }}<br>
+                                                <strong>Check Out</strong>: {{ booking.check_out_time|date:'Y/m/d H:i' }}<br>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="past" role="tabpanel" aria-labelledby="past-tab">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            {% for booking in past_bookings %}
+                                <div class="col-sm-4">
+                                    <div class="card mt-4 shadow" style="cursor: pointer" onclick="window.location.href='{% url 'booking_detail' booking.pk %}'">
+                                        <div class="card-body room-photo">
+                                            {% if booking.booked_room.photo %}
+                                                <img class="card-img-top mt-2 mb-2" src="{{ booking.booked_room.photo.url }}" alt="{{ booking.booked_room.name }}" >
+                                            {% else %}
+                                                <img src="{% static 'image/ilustracion-concepto-fallo-conexion/3024051.jpg' %}" width="200" height="200">
+                                            {% endif %}
+                                        </div>
+                                        <div class="card-footer">
+                                            <p>
+                                                <strong>{{ booking.booked_room.hotel.name }}｜{{ booking.booked_room.name }}</strong><br>
+                                                <strong>Check In</strong>: {{ booking.check_in_time|date:'Y/m/d H:i' }}<br>
+                                                <strong>Check Out</strong>: {{ booking.check_out_time|date:'Y/m/d H:i' }}<br>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="canceled" role="tabpanel" aria-labelledby="canceled-tab">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            {% for booking in canceled_bookings %}
+                                <div class="col-sm-4">
+                                    <div class="card mt-4 shadow" style="cursor: pointer" onclick="window.location.href='{% url 'booking_detail' booking.pk %}'">
+                                        <div class="card-body room-photo">
+                                            {% if booking.booked_room.photo %}
+                                                <img class="card-img-top mt-2 mb-2" src="{{ booking.booked_room.photo.url }}" alt="{{ booking.booked_room.name }}" >
+                                            {% else %}
+                                                <img src="{% static 'image/ilustracion-concepto-fallo-conexion/3024051.jpg' %}" width="200" height="200">
+                                            {% endif %}
+                                        </div>
+                                        <div class="card-footer">
+                                            <p>
+                                                <strong>{{ booking.booked_room.hotel.name }}｜{{ booking.booked_room.name }}</strong><br>
+                                                <strong>Check In</strong>: {{ booking.check_in_time|date:'Y/m/d H:i' }}<br>
+                                                <strong>Check Out</strong>: {{ booking.check_out_time|date:'Y/m/d H:i' }}<br>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    <style>
+        .room-photo img{
+            width: 100%;
+            height: auto;
+        }
+    </style>
+{% endblock %}

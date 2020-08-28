@@ -2,22 +2,29 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b2ae6215-e0bf-44df-aae2-2373e83c0974" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/booking/migrations/0002_booking_total_price.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/booking/migrations/0003_auto_20200827_1231.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/booking/templates/booking/detail.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/booking/templates/booking/my_bookings.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/image/edit.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/booking/decorator.py" beforeDir="false" afterPath="$PROJECT_DIR$/booking/decorator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/booking/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/booking/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/booking/templates/booking.html" beforeDir="false" afterPath="$PROJECT_DIR$/booking/templates/booking.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/booking/templates/my_bookings.html" beforeDir="false" afterPath="$PROJECT_DIR$/booking/templates/my_bookings.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/booking/templates/booking/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/booking/templates/booking/detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/booking/templates/my_bookings.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/booking/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/booking/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/booking/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/booking/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/room/templates/hotel/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/room/templates/hotel/detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/room/templates/hotel/hotels.html" beforeDir="false" afterPath="$PROJECT_DIR$/room/templates/hotel/hotels.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/room/templates/hotel/owned.html" beforeDir="false" afterPath="$PROJECT_DIR$/room/templates/hotel/owned.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/room/templates/room/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/room/templates/room/detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/room/templates/room/owned.html" beforeDir="false" afterPath="$PROJECT_DIR$/room/templates/room/owned.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/image/404-error-isometric-illustration/3737256.ai" beforeDir="false" afterPath="$PROJECT_DIR$/static/image/page_not_found404/page_not_found404.ai" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/image/404-error-isometric-illustration/3737257.eps" beforeDir="false" afterPath="$PROJECT_DIR$/static/image/page_not_found404/page_not_found404.eps" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/image/404-error-isometric-illustration/3737258.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/static/image/page_not_found404/page_not_found404.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/image/404-error-isometric-illustration/License free.txt" beforeDir="false" afterPath="$PROJECT_DIR$/static/image/page_not_found404/License free.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/image/404-error-isometric-illustration/License premium.txt" beforeDir="false" afterPath="$PROJECT_DIR$/static/image/file_not_found/License premium.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/image/500-internal-server-error-concept-illustration/3805088.ai" beforeDir="false" afterPath="$PROJECT_DIR$/static/image/server_error500/server_error500.ai" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/image/500-internal-server-error-concept-illustration/3805089.eps" beforeDir="false" afterPath="$PROJECT_DIR$/static/image/server_error500/server_error500.eps" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/image/500-internal-server-error-concept-illustration/3805090.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/static/image/server_error500/server_error500.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/image/500-internal-server-error-concept-illustration/License free.txt" beforeDir="false" afterPath="$PROJECT_DIR$/static/image/server_error500/License free.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/image/500-internal-server-error-concept-illustration/License premium.txt" beforeDir="false" afterPath="$PROJECT_DIR$/static/image/page_not_found404/License premium.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/image/ilustracion-concepto-fallo-conexion/3024049.ai" beforeDir="false" afterPath="$PROJECT_DIR$/static/image/file_not_found/file_not_found.ai" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/image/ilustracion-concepto-fallo-conexion/3024050.eps" beforeDir="false" afterPath="$PROJECT_DIR$/static/image/file_not_found/file_not_found.eps" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/image/ilustracion-concepto-fallo-conexion/3024051.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/static/image/file_not_found/file_not_found.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/image/ilustracion-concepto-fallo-conexion/License free.txt" beforeDir="false" afterPath="$PROJECT_DIR$/static/image/file_not_found/License free.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/image/ilustracion-concepto-fallo-conexion/License premium.txt" beforeDir="false" afterPath="$PROJECT_DIR$/static/image/server_error500/License premium.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/user_features.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user_features.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,6 +77,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/booking/templates/booking" />
       <recent name="$PROJECT_DIR$/room/views/hotel" />
     </key>
   </component>
@@ -148,9 +156,9 @@
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="1113" y="59" width="508" height="760" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1597549721424" />
-    <state x="421" y="18" width="838" height="1032" key="search.everywhere.popup" timestamp="1598065398821">
+    <state x="421" y="18" width="838" height="1032" key="search.everywhere.popup" timestamp="1598628774698">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state x="421" y="18" width="838" height="1032" key="search.everywhere.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1598065398821" />
+    <state x="421" y="18" width="838" height="1032" key="search.everywhere.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1598628774698" />
   </component>
 </project>
