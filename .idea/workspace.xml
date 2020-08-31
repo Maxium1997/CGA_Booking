@@ -3,12 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b2ae6215-e0bf-44df-aae2-2373e83c0974" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/booking/templates/booking.html" beforeDir="false" afterPath="$PROJECT_DIR$/booking/templates/booking.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/booking/templates/booking/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/booking/templates/booking/detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/booking/templates/booking/my_bookings.html" beforeDir="false" afterPath="$PROJECT_DIR$/booking/templates/booking/my_bookings.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/booking/templatetags/registration_filters.py" beforeDir="false" afterPath="$PROJECT_DIR$/booking/templatetags/registration_filters.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/room/templates/hotel/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/room/templates/hotel/detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/room/templates/room/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/room/templates/room/detail.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

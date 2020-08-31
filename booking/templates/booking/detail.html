@@ -5,15 +5,6 @@
 
 {% block title %}Booking Detail{% endblock %}
 
-{% if not request.user|is_proprietor %}
-    <script type="text/javascript">
-        window.onload = function(){
-            alert("If you want to print this page, please operate the following step:\nMac: press command⌘ + P\nWindows: press ctrl + P");
-        }
-    </script>
-{% else %}
-{% endif %}
-
 {% block main %}
     <div class="table-responsive">
         <h3 class="text-center">海洋委員會海巡署東部分署眷探處所住宿申請表</h3>
@@ -159,4 +150,12 @@
             padding-bottom: 12px;
         }
     </style>
+    {% if request.user|is_proprietor %}
+    {% else %}
+    <script type="text/javascript">
+        window.onload = function (){
+            alert("You can print this page through the browser.");
+        }
+    </script>
+    {% endif %}
 {% endblock %}
