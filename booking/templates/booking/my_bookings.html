@@ -47,38 +47,11 @@
                                             <td class="align-middle">{{ booking.check_out_time|date:'Y/m/d' }}</td>
                                             <td class="align-middle">{{ booking.state|readableState }}</td>
                                             <td class="align-middle">
-                                                <button type="button" class="btn btn-outline-success">Paid</button>
-                                                <button type="button" class="btn btn-outline-danger" onclick="window.location.href='{% url 'booking_check_out' booking.pk %}'" {% if booking.state == State.CheckedOut.value.0 %}disabled{% endif %}>CheckOut</button>
-                                                <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#more-modal">More</button>
+                                                <button type="button" class="btn btn-outline-success" {% if booking.state == State.Outstanding.value.0 %}{% else %}disabled{% endif %}>Paid</button>
+                                                <button type="button" class="btn btn-outline-danger" onclick="window.location.href='{% url 'booking_check_out' booking.pk %}'" {% if booking.state == State.Paid.value.0 %}{% else %}disabled{% endif %}>CheckOut</button>
+                                                <button type="button" class="btn btn-outline-primary" onclick="window.location.href='{% url 'booking_detail' booking.pk %}'">More</button>
                                             </td>
                                         </tr>
-                                        <div class="modal fade" id="more-modal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header text-center" style="width: 100%">
-                                                        <h5 class="modal-title" id="ModalLongTitle">Booking Detail</h5>
-                                                    </div>
-
-                                                    <div id="mode-menu" style="width: 100%">
-                                                        <ul>
-                                                            <li><strong>Unit of Applicant</strong>: {{ booking.unit_of_applicant }}</li>
-                                                            <li><strong>Applicant</strong>: {{ booking.applicant }}</li>
-                                                            <li><strong>Use</strong>: {{ booking.use|readableUse }}</li>
-                                                            <li><strong>Room</strong>: {{ booking.booked_room }}</li>
-                                                            <li><strong>Check In</strong>: {{ booking.check_in_time|date:'Y/m/d' }}</li>
-                                                            <li><strong>Check Out</strong>: {{ booking.check_out_time|date:'Y/m/d' }}</li>
-                                                            <li><strong>Guest Number</strong>: {{ booking.guest_set.all.count }}</li>
-                                                            <li><strong>Price</strong>: {{ booking.total_price }}</li>
-                                                            <li><strong>State</strong>: {{ booking.state|readableState }}</li>
-                                                        </ul>
-                                                    </div>
-
-                                                    <div class="modal-footer" style="width: 100%">
-                                                        <a class="btn btn-outline-dark" data-dismiss="modal">Close</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     {% endfor %}
                                     </tbody>
                                 </table>
@@ -110,39 +83,12 @@
                                             <td class="align-middle">{{ booking.check_out_time|date:'Y/m/d' }}</td>
                                             <td class="align-middle">{{ booking.state|readableState }}</td>
                                             <td class="align-middle">
-                                                <button type="button" class="btn btn-outline-success">Paid</button>
-                                                <button type="button" class="btn btn-outline-danger" onclick="window.location.href='{% url 'booking_check_out' booking.pk %}'" {% if booking.state == State.CheckedOut.value.0 %}disabled{% endif %}>CheckOut</button>
-                                                <button type="button" class="btn btn-outline-warning" onclick="window.location.href='{% url 'booking_cancel' booking.pk %}'">Canceled</button>
-                                                <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#more-modal">More</button>
+                                                <button type="button" class="btn btn-outline-success" {% if booking.state == State.Outstanding.value.0 %}{% else %}disabled{% endif %}>Paid</button>
+                                                <button type="button" class="btn btn-outline-danger" onclick="window.location.href='{% url 'booking_check_out' booking.pk %}'" {% if booking.state == State.Paid.value.0 %}{% else %}disabled{% endif %}>CheckOut</button>
+                                                <button type="button" class="btn btn-outline-warning" onclick="window.location.href='{% url 'booking_cancel' booking.pk %}'" {% if booking.state == State.Outstanding.value.0 %}{% else %}disabled{% endif %}>Canceled</button>
+                                                <button type="button" class="btn btn-outline-primary">More</button>
                                             </td>
                                         </tr>
-                                        <div class="modal fade" id="more-modal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header text-center" style="width: 100%">
-                                                        <h5 class="modal-title" id="ModalLongTitle">Booking Detail</h5>
-                                                    </div>
-
-                                                    <div id="mode-menu" style="width: 100%">
-                                                        <ul>
-                                                            <li><strong>Unit of Applicant</strong>: {{ booking.unit_of_applicant }}</li>
-                                                            <li><strong>Applicant</strong>: {{ booking.applicant }}</li>
-                                                            <li><strong>Use</strong>: {{ booking.use|readableUse }}</li>
-                                                            <li><strong>Room</strong>: {{ booking.booked_room }}</li>
-                                                            <li><strong>Check In</strong>: {{ booking.check_in_time|date:'Y/m/d' }}</li>
-                                                            <li><strong>Check Out</strong>: {{ booking.check_out_time|date:'Y/m/d' }}</li>
-                                                            <li><strong>Guest Number</strong>: {{ booking.guest_set.all.count }}</li>
-                                                            <li><strong>Price</strong>: {{ booking.total_price }}</li>
-                                                            <li><strong>State</strong>: {{ booking.state|readableState }}</li>
-                                                        </ul>
-                                                    </div>
-
-                                                    <div class="modal-footer" style="width: 100%">
-                                                        <a class="btn btn-outline-dark" data-dismiss="modal">Close</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     {% endfor %}
                                     </tbody>
                                 </table>
@@ -174,8 +120,6 @@
                                             <td class="align-middle">{{ booking.check_out_time|date:'Y/m/d' }}</td>
                                             <td class="align-middle">{{ booking.state|readableState }}</td>
                                             <td class="align-middle">
-                                                <button type="button" class="btn btn-outline-success">Paid</button>
-                                                <button type="button" class="btn btn-outline-danger" onclick="window.location.href='{% url 'booking_check_out' booking.pk %}'" {% if booking.state == State.CheckedOut.value.0 %}disabled{% endif %}>CheckOut</button>
                                                 <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#more-modal">More</button>
                                             </td>
                                         </tr>
@@ -237,8 +181,6 @@
                                             <td class="align-middle">{{ booking.check_out_time|date:'Y/m/d' }}</td>
                                             <td class="align-middle">{{ booking.state|readableState }}</td>
                                             <td class="align-middle">
-                                                <button type="button" class="btn btn-outline-success">Paid</button>
-                                                <button type="button" class="btn btn-outline-danger" onclick="window.location.href='{% url 'booking_check_out' booking.pk %}'" {% if booking.state == State.CheckedOut.value.0 %}disabled{% endif %}>CheckOut</button>
                                                 <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#more-modal">More</button>
                                             </td>
                                         </tr>
@@ -284,12 +226,12 @@
                         <div class="row justify-content-center">
                             {% for booking in all_bookings %}
                                 <div class="col-sm-4">
-                                    <div class="card mt-4 shadow" style="cursor: pointer" data-toggle="modal" data-target="#booking-modal">
+                                    <div class="card mt-4 shadow" style="cursor: pointer" data-toggle="modal" data-target="#all-booking-modal-{{ booking.pk }}">
                                         <div class="card-body room-photo">
                                             {% if booking.booked_room.photo %}
                                                 <img class="card-img-top mt-2 mb-2" src="{{ booking.booked_room.photo.url }}" alt="{{ booking.booked_room.name }}" >
                                             {% else %}
-                                                <img src="{% static 'image/ilustracion-concepto-fallo-conexion/3024051.jpg' %}" width="200" height="200">
+                                                <img src="{% static 'image/file_not_found/file_not_found.jpg' %}" width="200" height="200">
                                             {% endif %}
                                         </div>
                                         <div class="card-footer">
@@ -301,7 +243,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="modal fade" id="booking-modal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+                                    <div class="modal fade" id="all-booking-modal-{{ booking.pk }}" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header text-center" style="width: 100%">
@@ -312,7 +254,7 @@
                                                     <ul class="list-inline text-center">
                                                         <li class="p-3 border-bottom" style="cursor: pointer" onclick="window.location.href='{% url 'booking_detail' booking.pk %}'">View Booking</li>
                                                         <li class="p-3 border-bottom" style="cursor: pointer" onclick="window.location.href='#add_guest'">Add Guest</li>
-                                                        <li class="p-3" style="cursor: pointer" onclick="window.location.href='{% url 'my_bookings' %}'">Edit Guest Member</li>
+                                                        <li class="p-3" style="cursor: pointer" onclick="window.location.href='#edit_guest_member'">Edit Guest Member</li>
                                                     </ul>
                                                 </div>
 
@@ -332,12 +274,12 @@
                         <div class="row justify-content-center">
                             {% for booking in future_bookings %}
                                 <div class="col-sm-4">
-                                    <div class="card mt-4 shadow" style="cursor: pointer" onclick="window.location.href='{% url 'booking_detail' booking.pk %}'">
+                                    <div class="card mt-4 shadow" style="cursor: pointer" data-toggle="modal" data-target="#future-booking-modal-{{ booking.pk }}">
                                         <div class="card-body room-photo">
                                             {% if booking.booked_room.photo %}
                                                 <img class="card-img-top mt-2 mb-2" src="{{ booking.booked_room.photo.url }}" alt="{{ booking.booked_room.name }}" >
                                             {% else %}
-                                                <img src="{% static 'image/ilustracion-concepto-fallo-conexion/3024051.jpg' %}" width="200" height="200">
+                                                <img src="{% static 'image/file_not_found/file_not_found.jpg' %}" width="200" height="200">
                                             {% endif %}
                                         </div>
                                         <div class="card-footer">
@@ -346,6 +288,28 @@
                                                 <strong>Check In</strong>: {{ booking.check_in_time|date:'Y/m/d H:i' }}<br>
                                                 <strong>Check Out</strong>: {{ booking.check_out_time|date:'Y/m/d H:i' }}<br>
                                             </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal fade" id="future-booking-modal-{{ booking.pk }}" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header text-center" style="width: 100%">
+                                                    <h5 class="modal-title" id="ModalLongTitle">Booking Menu</h5>
+                                                </div>
+
+                                                <div id="modal-menu" style="width: 100%">
+                                                    <ul class="list-inline text-center">
+                                                        <li class="p-3 border-bottom" style="cursor: pointer" onclick="window.location.href='{% url 'booking_detail' booking.pk %}'">View Booking</li>
+                                                        <li class="p-3 border-bottom" style="cursor: pointer" onclick="window.location.href='#add_guest'">Add Guest</li>
+                                                        <li class="p-3" style="cursor: pointer" onclick="window.location.href='#edit_guest_member'">Edit Guest Member</li>
+                                                    </ul>
+                                                </div>
+
+                                                <div class="modal-footer" style="width: 100%">
+                                                    <a class="btn btn-outline-secondary" data-dismiss="modal">Close</a>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -363,7 +327,7 @@
                                             {% if booking.booked_room.photo %}
                                                 <img class="card-img-top mt-2 mb-2" src="{{ booking.booked_room.photo.url }}" alt="{{ booking.booked_room.name }}" >
                                             {% else %}
-                                                <img src="{% static 'image/ilustracion-concepto-fallo-conexion/3024051.jpg' %}" width="200" height="200">
+                                                <img src="{% static 'image/file_not_found/file_not_found.jpg' %}" width="200" height="200">
                                             {% endif %}
                                         </div>
                                         <div class="card-footer">
@@ -389,7 +353,7 @@
                                             {% if booking.booked_room.photo %}
                                                 <img class="card-img-top mt-2 mb-2" src="{{ booking.booked_room.photo.url }}" alt="{{ booking.booked_room.name }}" >
                                             {% else %}
-                                                <img src="{% static 'image/ilustracion-concepto-fallo-conexion/3024051.jpg' %}" width="200" height="200">
+                                                <img src="{% static 'image/file_not_found/file_not_found.jpg' %}" width="200" height="200">
                                             {% endif %}
                                         </div>
                                         <div class="card-footer">

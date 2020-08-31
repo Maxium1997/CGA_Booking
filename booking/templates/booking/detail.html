@@ -5,11 +5,14 @@
 
 {% block title %}Booking Detail{% endblock %}
 
-{% block js %}
-    window.onload = function(){
-        alert("If you want to print this page, please operate the following step:\nMac: press command⌘ + P\nWindows: press ctrl + P");
-    }
-{% endblock %}
+{% if not request.user|is_proprietor %}
+    <script type="text/javascript">
+        window.onload = function(){
+            alert("If you want to print this page, please operate the following step:\nMac: press command⌘ + P\nWindows: press ctrl + P");
+        }
+    </script>
+{% else %}
+{% endif %}
 
 {% block main %}
     <div class="table-responsive">
@@ -56,7 +59,13 @@
             </tr>
             <tr class="text-center">
                 <td class="align-middle" colspan="2">{{ booking.check_out_time|date:'Y/m/d, H:i' }}</td>
-                <td class="align-middle">{{ booking.guest_set.all.count }}</td>
+                <td class="align-middle">
+                    {% if booking.guest_set.all.count != 0 %}
+                    {{ booking.guest_set.all.count }}
+                    {% else %}
+                    1
+                    {% endif %}
+                </td>
             </tr>
             <tr class="text-center">
                 <td>Name</td>
@@ -78,6 +87,18 @@
                 <td>{{ guest.date_of_birth|date:'Y/m/d' }}</td>
                 <td>{{ guest.phone }}</td>
                 <td>{{ guest.license_plate }}</td>
+            </tr>
+            {% empty %}
+                <tr class="text-center">
+                <td>{{ booking.applicant.username }}</td>
+                <td>
+                    {{ booking.applicant.rank }}（本人）
+                </td>
+                <td>{{ booking.applicant.ID_Number }}</td>
+                <td>{{ booking.applicant.gender|readableGender }}</td>
+                <td>{{ booking.applicant.birthday|date:'Y/m/d' }}</td>
+                <td>{{ booking.applicant.phone_Number }}</td>
+                <td>-</td>
             </tr>
             {% endfor %}
             <tr>

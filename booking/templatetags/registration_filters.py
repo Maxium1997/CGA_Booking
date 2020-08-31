@@ -1,7 +1,7 @@
 from django import template
 
 from registration.models import User
-from registration.definition import Privilege, Identity
+from registration.definition import Privilege, Identity, Gender
 
 register = template.Library()
 
@@ -19,7 +19,14 @@ def readablePrivilege(privilege_value):
 
 
 @register.filter(name='readableIdentity')
-def readablePrivilege(identity_value):
+def readableIdentity(identity_value):
     for identity in Identity.__members__.values():
         if identity_value == identity.value[0]:
             return identity.value[1]
+
+
+@register.filter(name='readableGender')
+def readableGender(gender_value):
+    for gender in Gender.__members__.values():
+        if gender_value == gender.value[0]:
+            return gender.value[1]

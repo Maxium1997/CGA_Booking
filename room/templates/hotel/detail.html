@@ -31,7 +31,7 @@
             {% if hotel.external_appearance %}
                 <img class="card-img-top mt-2 mb-2" src="{{ hotel.external_appearance.url }}" alt="{{ hotel.name }}" >
             {% else %}
-                <img src="{% static 'image/ilustracion-concepto-fallo-conexion/3024051.jpg' %}">
+                <img class="card-img-top mt-2 mb-2" src="{% static 'image/file_not_found/file_not_found.jpg' %}" alt="Proprietor not upload photo recently.">
             {% endif %}
         </div>
         <h3>{{ hotel.name }}</h3>
@@ -51,7 +51,7 @@
                                 {% if room.photo %}
                                     <img class="card-img-top mt-2 mb-2" src="{{ room.photo.url }}" alt="{{ room.name }}" >
                                 {% else %}
-                                    <img src="{% static 'image/ilustracion-concepto-fallo-conexion/3024051.jpg' %}" width="200" height="200">
+                                    <img src="{% static 'image/file_not_found/file_not_found.jpg' %}" width="200" height="200">
                                 {% endif %}
                             </div>
                             <div class="card-footer">

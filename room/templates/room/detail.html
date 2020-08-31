@@ -42,11 +42,11 @@
                             <div id="photo-list-item" class="carousel-item active">
                                 <img class="card-img-top" src="{{ image }}" alt="{{ room.name }}">
                             </div>
-                        {% else %}
-                            <div id="photo-list-item" class="carousel-item">
-                                <img class="card-img-top" src="{{ image }}" alt="{{ room.name }}">
-                            </div>
                         {% endif %}
+                    {% empty %}
+                        <div id="photo-list-item" class="carousel-item active">
+                            <img src="{% static 'image/file_not_found/file_not_found.jpg' %}" alt="{{ room.name }}">
+                        </div>
                     {% endfor %}
                 </div>
                 <a class="carousel-control-prev" href="#photo-Controls" role="button" data-slide="prev">
@@ -69,9 +69,9 @@
                             <div id="modal-menu">
                             <ul class="list-inline text-center">
                                 {% if room.photo %}
-                                    <img class="card-img-top mt-2 mb-2" src="{{ room.photo.url }}" alt="{{ room.name }}" >
+                                    <img class="card-img-top mt-2 mb-2" src="{{ room.photo.url }}" alt="{{ room.name }}">
                                 {% else %}
-                                    <img src="{% static 'image/ilustracion-concepto-fallo-conexion/3024051.jpg' %}">
+                                    <img src="{% static 'image/file_not_found/file_not_found.jpg' %}" alt="{{ room.name }}">
                                 {% endif %}
                                 <form action="{% url 'room_photo_upload' hotel.slug room.pk %}" enctype="multipart/form-data" method="post">
                                     {% csrf_token %}
