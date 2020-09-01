@@ -76,7 +76,7 @@ class BookingView(View):
                                                              gender=guest_info_form['gender'].data,
                                                              date_of_birth=datetime.strptime(guest_info_form['date_of_birth'].data, '%Y/%m/%d'),
                                                              phone=guest_info_form['phone'].data,
-                                                             licence_plate=guest_info_form['license_plate'].data)
+                                                             license_plate=guest_info_form['license_plate'].data)
                             new_guest.save()
                         except ValueError:
                             pass
@@ -84,7 +84,7 @@ class BookingView(View):
                 total_price = calculate_booking_price(new_booking, int(booking_form['days'].data))
                 new_booking.total_price = total_price
                 new_booking.save()
-            return redirect('index')    # Modified to 'my_bookings' after
+            return redirect('my_bookings')
         else:
             guest_info_forms = [GuestInfoForm(request.POST, prefix=str(x)) for x in range(5)]
 
@@ -107,23 +107,23 @@ class MyBookingsView(View):
 
         if request.user.identity == Identity.Traveler.value[0]:
             all_bookings = Booking.objects.filter(applicant=request.user).\
-                order_by('booked_room', '-check_in_time', 'state')
+                order_by('check_in_time', 'state', 'booked_room')
             future_bookings = Booking.objects.filter(applicant=request.user,check_in_time__gt=datetime.now()).\
-                order_by('booked_room', '-check_in_time', 'state')
+                order_by('check_in_time', 'state', 'booked_room')
             past_bookings = Booking.objects.filter(applicant=request.user, check_out_time__lt=datetime.now()).\
-                order_by('booked_room', '-check_in_time', 'state')
+                order_by('check_in_time', 'state', 'booked_room')
             canceled_bookings = Booking.objects.filter(applicant=request.user, state=3).\
-                order_by('booked_room', '-check_in_time', 'state')
+                order_by('check_in_time', 'state', 'booked_room')
 
         elif request.user.identity == Identity.Proprietor.value[0]:
             all_bookings = Booking.objects.filter(booked_room__hotel__owner=request.user).\
-                order_by('booked_room', '-check_in_time', 'state')
+                order_by('check_in_time', 'state', 'booked_room')
             future_bookings = Booking.objects.filter(booked_room__hotel__owner=request.user, check_in_time__gt=datetime.now()).\
-                order_by('booked_room', '-check_in_time', 'state')
+                order_by('check_in_time', 'state', 'booked_room')
             past_bookings = Booking.objects.filter(booked_room__hotel__owner=request.user, check_out_time__lt=datetime.now()).\
-                order_by('booked_room', '-check_in_time', 'state')
+                order_by('check_in_time', 'state', 'booked_room')
             canceled_bookings = Booking.objects.filter(booked_room__hotel__owner=request.user, state=3).\
-                order_by('booked_room', '-check_in_time', 'state')
+                order_by('check_in_time', 'state', 'booked_room')
 
         else:
             messages.warning(request, "Unknown User.")

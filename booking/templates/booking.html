@@ -4,6 +4,23 @@
 {% block title %}Booking｜{{ room.name }}｜{{ hotel.name }}{% endblock %}
 
 {% block main %}
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == 'success' %}
+                <div id="prompt" class="card my-4 text-left alert-success prompt">
+                    <a class="card-header"><i class="fa fa-window-close" aria-hidden="true"> {{ message }}</i></a>
+                </div>
+            {% elif message.tags == 'warning' %}
+                <div id="prompt" class="card my-4 text-left alert-warning prompt">
+                    <a class="card-header"><i class="fa fa-window-close" aria-hidden="true"> {{ message }}</i></a>
+                </div>
+            {% elif message.tags == 'error' %}
+                <div id="prompt" class="card my-4 text-left alert-danger prompt">
+                    <a class="card-header"><i class="fa fa-window-close" aria-hidden="true"> {{ message }}</i></a>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
     <div class="col-sm-12">
         <form method="post">
             {% csrf_token %}
@@ -125,4 +142,9 @@
             border-radius: 4px;
         }
     </style>
+    <script type="text/javascript">
+    setTimeout(function(){
+        $('.prompt').hide()
+    }, 5000)
+</script>
 {% endblock %}

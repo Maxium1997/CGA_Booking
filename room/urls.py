@@ -4,7 +4,7 @@ from room.views.hotel.views import HotelsView, HotelCreationView, OwnedHotelView
 from room.views.room.views import RoomCreationView, RoomEditionView, OwnedRoomView, RoomDetailView
 from room.views.room.views import room_photo_upload
 
-from booking.views import BookingView
+from booking.views.booking.views import BookingView
 
 urlpatterns = [
     path('hotel/', include([

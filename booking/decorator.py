@@ -40,15 +40,15 @@ def calculate_booking_price(booking: Booking, days: int):
             total_price += washing_fee * single_bed_num + washing_fee * double_bed_num
         else:
             total_price += washing_fee * guest_num
-
-    if booking.use == Use.FamilyVisit.value[0]:
+    else:
         total_price += (usage_fee + utility_bill) * days
         if guest_num >= (single_bed_num + double_bed_num * 2):
             total_price += washing_fee * single_bed_num + washing_fee * double_bed_num
         else:
             total_price += washing_fee * guest_num
 
-    else:
-        pass
-
     return total_price
+
+
+def automatic_collate():
+    pass
