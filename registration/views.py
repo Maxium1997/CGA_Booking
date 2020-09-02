@@ -61,6 +61,7 @@ def user_change(request):
             messages.success(request, "User Change Successfully.")
             return redirect('index')
         else:
+            messages.warning(request, "Maybe some data format is invalid, please check again.")
             user_change_form = AccountChangeForm(request.POST, instance=user)
     else:
         user_change_form = AccountChangeForm(instance=user)

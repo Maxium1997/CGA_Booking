@@ -45,7 +45,7 @@ class BookingView(View):
         if check_time_is_valid(room, booking_form['check_in_time'].data, booking_form['days'].data):
             if booking_form.is_valid():
                 new_booking = Booking.objects.create(unit_of_applicant=booking_form['unit_of_applicant'].data,
-                                                     applicant=request.user,
+                                                     applicant=request.user.get_full_name(),
                                                      use=booking_form['use'].data,
                                                      check_in_time=datetime.strptime((booking_form['check_in_time'].data+" 15:00"), '%Y-%m-%d %H:%M'),
                                                      check_out_time=datetime.strptime((booking_form['check_in_time'].data+" 12:00"), '%Y-%m-%d %H:%M') + timedelta(days=int(booking_form['days'].data)),

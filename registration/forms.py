@@ -59,7 +59,6 @@ class AccountChangeForm(UserChangeForm):
                                    widget=forms.TextInput(attrs={'class': 'form-control'}))
     birthday = forms.DateField(required=True,
                                help_text="Your birthday input format: 'yyyy-mm-dd'.",
-                               error_messages={'invalid': "Maybe the format is wrong, please check it again."},
                                widget=forms.DateInput(attrs={'class': 'form-control'}))
 
     class Meta:

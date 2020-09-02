@@ -15,11 +15,11 @@
                 <td class="align-middle" rowspan="2" colspan="2">{{ booking.unit_of_applicant }}</td>
                 <td class="align-middle" rowspan="2">Contact</td>
                 <td class="align-middle">Applicant</td>
-                <td class="align-middle" colspan="2">{{ booking.applicant }}</td>
+                <td class="align-middle" colspan="2">{{ booking.applicant.get_full_name }}</td>
             </tr>
             <tr class="text-center">
                 <td class="align-middle">Applicant phone</td>
-                <td class="align-middle" colspan="2">{{ booking.applicant.phone_Number }}</td>
+                <td class="align-middle" colspan="2">{{ booking.applicant.phone_number }}</td>
             </tr>
             <tr class="text-center">
                 <td class="align-middle">Use</td>
@@ -88,7 +88,7 @@
                 <td>{{ booking.applicant.ID_Number }}</td>
                 <td>{{ booking.applicant.gender|readableGender }}</td>
                 <td>{{ booking.applicant.birthday|date:'Y/m/d' }}</td>
-                <td>{{ booking.applicant.phone_Number }}</td>
+                <td>{{ booking.applicant.phone_number }}</td>
                 <td>-</td>
             </tr>
             {% endfor %}

@@ -2,17 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b2ae6215-e0bf-44df-aae2-2373e83c0974" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/registration/migrations/0004_auto_20200902_0859.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/registration/migrations/0005_auto_20200902_0901.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/registration/templates/user_change.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/booking/templates/booking/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/booking/templates/booking/detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/booking/views/booking/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/booking/views/booking/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/registration/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/registration/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/registration/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/registration/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/registration/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/registration/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/registration/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/registration/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/messages.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/messages.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/user_features.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user_features.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
