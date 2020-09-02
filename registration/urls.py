@@ -4,6 +4,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 
 from registration.views import DashboardView
 from registration.views import RegisterView, TravelerRegisterView, ProprietorRegisterView
+from registration.views import user_change
 
 urlpatterns = [
     path('admin/', include([
@@ -18,5 +19,6 @@ urlpatterns = [
         ])),
         path('login', LoginView.as_view(template_name='login.html'), name='login'),
         path('logout', LogoutView.as_view(), name='logout'),
+        path('change', user_change, name='user_change'),
     ]))
 ]

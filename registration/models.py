@@ -11,9 +11,9 @@ class User(AbstractUser):
     gender = models.PositiveSmallIntegerField(default=Gender.Unset.value[0], null=False, blank=False)
     privilege = models.PositiveSmallIntegerField(default=Privilege.User.value[0], null=False, blank=False)
     identity = models.PositiveSmallIntegerField(default=Identity.Traveler.value[0], null=False, blank=False)
-    phone_Number = models.CharField(unique=True, max_length=15, null=True)
+    phone_number = models.CharField(unique=True, max_length=15, null=True)
     birthday = models.DateField(auto_now=False, null=True)
-    update_time = models.DateField(auto_now=True)
+    update_time = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ('-is_superuser',)

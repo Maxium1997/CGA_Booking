@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect
-from django.contrib import auth
+from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.core.exceptions import PermissionDenied
-from django.views.generic import TemplateView, CreateView, View
+from django.views.generic import TemplateView, CreateView, View, UpdateView
 
 from registration.models import User
-from registration.forms import TravelerRegisterForm, ProprietorRegisterForm
+from registration.forms import TravelerRegisterForm, ProprietorRegisterForm, AccountChangeForm
 # Create your views here.
 
 
@@ -22,7 +22,7 @@ class TravelerRegisterView(CreateView):
     def form_valid(self, form):
         user = form.save()
         auth.login(self.request, user)
-        return redirect('index')
+        return redirect('user_change')
 
 
 class ProprietorRegisterView(CreateView):
@@ -33,7 +33,7 @@ class ProprietorRegisterView(CreateView):
     def form_valid(self, form):
         user = form.save()
         auth.login(self.request, user)
-        return redirect('index')
+        return redirect('user_change')
 
 
 @method_decorator(login_required, name='dispatch')
@@ -48,3 +48,22 @@ class DashboardView(View):
         context = {'users': User.objects.all()}
 
         return render(request, template, context)
+
+
+@login_required
+def user_change(request):
+    user = request.user
+    template = 'user_change.html'
+    if request.POST:
+        user_change_form = AccountChangeForm(request.POST, instance=user)
+        if user_change_form.is_valid():
+            user_change_form.save()
+            messages.success(request, "User Change Successfully.")
+            return redirect('index')
+        else:
+            user_change_form = AccountChangeForm(request.POST, instance=user)
+    else:
+        user_change_form = AccountChangeForm(instance=user)
+
+    context = {'account_change_form': user_change_form}
+    return render(request, template, context)
