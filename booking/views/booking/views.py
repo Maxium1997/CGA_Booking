@@ -138,35 +138,23 @@ class BookingDetailView(DetailView):
         return context
 
 
-@method_decorator(login_required, name='dispatch')
-class BookingCheckOut(View):
-    def get(self, request, pk):
-        booking = get_object_or_404(Booking, pk=pk)
-
-        if booking.booked_room.hotel.owner != request.user:
-            messages.warning(request, "You have no permission to modify the booking.")
-
-        else:
-            booking.state = State.CheckedOut.value[0]
-            booking.save()
-
-            messages.success(request, "State Updated Successfully.")
-
-        return redirect('my_bookings')
+def booking_check_out(request, pk):
+    booking = get_object_or_404(Booking, pk=pk)
+    if booking.booked_room.hotel.owner != request.user:
+        messages.warning(request, "You have no permission to modify the booking.")
+    else:
+        booking.state = State.CheckedOut.value[0]
+        booking.save()
+        messages.success(request, "Modified Successfully.")
+    return redirect('my_bookings')
 
 
-@method_decorator(login_required, name='dispatch')
-class BookingCancel(View):
-    def get(self, request, pk):
-        booking = get_object_or_404(Booking, pk=pk)
-
-        if booking.booked_room.hotel.owner != request.user:
-            messages.warning(request, "You have no permission to modify the booking.")
-
-        else:
-            booking.state = State.Canceled.value[0]
-            booking.save()
-
-            messages.success(request, "Booking had been canceled.")
-
-        return redirect('my_bookings')
+def booking_cancel(request, pk):
+    booking = get_object_or_404(Booking, pk=pk)
+    if booking.booked_room.hotel.owner != request.user or booking.applicant != request.user:
+        messages.warning(request, "You have no permission to cancel the booking.")
+    else:
+        booking.state = State.CheckedOut.value[0]
+        booking.save()
+        messages.success(request, "Canceled Successfully.")
+    return redirect('my_bookings')

@@ -305,8 +305,8 @@
                                                 <div id="modal-menu" style="width: 100%">
                                                     <ul class="list-inline text-center">
                                                         <li class="p-3 border-bottom" style="cursor: pointer" onclick="window.location.href='{% url 'booking_detail' booking.pk %}'">View Booking</li>
-                                                        <li class="p-3 border-bottom" style="cursor: pointer" onclick="window.location.href='#add_guest'">Add Guest</li>
-                                                        <li class="p-3" style="cursor: pointer" onclick="window.location.href='#edit_guest_member'">Edit Guest Member</li>
+                                                        <li class="p-3 border-bottom" style="cursor: pointer" onclick="window.location.href='{% url 'guest_edit' booking.pk %}'">Edit Guest Member</li>
+                                                        <li class="p-3" style="cursor: pointer" onclick="window.location.href='{% url 'booking_cancel' booking.pk %}'">Cancel Order</li>
                                                     </ul>
                                                 </div>
 
