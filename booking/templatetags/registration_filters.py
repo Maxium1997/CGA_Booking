@@ -27,6 +27,7 @@ def readableIdentity(identity_value):
 
 @register.filter(name='readableGender')
 def readableGender(gender_value):
+    gender_value = int(gender_value)
     for gender in Gender.__members__.values():
         if gender_value == gender.value[0]:
             return gender.value[1]

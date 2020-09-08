@@ -3,10 +3,15 @@
   <component name="ChangeListManager">
     <list default="true" id="b2ae6215-e0bf-44df-aae2-2373e83c0974" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/booking/decorator.py" beforeDir="false" afterPath="$PROJECT_DIR$/booking/decorator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/booking/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/booking/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/booking/templates/booking/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/booking/templates/booking/detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/booking/templates/guest/edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/booking/templates/guest/edit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/booking/templatetags/registration_filters.py" beforeDir="false" afterPath="$PROJECT_DIR$/booking/templatetags/registration_filters.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/booking/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/booking/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/booking/views/booking/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/booking/views/booking/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/registration/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/registration/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/registration/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/registration/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/booking/views/guest/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/booking/views/guest/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/registration/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/registration/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +52,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="TERMINAL_CUSTOM_COMMANDS_GOT_IT" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -105,6 +111,8 @@
       <workItem from="1597070436949" duration="4476000" />
       <workItem from="1597552202036" duration="19000" />
       <workItem from="1597673691599" duration="34665000" />
+      <workItem from="1599051914458" duration="803000" />
+      <workItem from="1599098467410" duration="9496000" />
     </task>
     <servers />
   </component>

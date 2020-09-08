@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load registration_filters %}
 
 {% block title %}Guest Edit{% endblock %}
 
@@ -8,12 +9,76 @@
             <table class="table" width="100%">
                 <tbody>
                     <tr>
-                        <td>Unit</td>
-                        <td>{{ booking.unit_of_applicant }}</td>
+                        <td colspan="3" class="h5">Unit</td>
+                        <td colspan="4">{{ booking.unit_of_applicant }}</td>
                     </tr>
                     <tr>
-                        <td>Applicant</td>
-                        <td>{{ booking.applicant }}</td>
+                        <td colspan="3" class="h5">Applicant</td>
+                        <td colspan="4">{{ booking.applicant.get_full_name }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="h5">Room</td>
+                        <td colspan="4">{{ booking.booked_room }}</td>
+                    </tr>
+                    <tr>
+                        <td class="align-middle h5">From</td>
+                        <td colspan="2" class="text-center align-middle">{{ booking.check_in_time|date:'Y/m/d, H:i' }}</td>
+                        <td class="align-middle h5">To</td>
+                        <td colspan="2" class="text-center align-middle">{{ booking.check_out_time|date:'Y/m/d, H:i' }}</td>
+                    </tr>
+                    <tr class="text-center">
+                        <td colspan="7" class="h5">Guest</td>
+                    </tr>
+                    <tr class="text-center">
+                        <td class="align-middle">Name</td>
+                        <td class="align-middle">Rank (Relationship)</td>
+                        <td class="align-middle">ID Number</td>
+                        <td class="align-middle">Gender</td>
+                        <td class="align-middle">Birthday</td>
+                        <td class="align-middle">Phone</td>
+                        <td class="align-middle">License Plate</td>
+                    </tr>
+                    {% for guest in booking.guest_set.all %}
+                    <tr class="text-center">
+                        <td class="align-middle">{{ guest.name }}</td>
+                        <td class="align-middle">
+                            {% if guest.rank %}{{ guest.rank }}{% endif %}
+                            （{{ guest.relationship }}）
+                        </td>
+                        <td class="align-middle">{{ guest.ID_Number }}</td>
+                        <td class="align-middle">{{ guest.gender|readableGender }}</td>
+                        <td class="align-middle">{{ guest.date_of_birth|date:'Y/m/d' }}</td>
+                        <td class="align-middle">{{ guest.phone }}</td>
+                        <td class="align-middle">{% if guest.license_plate %}{{ guest.license_plate }}{% else %}-{% endif %}</td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <td colspan="7">
+                            <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#Add-Guest-Form-Modal">Add Guest</button>
+                            <div class="modal fade" id="Add-Guest-Form-Modal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <form action="{% url 'guest_addition' booking.pk %}" method="post">
+                                            {% csrf_token %}
+                                            <div class="modal-header text-center" style="width: 100%">
+                                                <h5 class="modal-title" id="ModalLongTitle">Add Guest Form</h5>
+                                            </div>
+
+                                            <div id="modal-menu" style="width: 100%">
+                                                {{ guest_info_form.as_p }}
+                                                <i style="color: red;">Every guests must input the full information, or the guest will not be add into the guest list.</i><br>
+                                                <i style="color: orange">If you don't want to offer the information, please input "-"</i>
+                                            </div>
+
+                                            <div class="modal-footer" style="width: 100%">
+                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
                     </tr>
                 </tbody>
             </table>

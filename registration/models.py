@@ -18,6 +18,9 @@ class User(AbstractUser):
     class Meta:
         ordering = ('-is_superuser',)
 
+    def get_full_name(self):
+        return self.last_name + self.first_name
+
 
 class Officer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

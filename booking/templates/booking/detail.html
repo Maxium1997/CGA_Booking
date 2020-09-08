@@ -71,25 +71,14 @@
             <tr class="text-center">
                 <td>{{ guest.name }}</td>
                 <td>
-                    {{ guest.rank }}（{{ guest.relationship }}）
+                    {% if guest.rank %}{{ guest.rank }}{% endif %}
+                    （{{ guest.relationship }}）
                 </td>
                 <td>{{ guest.ID_Number }}</td>
-                <td>{{ guest.gender }}</td>
+                <td>{{ guest.gender|readableGender }}</td>
                 <td>{{ guest.date_of_birth|date:'Y/m/d' }}</td>
                 <td>{{ guest.phone }}</td>
-                <td>{{ guest.license_plate }}</td>
-            </tr>
-            {% empty %}
-                <tr class="text-center">
-                <td>{{ booking.applicant.username }}</td>
-                <td>
-                    {{ booking.applicant.rank }}（本人）
-                </td>
-                <td>{{ booking.applicant.ID_Number }}</td>
-                <td>{{ booking.applicant.gender|readableGender }}</td>
-                <td>{{ booking.applicant.birthday|date:'Y/m/d' }}</td>
-                <td>{{ booking.applicant.phone_number }}</td>
-                <td>-</td>
+                <td>{% if guest.license_plate %}{{ guest.license_plate }}{% else %}-{% endif %}</td>
             </tr>
             {% endfor %}
             <tr>

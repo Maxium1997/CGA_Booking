@@ -46,13 +46,13 @@ class GuestInfoForm(forms.Form):
     gender = forms.ChoiceField(required=False,
                                choices=GENDER_CHOICES,
                                widget=forms.Select)
-    date_of_birth = forms.CharField(required=False,
-                                    widget=forms.TextInput(attrs={'placeholder': 'YYYY/MM/DD'}))
+    date_of_birth = forms.DateField(required=False,
+                                    widget=forms.TextInput(attrs={'placeholder': 'YYYY-MM-DD'}),
+                                    help_text="<br><i style=\"color: red\">This column data format: YYYY-MM-DD</i>")
     phone = forms.CharField(required=False,
                             widget=forms.TextInput)
     license_plate = forms.CharField(required=False,
                                     widget=forms.TextInput)
 
     class Meta:
-        fields = ['name', 'ID_Number', 'rank', 'relationship', 'gender',
-                  'date_of_birth', 'phone', 'license_plate']
+        fields = ['name', 'ID_Number', 'rank', 'relationship', 'gender', 'date_of_birth', 'phone', 'license_plate']

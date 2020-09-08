@@ -11,7 +11,7 @@ from room.models import Hotel, Room
 from booking.models import Booking, Guest
 from booking.forms import BookingForm, GuestInfoForm
 from booking.definition import Use, State
-from booking.decorator import check_time_is_valid, calculate_booking_price
+from booking.decorator import check_time_is_valid, calculate_booking_price, guest_form_to_Guest
 # Create your views here.
 
 
@@ -45,45 +45,33 @@ class BookingView(View):
         if check_time_is_valid(room, booking_form['check_in_time'].data, booking_form['days'].data):
             if booking_form.is_valid():
                 new_booking = Booking.objects.create(unit_of_applicant=booking_form['unit_of_applicant'].data,
-                                                     applicant=request.user.get_full_name(),
+                                                     applicant=request.user,
                                                      use=booking_form['use'].data,
                                                      check_in_time=datetime.strptime((booking_form['check_in_time'].data+" 15:00"), '%Y-%m-%d %H:%M'),
                                                      check_out_time=datetime.strptime((booking_form['check_in_time'].data+" 12:00"), '%Y-%m-%d %H:%M') + timedelta(days=int(booking_form['days'].data)),
                                                      booked_room=room)
-                new_booking.save()
 
                 guest_info_forms = [GuestInfoForm(request.POST, prefix=str(x)) for x in range(5)]
 
-                messages.success(request, "Booked Successfully.")
-
                 for guest_info_form in guest_info_forms:
-                    data = [guest_info_form['name'].data,
-                            guest_info_form['ID_Number'].data,
-                            guest_info_form['rank'].data,
-                            guest_info_form['relationship'].data,
-                            guest_info_form['gender'].data,
-                            guest_info_form['date_of_birth'].data,
-                            guest_info_form['phone'].data,
-                            guest_info_form['license_plate'].data]
+                    guest_form_to_Guest(guest_info_form, new_booking)
 
-                    if all(data):
-                        try:
-                            new_guest = Guest.objects.create(booking_source=new_booking,
-                                                             name=guest_info_form['name'].data,
-                                                             ID_Number=guest_info_form['ID_Number'].data,
-                                                             rank=guest_info_form['rank'].data,
-                                                             relationship=guest_info_form['relationship'].data,
-                                                             gender=guest_info_form['gender'].data,
-                                                             date_of_birth=datetime.strptime(guest_info_form['date_of_birth'].data, '%Y/%m/%d'),
-                                                             phone=guest_info_form['phone'].data,
-                                                             license_plate=guest_info_form['license_plate'].data)
-                            new_guest.save()
-                        except ValueError:
-                            pass
+                    if new_booking.guest_set.all().count() == 0:
+                        applicant = new_booking.applicant
+                        guest = Guest.objects.create(booking_source=new_booking,
+                                                     name=applicant.get_full_name(),
+                                                     ID_Number=applicant.ID_Number,
+                                                     relationship='Self',
+                                                     gender=applicant.gender,
+                                                     date_of_birth=applicant.birthday,
+                                                     phone=applicant.phone_number)
+                        guest.save()
 
-                total_price = calculate_booking_price(new_booking, int(booking_form['days'].data))
+                total_price = calculate_booking_price(new_booking)
                 new_booking.total_price = total_price
                 new_booking.save()
+
+                messages.success(request, "Booked Successfully.")
             return redirect('my_bookings')
         else:
             guest_info_forms = [GuestInfoForm(request.POST, prefix=str(x)) for x in range(5)]
