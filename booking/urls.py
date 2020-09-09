@@ -1,9 +1,9 @@
-from django.urls import path, include
+from django.urls import path, re_path, include
 
 from booking.views.booking.views import IndexView, MyBookingsView, BookingDetailView
 from booking.views.booking.views import booking_check_out, booking_cancel
 from booking.views.guest.views import GuestMemberEditionView
-from booking.views.guest.views import guest_addition
+from booking.views.guest.views import guest_addition, guest_remove
 
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
@@ -18,6 +18,7 @@ urlpatterns = [
                 path('guest/', include([
                     path('edit', GuestMemberEditionView.as_view(), name='guest_edit'),
                     path('add', guest_addition, name='guest_addition'),
+                    path('remove/<guest_pk>', guest_remove, name='guest_remove'),
                 ]))
             ])),
         ])),

@@ -33,13 +33,18 @@ class GuestMemberEditionView(TemplateView):
         return context
 
 
-def guest_addition(request, pk):
-    booking = get_object_or_404(Booking, pk=pk)
+def __booking_check(request, booking: Booking):
     if booking.applicant != request.user:
         messages.warning(request, "Request Rejected. You are not this booking applicant.")
     elif booking.state != State.Outstanding.value[0]:
         messages.warning(request, "Request Rejected. This booking is not outstanding.")
-        return redirect('my_bookings')
+    return redirect('my_bookings')
+
+
+def guest_addition(request, pk):
+    booking = get_object_or_404(Booking, pk=pk)
+
+    __booking_check(request, booking)
 
     guest_info_form = GuestInfoForm(request.POST)
     if guest_form_to_Guest(guest_info_form, booking):
@@ -52,3 +57,20 @@ def guest_addition(request, pk):
         context = {'booking': booking,
                    'guest_info_form': GuestInfoForm(request.POST)}
         return render(request, template, context)
+
+
+def guest_remove(request, pk, guest_pk):
+    booking = get_object_or_404(Booking, pk=pk)
+
+    __booking_check(request, booking)
+
+    if booking.applicant != request.user:
+        messages.warning(request, "You have no permission to remove the guest.")
+        return redirect('my_bookings')
+    else:
+        if booking.guest_set.all().count() == 1:
+            messages.warning(request, "The guest is last one, you cannot remove it.")
+        else:
+            Guest.objects.get(pk=guest_pk).delete()
+            messages.success(request, "Guest Removed Successfully.")
+        return redirect(request.META.get('HTTP_REFERER'))

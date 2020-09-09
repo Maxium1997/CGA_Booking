@@ -105,13 +105,13 @@ class MyBookingsView(View):
 
         elif request.user.identity == Identity.Proprietor.value[0]:
             all_bookings = Booking.objects.filter(booked_room__hotel__owner=request.user).\
-                order_by('check_in_time', 'state', 'booked_room')
+                order_by('state', 'booked_room', 'check_in_time')
             future_bookings = Booking.objects.filter(booked_room__hotel__owner=request.user, check_in_time__gt=datetime.now()).\
-                order_by('check_in_time', 'state', 'booked_room')
+                order_by('state', 'booked_room', 'check_in_time')
             past_bookings = Booking.objects.filter(booked_room__hotel__owner=request.user, check_out_time__lt=datetime.now()).\
-                order_by('check_in_time', 'state', 'booked_room')
+                order_by('state', 'booked_room', 'check_in_time')
             canceled_bookings = Booking.objects.filter(booked_room__hotel__owner=request.user, state=3).\
-                order_by('check_in_time', 'state', 'booked_room')
+                order_by('state', 'booked_room', 'check_in_time')
 
         else:
             messages.warning(request, "Unknown User.")

@@ -9,16 +9,19 @@
             <table class="table" width="100%">
                 <tbody>
                     <tr>
-                        <td colspan="3" class="h5">Unit</td>
-                        <td colspan="4">{{ booking.unit_of_applicant }}</td>
+                        <td colspan="2" class="h5">Unit</td>
+                        <td colspan="2">{{ booking.unit_of_applicant }}</td>
+                        <td colspan="4"></td>
                     </tr>
                     <tr>
-                        <td colspan="3" class="h5">Applicant</td>
-                        <td colspan="4">{{ booking.applicant.get_full_name }}</td>
+                        <td colspan="2" class="h5">Applicant</td>
+                        <td colspan="2">{{ booking.applicant.get_full_name }}</td>
+                        <td colspan="4"></td>
                     </tr>
                     <tr>
-                        <td colspan="3" class="h5">Room</td>
-                        <td colspan="4">{{ booking.booked_room }}</td>
+                        <td colspan="2" class="h5">Room</td>
+                        <td colspan="2">{{ booking.booked_room }}</td>
+                        <td colspan="4"></td>
                     </tr>
                     <tr>
                         <td class="align-middle h5">From</td>
@@ -27,7 +30,7 @@
                         <td colspan="2" class="text-center align-middle">{{ booking.check_out_time|date:'Y/m/d, H:i' }}</td>
                     </tr>
                     <tr class="text-center">
-                        <td colspan="7" class="h5">Guest</td>
+                        <td colspan="8" class="h5">Guest</td>
                     </tr>
                     <tr class="text-center">
                         <td class="align-middle">Name</td>
@@ -50,10 +53,11 @@
                         <td class="align-middle">{{ guest.date_of_birth|date:'Y/m/d' }}</td>
                         <td class="align-middle">{{ guest.phone }}</td>
                         <td class="align-middle">{% if guest.license_plate %}{{ guest.license_plate }}{% else %}-{% endif %}</td>
+                        <td><button type="button" class="btn btn-outline-danger" onclick="window.location.href='{% url 'guest_remove' booking.pk guest.pk %}'">Remove</button></td>
                     </tr>
                     {% endfor %}
                     <tr>
-                        <td colspan="7">
+                        <td colspan="8">
                             <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#Add-Guest-Form-Modal">Add Guest</button>
                             <div class="modal fade" id="Add-Guest-Form-Modal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">

@@ -41,7 +41,7 @@
                                     <tbody>
                                     {% for booking in all_bookings %}
                                         <tr class="text-center">
-                                            <td class="align-middle">{{ booking.applicant }}</td>
+                                            <td class="align-middle">{{ booking.applicant.get_full_name }}</td>
                                             <td class="align-middle">{{ booking.booked_room }}</td>
                                             <td class="align-middle">{{ booking.check_in_time|date:'Y/m/d' }}</td>
                                             <td class="align-middle">{{ booking.check_out_time|date:'Y/m/d' }}</td>
@@ -77,7 +77,7 @@
                                     <tbody>
                                     {% for booking in future_bookings %}
                                         <tr class="text-center">
-                                            <td class="align-middle">{{ booking.applicant }}</td>
+                                            <td class="align-middle">{{ booking.applicant.get_full_name }}</td>
                                             <td class="align-middle">{{ booking.booked_room }}</td>
                                             <td class="align-middle">{{ booking.check_in_time|date:'Y/m/d' }}</td>
                                             <td class="align-middle">{{ booking.check_out_time|date:'Y/m/d' }}</td>
@@ -86,7 +86,7 @@
                                                 <button type="button" class="btn btn-outline-success" {% if booking.state == State.Outstanding.value.0 %}{% else %}disabled{% endif %}>Paid</button>
                                                 <button type="button" class="btn btn-outline-danger" onclick="window.location.href='{% url 'booking_check_out' booking.pk %}'" {% if booking.state == State.Paid.value.0 %}{% else %}disabled{% endif %}>CheckOut</button>
                                                 <button type="button" class="btn btn-outline-warning" onclick="window.location.href='{% url 'booking_cancel' booking.pk %}'" {% if booking.state == State.Outstanding.value.0 %}{% else %}disabled{% endif %}>Canceled</button>
-                                                <button type="button" class="btn btn-outline-primary">More</button>
+                                                <button type="button" class="btn btn-outline-primary" onclick="window.location.href='{% url 'booking_detail' booking.pk %}'">More</button>
                                             </td>
                                         </tr>
                                     {% endfor %}
@@ -114,7 +114,7 @@
                                     <tbody>
                                     {% for booking in past_bookings %}
                                         <tr class="text-center">
-                                            <td class="align-middle">{{ booking.applicant }}</td>
+                                            <td class="align-middle">{{ booking.applicant.get_full_name }}</td>
                                             <td class="align-middle">{{ booking.booked_room }}</td>
                                             <td class="align-middle">{{ booking.check_in_time|date:'Y/m/d' }}</td>
                                             <td class="align-middle">{{ booking.check_out_time|date:'Y/m/d' }}</td>
@@ -175,7 +175,7 @@
                                     <tbody>
                                     {% for booking in canceled_bookings %}
                                         <tr class="text-center">
-                                            <td class="align-middle">{{ booking.applicant }}</td>
+                                            <td class="align-middle">{{ booking.applicant.get_full_name }}</td>
                                             <td class="align-middle">{{ booking.booked_room }}</td>
                                             <td class="align-middle">{{ booking.check_in_time|date:'Y/m/d' }}</td>
                                             <td class="align-middle">{{ booking.check_out_time|date:'Y/m/d' }}</td>
