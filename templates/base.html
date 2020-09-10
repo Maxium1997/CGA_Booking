@@ -18,6 +18,16 @@
 <body>
     {% include 'messages.html' %}
 
+    <div class="container">
+        <div class="d-flex flex-row">
+            <div class="p-1">
+                <a href="{% url 'index' %}">/Index</a>
+                {% block direction_content %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+
     {% block main%}
         <div class="container-fluid">
             <div class="row">

@@ -25,6 +25,13 @@ def readableIdentity(identity_value):
             return identity.value[1]
 
 
+@register.filter(name='readableIdentity_shortening')
+def readableIdentity_shortening(identity_value, shorten_value):
+    for identity in Identity.__members__.values():
+        if identity_value == identity.value[0]:
+            return identity.value[1][:shorten_value]+"."
+
+
 @register.filter(name='readableGender')
 def readableGender(gender_value):
     gender_value = int(gender_value)

@@ -1,4 +1,4 @@
-from django.urls import path, re_path, include
+from django.urls import path, include
 
 from booking.views.booking.views import IndexView, MyBookingsView, BookingDetailView
 from booking.views.booking.views import booking_paid, booking_check_out, booking_cancel

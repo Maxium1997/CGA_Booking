@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load registration_filters %}
+
+{% block title %}Users{% endblock %}
+
+{% block direction_content %}
+    <a href="{% url 'dashboard' %}">/Dashboard</a>
+    <u>/Users</u>
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <h3>Users</h3>
+        <div class="container">
+            <div class="row">
+                <card class="col-sm-12 col-md-6 col-lg-4 mt-2">
+                    <div class="card-footer">
+                        <h4>Super User</h4>
+                        <p>count: {{ superusers.count }}</p>
+                        <p>
+                            {% for superuser in superusers %}
+                            <i data-toggle="modal" data-target="#{{ superuser }}-content">{{ superuser }}</i>
+                            <div class="modal fade" id="{{ superuser }}-content" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header text-center" style="width: 100%">
+                                            <h5 class="modal-title" id="ModalLongTitle">Superuser Detail</h5>
+                                        </div>
+
+                                        <div id="mode-menu" style="width: 100%">
+                                            <ul>
+                                                <li><strong>Username：</strong>{{ superuser.username }}</li>
+                                                <li><strong>Full Name：</strong>{{ superuser.get_full_name }}</li>
+                                                <li><strong>ID：</strong>{{ superuser.ID_Number }}</li>
+                                                <li><strong>Phone：</strong>{{ superuser.phone_number }}</li>
+                                                <li><strong>Mail：</strong>{{ superuser.email }}</li>
+                                                <li><strong>Gender：</strong>{{ superuser.gender|readableGender }}</li>
+                                                <li><strong>Privilege：</strong>{{ superuser.privilege|readablePrivilege }}</li>
+                                                <li><strong>Last Login：</strong>{{ superuser.last_login|date:'Y/m/d, H:i' }}</li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="modal-footer" style="width: 100%">
+                                            <a class="btn btn-outline-dark" data-dismiss="modal">Close</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </p>
+                        <i style="cursor: pointer" class="btn badge-pill btn-outline-success m-1" onclick="window.location.href='#add-superuser'">Add+</i>
+                    </div>
+                </card>
+                <card class="col-sm-12 col-md-6 col-lg-8 mt-2">
+                    <div class="card-footer">
+                        <h4>User</h4>
+                        <p>total: {{ users.count }}</p>
+                        <p>travelers: {{ travelers.count }}</p>
+                        <p>proprietors: {{ proprietors.count }}</p>
+                        <ul class="nav" id="dashboardTab" role="tablist">
+                            <li class="nav-item">
+                                <i class="nav-link btn badge-pill btn-outline-primary m-1" id="user-tab" data-toggle="tab" href="#user" role="tab" aria-controls="user" aria-selected="true">Open User Table</i>
+                            </li>
+                            <li class="nav-item">
+                                <i class="nav-link btn badge-pill btn-outline-primary m-1" id="close-tab" data-toggle="tab" href="#close" role="tab" aria-controls="close" aria-selected="true">Close</i>
+                            </li>
+                        </ul>
+                    </div>
+                </card>
+            </div>
+            <div class="tab-content" id="tabContent">
+                <div class="tab-pane fade" id="user" role="tabpanel" aria-labelledby="user-tab">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr class="text-center">
+                                            <th style="width: 20%">U_name</th>
+                                            <th style="width: 20%">F_name</th>
+                                            <th style="width: 20%">Pri.</th>
+                                            <th style="width: 20%">Ide.</th>
+                                            <th style="width: 20%">Last</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for user in users %}
+                                        <tr class="text-center">
+                                            <td class="align-middle">{{ user.username }}</td>
+                                            <td class="align-middle">{{ user.get_full_name }}</td>
+                                            <td class="align-middle">{{ user.privilege|readablePrivilege }}</td>
+                                            <td class="align-middle">{{ user.identity|readableIdentity_shortening:3 }}</td>
+                                            <td class="align-middle">{{ user.last_login|date:'Y/m/d, H:i' }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="close" role="tabpanel" aria-labelledby="close-tab">
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
