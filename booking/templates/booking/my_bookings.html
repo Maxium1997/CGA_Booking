@@ -47,7 +47,7 @@
                                             <td class="align-middle">{{ booking.check_out_time|date:'Y/m/d' }}</td>
                                             <td class="align-middle">{{ booking.state|readableState }}</td>
                                             <td class="align-middle">
-                                                <button type="button" class="btn btn-outline-success" {% if booking.state == State.Outstanding.value.0 %}{% else %}disabled{% endif %}>Paid</button>
+                                                <button type="button" class="btn btn-outline-success" onclick="window.location.href='{% url 'booking_paid' booking.pk %}'" {% if booking.state == State.Outstanding.value.0 %}{% else %}disabled{% endif %}>Paid</button>
                                                 <button type="button" class="btn btn-outline-danger" onclick="window.location.href='{% url 'booking_check_out' booking.pk %}'" {% if booking.state == State.Paid.value.0 %}{% else %}disabled{% endif %}>CheckOut</button>
                                                 <button type="button" class="btn btn-outline-primary" onclick="window.location.href='{% url 'booking_detail' booking.pk %}'">More</button>
                                             </td>
@@ -83,7 +83,7 @@
                                             <td class="align-middle">{{ booking.check_out_time|date:'Y/m/d' }}</td>
                                             <td class="align-middle">{{ booking.state|readableState }}</td>
                                             <td class="align-middle">
-                                                <button type="button" class="btn btn-outline-success" {% if booking.state == State.Outstanding.value.0 %}{% else %}disabled{% endif %}>Paid</button>
+                                                <button type="button" class="btn btn-outline-success" onclick="window.location.href='{% url 'booking_paid' booking.pk %}'" {% if booking.state == State.Outstanding.value.0 %}{% else %}disabled{% endif %}>Paid</button>
                                                 <button type="button" class="btn btn-outline-danger" onclick="window.location.href='{% url 'booking_check_out' booking.pk %}'" {% if booking.state == State.Paid.value.0 %}{% else %}disabled{% endif %}>CheckOut</button>
                                                 <button type="button" class="btn btn-outline-warning" onclick="window.location.href='{% url 'booking_cancel' booking.pk %}'" {% if booking.state == State.Outstanding.value.0 %}{% else %}disabled{% endif %}>Canceled</button>
                                                 <button type="button" class="btn btn-outline-primary" onclick="window.location.href='{% url 'booking_detail' booking.pk %}'">More</button>
@@ -291,6 +291,7 @@
                                                 <strong>{{ booking.booked_room.hotel.name }}｜{{ booking.booked_room.name }}</strong><br>
                                                 <strong>Check In</strong>: {{ booking.check_in_time|date:'Y/m/d H:i' }}<br>
                                                 <strong>Check Out</strong>: {{ booking.check_out_time|date:'Y/m/d H:i' }}<br>
+                                                <strong>State</strong>: {{ booking.state|readableState }}<br>
                                             </p>
                                         </div>
                                     </div>
@@ -305,8 +306,10 @@
                                                 <div id="modal-menu" style="width: 100%">
                                                     <ul class="list-inline text-center">
                                                         <li class="p-3 border-bottom" style="cursor: pointer" onclick="window.location.href='{% url 'booking_detail' booking.pk %}'">View Booking</li>
+                                                        {% if booking.state == State.Outstanding.value.0 %}
                                                         <li class="p-3 border-bottom" style="cursor: pointer" onclick="window.location.href='{% url 'guest_edit' booking.pk %}'">Edit Guest Member</li>
                                                         <li class="p-3" style="cursor: pointer" onclick="window.location.href='{% url 'booking_cancel' booking.pk %}'">Cancel Order</li>
+                                                        {% endif %}
                                                     </ul>
                                                 </div>
 

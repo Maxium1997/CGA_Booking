@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-
+from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView, View, DetailView
 from django.contrib.auth.decorators import login_required
@@ -96,22 +96,22 @@ class MyBookingsView(View):
         if request.user.identity == Identity.Traveler.value[0]:
             all_bookings = Booking.objects.filter(applicant=request.user).\
                 order_by('check_in_time', 'state', 'booked_room')
-            future_bookings = Booking.objects.filter(applicant=request.user,check_in_time__gt=datetime.now()).\
+            future_bookings = Booking.objects.filter(applicant=request.user, check_in_time__gt=datetime.now()).exclude(state=State.Canceled.value[0]).\
                 order_by('check_in_time', 'state', 'booked_room')
             past_bookings = Booking.objects.filter(applicant=request.user, check_out_time__lt=datetime.now()).\
                 order_by('check_in_time', 'state', 'booked_room')
-            canceled_bookings = Booking.objects.filter(applicant=request.user, state=3).\
-                order_by('check_in_time', 'state', 'booked_room')
+            canceled_bookings = Booking.objects.filter(applicant=request.user, state=State.Canceled.value[0]).\
+                order_by('check_in_time', 'booked_room')
 
         elif request.user.identity == Identity.Proprietor.value[0]:
             all_bookings = Booking.objects.filter(booked_room__hotel__owner=request.user).\
                 order_by('state', 'booked_room', 'check_in_time')
-            future_bookings = Booking.objects.filter(booked_room__hotel__owner=request.user, check_in_time__gt=datetime.now()).\
+            future_bookings = Booking.objects.filter(booked_room__hotel__owner=request.user, check_in_time__gt=datetime.now()).exclude(state=State.Canceled.value[0]).\
                 order_by('state', 'booked_room', 'check_in_time')
             past_bookings = Booking.objects.filter(booked_room__hotel__owner=request.user, check_out_time__lt=datetime.now()).\
                 order_by('state', 'booked_room', 'check_in_time')
-            canceled_bookings = Booking.objects.filter(booked_room__hotel__owner=request.user, state=3).\
-                order_by('state', 'booked_room', 'check_in_time')
+            canceled_bookings = Booking.objects.filter(booked_room__hotel__owner=request.user, state=State.Canceled.value[0]).\
+                order_by('booked_room', 'check_in_time')
 
         else:
             messages.warning(request, "Unknown User.")
@@ -138,23 +138,37 @@ class BookingDetailView(DetailView):
         return context
 
 
-def booking_check_out(request, pk):
+def booking_paid(request, pk):
     booking = get_object_or_404(Booking, pk=pk)
-    if booking.booked_room.hotel.owner != request.user:
+    if request.user != booking.booked_room.hotel.owner:
         messages.warning(request, "You have no permission to modify the booking.")
     else:
-        booking.state = State.CheckedOut.value[0]
+        booking.state = State.Paid.value[0]
         booking.save()
         messages.success(request, "Modified Successfully.")
-    return redirect('my_bookings')
+    return redirect(request.META.get('HTTP_REFERER'))
+
+
+def booking_check_out(request, pk):
+    booking = get_object_or_404(Booking, pk=pk)
+    if request.user == booking.booked_room.hotel.owner:
+        if booking.state == State.Paid.value[0]:
+            booking.state = State.CheckedOut.value[0]
+            booking.save()
+            messages.success(request, "Modified Successfully.")
+        else:
+            messages.warning(request, "This booking didn't paid, cannot turn the state to check out.")
+    else:
+        messages.warning(request, "You have no permission to modify the booking.")
+    return redirect(request.META.get('HTTP_REFERER'))
 
 
 def booking_cancel(request, pk):
     booking = get_object_or_404(Booking, pk=pk)
-    if booking.booked_room.hotel.owner != request.user or booking.applicant != request.user:
-        messages.warning(request, "You have no permission to cancel the booking.")
-    else:
-        booking.state = State.CheckedOut.value[0]
+    if request.user == booking.applicant or request.user == booking.booked_room.hotel.owner:
+        booking.state = State.Canceled.value[0]
         booking.save()
         messages.success(request, "Canceled Successfully.")
-    return redirect('my_bookings')
+    else:
+        messages.warning(request, "You have no permission to cancel the booking.")
+    return redirect(request.META.get('HTTP_REFERER'))
