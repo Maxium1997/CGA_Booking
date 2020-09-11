@@ -63,6 +63,12 @@ class UserDetailView(TemplateView):
     template_name = 'admin/user/detail.html'
     model = User
 
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_superuser:
+            messages.error(request, "Permission Denied.")
+            return redirect('index')
+        return super(UserDetailView, self).dispatch(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         kwargs['superusers'] = User.objects.filter(is_superuser=True)
         kwargs['users'] = User.objects.exclude(is_superuser=True)

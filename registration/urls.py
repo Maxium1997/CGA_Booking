@@ -10,6 +10,7 @@ urlpatterns = [
     path('admin/', include([
         path('dashboard', DashboardView.as_view(), name='dashboard'),
         path('users', UserDetailView.as_view(), name='user_detail'),
+        path('', include('rank.urls'))
     ])),
 
     path('accounts/', include([
@@ -21,5 +22,5 @@ urlpatterns = [
         path('login', LoginView.as_view(template_name='login.html'), name='login'),
         path('logout', LogoutView.as_view(), name='logout'),
         path('change', user_change, name='user_change'),
-    ]))
+    ])),
 ]

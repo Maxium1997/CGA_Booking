@@ -26,7 +26,7 @@
                         <p>services: {{ services.count }}</p>
                         <p>branches: {{ branches.count }}</p>
                         <p>ranks: {{ ranks.count }}</p>
-                        <span style="cursor: pointer" class="btn badge-pill btn-outline-primary" onclick="window.location.href='#service-detail'">Detail&raquo;</span>
+                        <span style="cursor: pointer" class="btn badge-pill btn-outline-primary" onclick="window.location.href='{% url 'service_detail' %}'">Detail&raquo;</span>
                     </div>
                 </card>
             </div>
