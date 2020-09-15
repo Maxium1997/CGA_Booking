@@ -60,8 +60,8 @@ class HotelDetailView(View):
         template = 'hotel/detail.html'
         context = {
             'hotel': hotel,
-            'hotels': Hotel.objects.all(),
-            'rooms': hotel.room_set.all()
+            'rooms': hotel.room_set.all(),
+            'hotels': Hotel.objects.exclude(id=hotel.id)[:4],
         }
         return render(request, template, context)
 
@@ -81,7 +81,8 @@ class HotelEditionView(View):
             return redirect('hotels')
 
         template = 'hotel/edition.html'
-        context = {'form': HotelForm(instance=hotel)}
+        context = {'hotel': hotel,
+                   'form': HotelForm(instance=hotel)}
 
         return render(request, template, context)
 

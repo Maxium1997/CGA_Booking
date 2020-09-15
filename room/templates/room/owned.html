@@ -3,27 +3,14 @@
 
 {% block title %}My Rooms{% endblock %}
 
-{% block left_side %}
-    <div id="sidebar" class="col-sm-12">
-        <div class="mt-4 text-center">
-            <button type="button" class="btn btn-outline-dark" onclick="history.go(-1);">Back</button>
-        </div>
-    </div>
-    {% if request.user.is_anonymous %}
-    {% else %}
-        {% if request.user|is_proprietor %}
-            <div id="sidebar" class="col-sm-12">
-                <div class="mt-4 text-center">
-                    <button type="button" class="btn btn-outline-primary" onclick="window.location.href='{% url 'room_creation' hotel.slug %}'">New room</button>
-                </div>
-            </div>
-        {% endif %}
-    {% endif %}
+{% block direction_content %}
+    <a href="{% url 'my_hotels' %}">/My Hotels</a>
+    <u>/{{ hotel.name }}</u>
 {% endblock %}
 
 {% block content %}
     <div class="container">
-        <h1>Rooms in {{ hotel.name }}</h1>
+        <h3>Rooms in {{ hotel.name }}</h3>
         <p class="lead">Total: {{ rooms.count }}</p>
         <div class="row">
             <div class="table-responsive">

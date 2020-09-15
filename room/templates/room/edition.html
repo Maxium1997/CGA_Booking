@@ -2,8 +2,10 @@
 
 {% block title %}Room Edition{% endblock %}
 
-{% block left_side %}
-
+{% block direction_content %}
+    <a href="{% url 'my_hotels' %}">/My Hotels</a>
+    <a href="{% url 'my_rooms' hotel.slug %}">/{{ hotel.name }}</a>
+    <u>/{{ room.name }} - Edition</u>
 {% endblock %}
 
 {% block content %}

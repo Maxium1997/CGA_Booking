@@ -5,17 +5,8 @@
 
 {% block title %}Hotels{% endblock %}
 
-{% block left_side %}
-    {% if request.user.is_anonymous %}
-    {% else %}
-        {% if request.user|is_proprietor %}
-            <div id="sidebar" class="col-sm-12">
-                <div class="mt-4 text-center">
-                    <button type="button" class="btn btn-outline-success" onclick="window.location.href='{% url 'hotel_creation' %}'">New hotel</button>
-                </div>
-            </div>
-        {% endif %}
-    {% endif %}
+{% block direction_content %}
+    <u>/Hotels</u>
 {% endblock %}
 
 {% block content %}
@@ -33,7 +24,7 @@
                                         {% if hotel.external_appearance %}
                                             <img class="card-img-top mt-2 mb-2" src="{{ hotel.external_appearance.url }}" alt="{{ hotel.name }}" >
                                         {% else %}
-                                            <img src="{% static 'image/ilustracion-concepto-fallo-conexion/3024051.jpg' %}">
+                                            <img src="{% static 'image/page_not_found404/page_not_found404.jpg' %}">
                                         {% endif %}
                                     </div>
                                     <div class="col-sm-8">

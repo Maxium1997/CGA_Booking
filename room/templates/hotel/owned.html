@@ -3,17 +3,8 @@
 
 {% block title %}My Hotels{% endblock %}
 
-{% block left_side %}
-    {% if request.user.is_anonymous %}
-    {% else %}
-        {% if request.user|is_proprietor %}
-            <div id="sidebar" class="col-sm-12">
-                <div class="mt-4 text-center">
-                    <button type="button" class="btn btn-outline-primary" onclick="window.location.href='{% url 'hotel_creation' %}'">New hotel</button>
-                </div>
-            </div>
-        {% endif %}
-    {% endif %}
+{% block direction_content %}
+    <u>/My Hotels</u>
 {% endblock %}
 
 {% block content %}
@@ -48,6 +39,13 @@
                             <td colspan="4">You don't have your hotel recently.</td>
                         </tr>
                     {% endfor %}
+                    {% if request.user|is_proprietor %}
+                        <tr class="text-center">
+                            <td colspan="4">
+                                <button class="btn btn-outline-success" onclick="window.location.href='{% url 'hotel_creation' %}'">New Hotel</button>
+                            </td>
+                        </tr>
+                    {% endif %}
                     </tbody>
                 </table>
             </div>

@@ -14,3 +14,19 @@ def shorten_to(original_text: str, word_count: int):
 @register.filter(name='is_hotel_owner')
 def is_hotel_owner(user: User, hotel: Hotel):
     return True if hotel.owner == user else False
+
+
+@register.filter(name='region')
+def region(address: str):
+    return address[:3]
+
+
+@register.filter(name='lowest_price')
+def lowest_price(hotel: Hotel):
+    rooms = hotel.room_set.all()
+    lowest_room = rooms[0]
+    for room in rooms:
+        if room.dormitory.get_price() < lowest_room.dormitory.get_price():
+            lowest_room = room
+
+    return lowest_room.dormitory.get_price()

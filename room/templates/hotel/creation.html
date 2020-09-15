@@ -4,26 +4,13 @@
 
 {% block title %}New Hotel{% endblock %}
 
-{% block left_side %}
-    <div id="sidebar" class="col-sm-12">
-        <div class="mt-4 text-center">
-            <button type="button" class="btn btn-outline-dark" onclick="history.go(-1);">Back</button>
-        </div>
-    </div>
-    {% if request.user.is_anonymous %}
-    {% else %}
-        {% if request.user|is_proprietor %}
-            <div id="sidebar" class="col-sm-12">
-                <div class="mt-4 text-center">
-                    <button type="button" class="btn btn-outline-primary" onclick="window.location.href='{% url 'hotel_creation' %}'">New hotel</button>
-                </div>
-            </div>
-        {% endif %}
-    {% endif %}
+{% block direction_content %}
+    <a href="{% url 'my_hotels' %}">/My Hotels</a>
+    <u>/New Hotel</u>
 {% endblock %}
 
 {% block content %}
-    <div class="col-sm-10">
+    <div class="col-sm-12">
         <h3>New hotel</h3>
         <p class="lead" style="font-size: 12px">Please complete the following information about your hotel.</p>
         <form method="post" enctype="multipart/form-data">

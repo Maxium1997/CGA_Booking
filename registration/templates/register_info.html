@@ -2,33 +2,37 @@
 
 {% block title %}Register{% endblock %}
 
-{% block content %}
-    <div class="col-sm-7 mt-2">
-        <div class="card shadow">
-            <div class="card-body">
-            <form method="post">
-                {% csrf_token %}
+{% block main %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-sm-6 mt-2">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
 
-                <p>Username
-                    {{ form.username }}</p>
+                            <p>Username
+                                {{ form.username }}</p>
 
-                <p>ID Number
-                    {{ form.ID_Number }}</p>
+                            <p>ID Number
+                                {{ form.ID_Number }}</p>
 
-                <p>Password
-                    {{ form.password1 }}</p>
+                            <p>Password
+                                {{ form.password1 }}</p>
 
-                <p>Password Confirmation
-                    {{ form.password2 }}</p>
+                            <p>Password Confirmation
+                                {{ form.password2 }}</p>
 
-                <div class="text-right">
-                    <button type="submit" class="btn btn-success">Register</button>
-                    <button type="button" class="btn btn-secondary" onclick="history.go(-1);">Cancel</button>
+                            <div class="text-right">
+                                <button type="submit" class="btn btn-success">Register</button>
+                                <button type="button" class="btn btn-secondary" onclick="history.go(-1);">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-footer text-center">
+                        Have an account? <a href="{% url 'login' %}">Login</a>
+                    </div>
                 </div>
-            </form>
-        </div>
-            <div class="card-footer text-center">
-                Have an account? <a href="{% url 'login' %}">Login</a>
             </div>
         </div>
     </div>

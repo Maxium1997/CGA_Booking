@@ -5,78 +5,108 @@
 
 {% block title %}{{ hotel.name }}{% endblock %}
 
-{% block left_side %}
-    {% if request.user.is_anonymous %}
-    {% else %}
-        {% if request.user|is_proprietor and request.user|is_hotel_owner:hotel %}
-            <div id="sidebar" class="col-sm-12">
-                <div class="mt-4 text-center">
-                    <button type="button" class="btn btn-outline-success" onclick="window.location.href='{% url 'room_creation' hotel.slug %}'">New room</button>
-                </div>
-            </div>
-        {% endif %}
-    {% endif %}
-    <div id="sidebar" class="col-sm-12">
-        <div class="mt-4 text-center">
-            {% for hotel in hotels %}
-                <a href="{% url 'hotel_detail' hotel.slug %}" class="btn btn-outline-primary mt-1" >{{ hotel }}</a>
-            {% endfor %}
-        </div>
-    </div>
+{% block direction_content %}
+    <a href="{% url 'hotels' %}">/Hotels</a>
+    <u>/{{ hotel.name }}</u>
 {% endblock %}
 
 {% block content %}
-    <div class="col-sm-12 mt-2">
-        <div class="hotel-external-appearance">
-            {% if hotel.external_appearance %}
-                <img class="card-img-top mt-2 mb-2" src="{{ hotel.external_appearance.url }}" alt="{{ hotel.name }}" >
-            {% else %}
-                <img class="card-img-top mt-2 mb-2" src="{% static 'image/file_not_found/file_not_found.jpg' %}" alt="Proprietor not upload photo recently.">
-            {% endif %}
-        </div>
-        <h3>{{ hotel.name }}</h3>
-        <p class="lead">
-            <strong>Rooms</strong>: {{ hotel.room_set.all.count }}<br>
-            <strong>Address</strong>: {{ hotel.address }}<br>
-            <strong>Phone</strong>: {{ hotel.phone }}<br>
-            <strong>Website</strong>: <a href="{{ hotel.website }}">{{ hotel.website }}</a><br>
-            <strong>Introduction</strong><br>{{ hotel.introduction }}
-        </p>
-        <div class="container">
-            <div class="row">
-                {% for room in rooms %}
-                    <div class="col-lg-4 col-md-6 col-sm-12 mt-4">
-                        <div class="card shadow" style="cursor: pointer" onclick="window.location.href='{% url 'room_detail' hotel.slug room.pk %}'">
-                            <div class="card-body room-photo">
-                                {% if room.photo %}
-                                    <img class="card-img-top mt-2 mb-2" src="{{ room.photo.url }}" alt="{{ room.name }}" >
-                                {% else %}
-                                    <img src="{% static 'image/file_not_found/file_not_found.jpg' %}" width="200" height="200">
-                                {% endif %}
-                            </div>
-                            <div class="card-footer">
-                                <p>
-                                    <strong>{{ room.name }}</strong><br>
-                                    Single Bed: {{ room.single_bed }}<br>
-                                    Double Bed: {{ room.double_bed }}<br>
-                                    Washing: {{ room.dormitory.washing_fee }}<br>
-                                    Usage: {{ room.dormitory.usage_fee }}<br>
-                                    Utility Bill: {{ room.dormitory.utility_bill }}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
+                <div class="hotel-external-appearance">
+                    {% if hotel.external_appearance %}
+                        <img class="card-img-top mt-2 mb-2" src="{{ hotel.external_appearance.url }}" alt="{{ hotel.name }}" >
+                    {% else %}
+                        <img class="card-img-top mt-2 mb-2" src="{% static 'image/file_not_found/file_not_found.jpg' %}" alt="Proprietor not upload photo recently.">
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
+                <h3>{{ hotel.name }}</h3>
+                <p class="lead">
+                    <strong>Rooms</strong>: {{ hotel.room_set.all.count }}<br>
+                    <strong>Address</strong>: {{ hotel.address }}<br>
+                    <strong>Phone</strong>: {{ hotel.phone }}<br>
+                    <strong>Website</strong>: <a href="{{ hotel.website }}">{{ hotel.website }}</a><br>
+                    <strong>Introduction</strong><br>{{ hotel.introduction }}
+                </p>
             </div>
         </div>
     </div>
+    <div class="container">
+        <div class="row">
+            {% for room in rooms %}
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 mt-4">
+                    <div class="card shadow" style="cursor: pointer" onclick="window.location.href='{% url 'room_detail' hotel.slug room.pk %}'">
+                        <div class="card-header">
+                            {{ room.name }} - ${{ room.dormitory.get_price }}（per/night）
+                        </div>
+                        <div class="card-body room-photo">
+                            {% if room.photo %}
+                                <img class="card-img-top mt-2 mb-2" src="{{ room.photo.url }}" alt="{{ room.name }}" >
+                            {% else %}
+                                <img src="{% static 'image/file_not_found/file_not_found.jpg' %}" width="200" height="200">
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <h3>Other Rooms</h3>
+            <div class="table-responsive" id="other-related-hotel-block">
+                <table class="table">
+                    <tr class="text-center">
+                        <td></td>
+                        {% for hotel in hotels %}
+                            <td><img src="{{ hotel.external_appearance.url }}"></td>
+                        {% endfor %}
+                    </tr>
+                    <tr class="text-center">
+                        <td>Name</td>
+                        {% for hotel in hotels %}
+                            <td>{{ hotel.name }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr class="text-center">
+                        <td>Region</td>
+                        {% for hotel in hotels %}
+                            <td>{{ hotel.address|region }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr class="text-center">
+                        <td>Lowest Price</td>
+                        {% for hotel in hotels %}
+                            <td>{{ hotel|lowest_price }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr class="text-center">
+                        <td></td>
+                        {% for hotel in hotels %}
+                            <td>
+                                <button type="button" class="btn btn-outline-primary" onclick="window.location.href='{% url 'hotel_detail' hotel.slug %}'">View</button>
+                            </td>
+                        {% endfor %}
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
     <style>
         .hotel-external-appearance img{
-            width: 50%;
+            width: 100%;
             height: auto;
         }
         .room-photo img{
             width: 100%;
+            height: auto;
+        }
+        #other-related-hotel-block table > tbody > tr > td > img{
+            width: 200px;
             height: auto;
         }
     </style>

@@ -4,25 +4,25 @@
 
 {% block title %}Register{% endblock %}
 
-{% block content %}
+{% block main %}
     <div class="container">
         <h1>Select your Identity</h1>
         <p class="lead">To register your account, you will not be able to change your status in the future.</p>
-        <div class="row">
-            <div class="col-sm-6">
+        <div class="row justify-content-center">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                 <div class="card text-center" style="cursor: pointer" onclick="window.location.href='{% url 'traveler_register' %}'">
                     <div class="card-body">
-                        <img src="{% static 'image/person-looking-his-phone-map-local-tourism/4023656.jpg' %}" width="90%">
+                        <img src="{% static 'image/person-looking-his-phone-map-local-tourism/4023656.jpg' %}" width="40%">
                     </div>
                     <div class="card-footer">
                         Traveler
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                 <div class="card text-center" style="cursor: pointer" onclick="window.location.href='{% url 'proprietor_register' %}'">
                     <div class="card-body">
-                        <img src="{% static 'image/vector-flat-illustration-man-working-computer/113.jpg' %}" width="90%">
+                        <img src="{% static 'image/vector-flat-illustration-man-working-computer/113.jpg' %}" width="40%">
                     </div>
                     <div class="card-footer">
                         Proprietor
