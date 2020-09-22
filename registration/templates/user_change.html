@@ -8,28 +8,32 @@
 {% endblock %}
 
 {% block content %}
-    <form class="col-sm-8" method="post">
-        {% csrf_token %}
-        <div class="card">
-            <div class="card-body">
-                {{ account_change_form.first_name.label }}
-                {{ account_change_form.first_name }}
-                {{ account_change_form.last_name.label }}
-                {{ account_change_form.last_name }}
-                {{ account_change_form.email.label }}
-                {{ account_change_form.email }}
-                {{ account_change_form.gender.label }}
-                {{ account_change_form.gender }}
-                {{ account_change_form.phone_number.label }}
-                {{ account_change_form.phone_number }}
-                {{ account_change_form.birthday.label }}
-                {{ account_change_form.birthday }}
-                <i style="color: red">{{ account_change_form.birthday.help_text }}</i>
-            </div>
-            <div class="card-footer">
-                <button type="submit" class="btn btn-outline-primary">Submit</button>
-                <button type="button" class="btn btn-outline-dark" onclick="window.location.href='{% url 'user_change' %}'">Reset</button>
-            </div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <form class="col-xs-12 col-sm-12 col-md-8 col-lg-6" method="post">
+            {% csrf_token %}
+                <div class="card">
+                    <div class="card-body">
+                        {{ account_change_form.first_name.label }}
+                        {{ account_change_form.first_name }}
+                        {{ account_change_form.last_name.label }}
+                        {{ account_change_form.last_name }}
+                        {{ account_change_form.email.label }}
+                        {{ account_change_form.email }}
+                        {{ account_change_form.gender.label }}
+                        {{ account_change_form.gender }}
+                        {{ account_change_form.phone_number.label }}
+                        {{ account_change_form.phone_number }}
+                        {{ account_change_form.birthday.label }}
+                        {{ account_change_form.birthday }}
+                        <i style="color: red">{{ account_change_form.birthday.help_text }}</i>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-outline-primary">Submit</button>
+                        <button type="button" class="btn btn-outline-dark" onclick="window.location.href='{% url 'user_change' %}'">Reset</button>
+                    </div>
+                </div>
+            </form>
         </div>
-    </form>
+    </div>
 {% endblock %}
