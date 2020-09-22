@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 from registration.definition import Gender, Privilege, Identity
-from rank.models import Rank
+from rank.models import Rank, Service, Branch
 # Create your models here.
 
 
@@ -24,6 +24,41 @@ class User(AbstractUser):
 
 class Officer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    service_state = models.PositiveSmallIntegerField()
-    rank = models.ForeignKey(Rank, on_delete=models.PROTECT)
-    level = models.PositiveSmallIntegerField(default=1, null=False, blank=False)
+    serve_state = models.PositiveSmallIntegerField(null=True)
+    military_service = models.PositiveSmallIntegerField(null=True)
+    service = models.ForeignKey(Service, on_delete=models.SET_NULL, null=True)
+    branch = models.ForeignKey(Branch, on_delete=models.SET_NULL, null=True)
+    rank = models.ForeignKey(Rank, on_delete=models.SET_NULL, null=True)
+    level = models.PositiveSmallIntegerField(default=1, null=True, blank=True)
+    date_of_enlist = models.DateField(null=True)
+    date_of_retire = models.DateField(null=True)
+    attachment_of_military_ID_card_front = models.ImageField(upload_to='user', null=True, blank=True)
+    attachment_of_military_ID_card_back = models.ImageField(upload_to='user', null=True, blank=True)
+    attachment_of_badge_front = models.ImageField(upload_to='user', null=True, blank=True)
+    attachment_of_badge_back = models.ImageField(upload_to='user', null=True, blank=True)
+    identity_authentication = models.BooleanField(default=False)
+    serve_record = models.TextField(null=True, blank=True)
+
+    def attachment_of_military_ID_card_front_upload(self, photo):
+        self.attachment_of_military_ID_card_front.save(self.user.username+'/officer/military-ID-card-front-{}'.format(photo),
+                                                       photo,
+                                                       save=True)
+        self.save()
+
+    def attachment_of_military_ID_card_back_upload(self, photo):
+        self.attachment_of_military_ID_card_back.save(self.user.username+'/officer/military-ID-card-back-{}'.format(photo),
+                                                      photo,
+                                                      save=True)
+        self.save()
+
+    def attachment_of_badge_front_upload(self, photo):
+        self.attachment_of_badge_front.save(self.user.username+'/officer/badge-front-{}'.format(photo),
+                                            photo,
+                                            save=True)
+        self.save()
+
+    def attachment_of_badge_back_upload(self, photo):
+        self.attachment_of_badge_back.save(self.user.username+'/officer/badge-back-{}'.format(photo),
+                                           photo,
+                                           save=True)
+        self.save()

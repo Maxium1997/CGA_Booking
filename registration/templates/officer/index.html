@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% load registration_filters %}
+
+{% block title %}Officer{% endblock %}
+
+{% block direction_content %}
+    <u>/Officer</u>
+    <u>/Index</u>
+{% endblock %}
+
+{% block content %}
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                    <form action="{% url 'officer_change' %}" method="post">
+                        {% csrf_token %}
+                        <div class="card">
+                            <div class="card-body">
+                                <p>
+                                {{ officer_form.serve_state.label }}
+                                {{ officer_form.serve_state }}
+                                </p>
+                                <p>
+                                {{ officer_form.military_service.label }}
+                                {{ officer_form.military_service }}
+                                </p>
+                                <p>
+                                {{ officer_form.service.label }}
+                                {{ officer_form.service }}
+                                </p>
+                                <p>
+                                {{ officer_form.branch.label }}
+                                {{ officer_form.branch }}
+                                </p>
+                                <p>
+                                {{ officer_form.rank.label }}
+                                {{ officer_form.rank }}
+                                </p>
+                                <p>
+                                {{ officer_form.level.label }}
+                                {{ officer_form.level }}
+                                </p>
+                                <p>{{ officer_form.date_of_enlist.label }}
+                                {{ officer_form.date_of_enlist }}
+                                <i style="color: red;">{{ officer_form.date_of_enlist.help_text }}</i>
+                                </p>
+                                <p>{{ officer_form.date_of_retire.label }}
+                                {{ officer_form.date_of_retire }}
+                                <i style="color: red;">{{ officer_form.date_of_retire.help_text }}</i>
+                                </p>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-outline-primary">Update</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8">
+                    <div class="card">
+                        <form action="{% url 'military_ID_card_front_upload' %}" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="card-body">
+                                {% if officer.attachment_of_military_ID_card_front %}
+                                    <img src="{{ officer.attachment_of_military_ID_card_front.url }}" width="15%">
+                                {% endif %}
+                                {{ attachment_of_military_ID_card_front_form }}
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-outline-primary">Upload</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card">
+                        <form action="{% url 'military_ID_card_back_upload' %}" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="card-body">
+                                {% if officer.attachment_of_military_ID_card_back %}
+                                    <img src="{{ officer.attachment_of_military_ID_card_back.url }}" width="15%">
+                                {% endif %}
+                                {{ attachment_of_military_ID_card_back_form }}
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-outline-primary">Upload</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card">
+                        <form action="{% url 'badge_front_upload' %}" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="card-body">
+                                {% if officer.attachment_of_badge_front %}
+                                    <img src="{{ officer.attachment_of_badge_front.url }}" width="15%">
+                                {% endif %}
+                                {{ attachment_of_badge_front_form }}
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-outline-primary">Upload</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card">
+                        <form action="{% url 'badge_back_upload' %}" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="card-body">
+                                {% if officer.attachment_of_badge_back %}
+                                    <img src="{{ officer.attachment_of_badge_back.url }}" width="15%">
+                                {% endif %}
+                                {{ attachment_of_badge_back_form }}
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-outline-primary">Upload</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}

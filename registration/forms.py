@@ -1,8 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
-from registration.models import User
-from registration.definition import Privilege, Identity, Gender
+from registration.models import User, Officer
+from registration.definition import Privilege, Identity, Gender, ServeState, MilitaryService
 
 
 class TravelerRegisterForm(UserCreationForm):
@@ -64,3 +64,33 @@ class AccountChangeForm(UserChangeForm):
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'email', 'gender', 'phone_number', 'birthday']
+
+
+class OfficerForm(forms.ModelForm):
+    SERVE_STATE = [('0', 'Select your serve state')] + [(str(_.value[0]), _.value[1]) for _ in ServeState.__members__.values()]
+    serve_state = forms.ChoiceField(required=True,
+                                    choices=SERVE_STATE,
+                                    widget=forms.Select(attrs={'class': 'form-control'}))
+    MILITARY_SERVICE = [('0', 'Select your military service')] + [(str(_.value[0]), _.value[1]) for _ in MilitaryService.__members__.values()]
+    military_service = forms.ChoiceField(required=True,
+                                         choices=MILITARY_SERVICE,
+                                         widget=forms.Select(attrs={'class': 'form-control'}))
+    level = forms.IntegerField(required=False,
+                               widget=forms.NumberInput(attrs={'class': 'form-control'}))
+    date_of_enlist = forms.DateField(required=False,
+                                     widget=forms.DateInput(attrs={'class': 'form-control'}),
+                                     help_text="Date Format: YYYY-MM-DD")
+    date_of_retire = forms.DateField(required=False,
+                                     widget=forms.DateInput(attrs={'class': 'form-control'}),
+                                     help_text="Date Format: YYYY-MM-DD")
+
+    class Meta:
+        model = Officer
+        exclude = ['user',
+                   'attachment_of_military_ID_card_front', 'attachment_of_military_ID_card_back',
+                   'attachment_of_badge_front', 'attachment_of_badge_back',
+                   'identity_authentication', 'serve_record']
+
+
+class AttachmentForm(forms.Form):
+    attachment = forms.ImageField(required=False)

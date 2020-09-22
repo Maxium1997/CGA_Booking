@@ -16,3 +16,17 @@ class Gender(Enum):
     Male = (1, 'Male', '男')
     Female = (2, 'Female', '女')
     Privacy = (3, 'Privacy', '不公開')
+
+
+class ServeState(Enum):
+    Active = (1, 'Active Duty', '現役')
+    Retirement = (2, 'Retirement', '退役')
+    Exemption = (3, 'Exemption', '免役')
+    Discharged = (4, 'Discharged', '除役')
+
+
+class MilitaryService(Enum):
+    Obligatory = (1, 'Obligatory military service', '義務役')
+    Regular = (2, 'Service for regulars', '常備役')
+    Voluntary = (3, 'Voluntary military service', '志願役')
+    Reservist = (4, 'Reservist', '後備軍人')
