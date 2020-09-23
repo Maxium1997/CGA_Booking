@@ -43,6 +43,11 @@
                             <td colspan="6">You don't have your hotel recently.</td>
                         </tr>
                     {% endfor %}
+                        <tr>
+                            <td colspan="6" class="text-center">
+                                <button type="button" class="btn btn-outline-success" onclick="window.location.href='{% url 'room_creation' hotel.slug %}'">Add+</button>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
