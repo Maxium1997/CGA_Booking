@@ -18,7 +18,7 @@ class ServiceDetailView(TemplateView):
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_superuser:
             messages.error(request, "Permission Denied.")
-            redirect(request.META.get('HTTP_REFERER'))
+            redirect('index')
         return super(ServiceDetailView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
@@ -36,7 +36,7 @@ class MilitaryServiceDetailView(TemplateView):
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_superuser:
             messages.error(request, "Permission Denied.")
-            redirect(request.META.get('HTTP_REFERER'))
+            redirect('index')
         return super(MilitaryServiceDetailView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
@@ -54,9 +54,10 @@ def service_addition(request):
             if service_addition_form.is_valid():
                 service_addition_form.save()
                 messages.success(request, "Added Successfully.")
+                return redirect('service_detail')
     else:
         messages.error(request, "Permission Denied.")
-    return redirect(request.META.get('HTTP_REFERER'))
+    return redirect('index')
 
 
 def branch_addition(request, slug):
@@ -69,9 +70,10 @@ def branch_addition(request, slug):
                 new_branch.service = service
                 new_branch.save()
                 messages.success(request, "Added Successfully.")
+                return redirect('service_detail')
     else:
         messages.error(request, "Permission Denied.")
-    return redirect(request.META.get('HTTP_REFERER'))
+        return redirect('index')
 
 
 def military_service_addition(request):
@@ -81,9 +83,10 @@ def military_service_addition(request):
             if military_service_addition_form.is_valid():
                 military_service_addition_form.save()
                 messages.success(request, "Added Successfully.")
+                return redirect('military_service_detail')
     else:
         messages.error(request, "Permission Denied.")
-    return redirect(request.META.get('HTTP_REFERER'))
+        return redirect('index')
 
 
 def military_branch_addition(request, slug):
@@ -96,9 +99,10 @@ def military_branch_addition(request, slug):
                 new_branch.military_service = military_service
                 new_branch.save()
                 messages.success(request, "Added Successfully.")
+                return redirect('military_service_detail')
     else:
         messages.error(request, "Permission Denied.")
-    return redirect(request.META.get('HTTP_REFERER'))
+        return redirect('index')
 
 
 def rank_addition(request, slug):
@@ -111,6 +115,7 @@ def rank_addition(request, slug):
                 new_rank.military_service = military_service
                 new_rank.save()
                 messages.success(request, "Added Successfully.")
+                return redirect('military_service_detail')
     else:
         messages.error(request, "Permission Denied.")
-    return redirect(request.META.get('HTTP_REFERER'))
+        return redirect('index')
