@@ -1,149 +1,105 @@
 {% extends 'base.html' %}
 
-{% block title %}Services{% endblock %}
+{% block title %}Detail｜Service{% endblock %}
 
 {% block direction_content %}
     <a href="{% url 'dashboard' %}">/Dashboard</a>
-    <u>/Services</u>
+    <u>/Service</u>
+    <u>/Detail</u>
 {% endblock %}
 
 {% block content %}
     <div class="container">
-        <h3>Services</h3>
-        <div class="container">
-            <div class="row">
-                <card class="col-sm-12 col-md-6 col-lg-4 mt-2">
-                    <div class="card-footer">
-                        <h4>Services</h4>
-                        <p>count: {{ services.count }}</p>
-                        <p></p>
-                        <ul class="nav" id="dashboardTab" role="tablist">
-                            <li class="nav-item">
-                                <i class="nav-link btn badge-pill btn-outline-success m-1" data-toggle="modal" data-target="#add-service-form-modal">Add+</i>
-                            </li>
-                            <li class="nav-item">
-                                <i class="nav-link btn badge-pill btn-outline-primary m-1" id="service-tab" data-toggle="tab" href="#service" role="tab" aria-controls="service" aria-selected="true">More</i>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- service addition form -->
-                    <div class="modal fade" id="add-service-form-modal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <form action="{% url 'service_addition' %}" method="post">
-                                    {% csrf_token %}
-                                    <div class="modal-header text-center" style="width: 100%">
-                                        <h5 class="modal-title" id="ModalLongTitle">Service Addition Form</h5>
-                                    </div>
+        <div class="row justify-content-center">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class="table-dark">
+                            <tr class="text-center">
+                                <td>Name</td>
+                                <td>Slug</td>
+                                <td>Branches</td>
+                                <td>Features</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for service in services %}
+                            <tr class="text-center">
+                                <td class="align-middle">{{ service.name }}</td>
+                                <td class="align-middle">{{ service.slug }}</td>
+                                <td class="align-middle">{{ service.branch_set.count }}</td>
+                                <td class="align-middle">
+                                    <i class="nav-link btn badge-pill btn-outline-primary m-1" data-toggle="modal" data-target="#add-{{ service }}-branch-form-modal">Add+</i>
+                                </td>
+                                <!-- service addition form -->
+                                <div class="modal fade" id="add-{{ service }}-branch-form-modal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <form action="{% url 'branch_addition' service.slug %}" method="post">
+                                                {% csrf_token %}
+                                                <div class="modal-header text-center" style="width: 100%">
+                                                    <h5 class="modal-title" id="ModalLongTitle">{{ service.slug|title }} Branch Addition Form</h5>
+                                                </div>
 
-                                    <div class="text-center" id="modal-menu" style="width: 100%">
-                                        {{ service_addition_form.name.label }}
-                                        {{ service_addition_form.name }}
-                                        {{ service_addition_form.slug.label }}
-                                        {{ service_addition_form.slug }}
-                                    </div>
+                                                <div class="text-center" id="modal-menu" style="width: 100%">
+                                                    {{ branch_addition_form.name.label }}
+                                                    {{ branch_addition_form.name }}
+                                                    {{ branch_addition_form.slug.label }}
+                                                    {{ branch_addition_form.slug }}
+                                                </div>
 
-                                    <div class="modal-footer" style="width: 100%">
-                                        <button type="submit" class="btn btn-outline-primary">Submit</button>
-                                        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="tab-content" id="tabContent">
-                        <div class="tab-pane fade" id="service" role="tabpanel" aria-labelledby="service-tab">
-                            <div class="container">
-                                <div class="row justify-content-center">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead class="table-dark">
-                                                <tr class="text-center">
-                                                    <th style="width: 40%">Name</th>
-                                                    <th style="width: 50%">Slug</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody role="tablist">
-                                                {% for service in services %}
-                                                    <tr class="text-center" id="{{ service }}-tab" data-toggle="tab" href="#{{ service }}" role="tab" aria-controls="{{ service }}" aria-selected="true">
-                                                        <td class="align-middle">{{ service.name }}</td>
-                                                        <td class="align-middle">{{ service.slug }}</td>
-                                                    </tr>
-                                                {% endfor %}
-                                            </tbody>
-                                        </table>
+                                                <div class="modal-footer" style="width: 100%">
+                                                    <button type="submit" class="btn btn-outline-primary">Submit</button>
+                                                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </card>
-                <!-- service detail block -->
-                <card class="col-sm-12 col-md-6 col-lg-8 mt-2">
-                    <div class="tab-content" id="tabContent">
-                        {% for service in services %}
-                        <div class="tab-pane fade {% if forloop.counter == 1 %}show active{% endif %}" id="{{ service }}" role="tabpanel" aria-labelledby="{{ service }}-tab">
-                            <div class="container">
-                                <div class="row justify-content-center">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead class="text-center">
-                                                <tr>
-                                                    <td>Branch Name</td>
-                                                    <td>Branch slug</td>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {% for branch in service.branch_set.all %}
-                                                    <tr class="text-center">
-                                                        <td>{{ branch.name }}</td>
-                                                        <td>{{ branch.slug }}</td>
-                                                    </tr>
-                                                {% empty %}
-                                                    <tr class="text-center">
-                                                        <td colspan="2">No branch recently.</td>
-                                                    </tr>
-                                                {% endfor %}
-                                                <tr>
-                                                    <td colspan="3">
-                                                        <i class="nav-link btn badge-pill btn-outline-success m-1" data-toggle="modal" data-target="#{{ service }}-add-branch-form-modal">Add+</i>
-                                                    </td>
-                                                    <!-- branch addition form -->
-                                                    <div class="modal fade" id="{{ service }}-add-branch-form-modal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
-                                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                                            <div class="modal-content">
-                                                                <form action="{% url 'branch_addition' service.slug %}" method="post">
-                                                                    {% csrf_token %}
-                                                                    <div class="modal-header text-center" style="width: 100%">
-                                                                        <h5 class="modal-title" id="ModalLongTitle">{{ service.slug|title }} branch Addition Form</h5>
-                                                                    </div>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    {% for branch in service.branch_set.all %}
+                                    <i class="badge badge-pill badge-secondary">{{ branch.name }}{{ branch.slug }}</i>
+                                    {% empty %}
+                                    <i>No branch recently.</i>
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            <tr>
+                                <td colspan="4">
+                                    <i class="nav-link btn badge-pill btn-outline-success m-1" data-toggle="modal" data-target="#add-service-form-modal">Add+</i>
+                                </td>
+                                <!-- service addition form -->
+                                <div class="modal fade" id="add-service-form-modal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <form action="{% url 'service_addition' %}" method="post">
+                                                {% csrf_token %}
+                                                <div class="modal-header text-center" style="width: 100%">
+                                                    <h5 class="modal-title" id="ModalLongTitle">Service Addition Form</h5>
+                                                </div>
 
-                                                                    <div class="text-center" id="modal-menu" style="width: 100%">
-                                                                        {{ branch_addition_form.name.label }}
-                                                                        {{ branch_addition_form.name }}
-                                                                        {{ branch_addition_form.slug.label }}
-                                                                        {{ branch_addition_form.slug }}
-                                                                    </div>
+                                                <div class="text-center" id="modal-menu" style="width: 100%">
+                                                    {{ service_addition_form.name.label }}
+                                                    {{ service_addition_form.name }}
+                                                    {{ service_addition_form.slug.label }}
+                                                    {{ service_addition_form.slug }}
+                                                </div>
 
-                                                                    <div class="modal-footer" style="width: 100%">
-                                                                        <button type="submit" class="btn btn-outline-primary">Submit</button>
-                                                                        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                                <div class="modal-footer" style="width: 100%">
+                                                    <button type="submit" class="btn btn-outline-primary">Submit</button>
+                                                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </card>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

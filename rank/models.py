@@ -4,7 +4,7 @@ from django.db import models
 
 
 class Service(models.Model):
-    name = models.CharField(max_length=10, null=False, blank=False, unique=True)
+    name = models.CharField(max_length=50, null=False, blank=False, unique=True)
     slug = models.SlugField(max_length=155, null=False, blank=False)
 
     def __str__(self):
@@ -13,6 +13,23 @@ class Service(models.Model):
 
 class Branch(models.Model):
     service = models.ForeignKey(Service, on_delete=models.PROTECT)
+    name = models.CharField(max_length=50, null=False, blank=False, unique=True)
+    slug = models.SlugField(max_length=155, null=False, blank=False)
+
+    def __str__(self):
+        return self.name
+
+
+class MilitaryService(models.Model):
+    name = models.CharField(max_length=10, null=False, blank=False, unique=True)
+    slug = models.SlugField(max_length=155, null=False, blank=False)
+
+    def __str__(self):
+        return self.name
+
+
+class MilitaryBranch(models.Model):
+    military_service = models.ForeignKey(MilitaryService, on_delete=models.PROTECT)
     name = models.CharField(max_length=10, null=False, blank=False, unique=True)
     slug = models.SlugField(max_length=155, null=False, blank=False)
 
@@ -21,7 +38,7 @@ class Branch(models.Model):
 
 
 class Rank(models.Model):
-    service = models.ForeignKey(Service, on_delete=models.PROTECT, default=None)
+    military_service = models.ForeignKey(MilitaryService, on_delete=models.PROTECT, default=None)
     name = models.CharField(max_length=10, null=False, blank=False, unique=True)
     slug = models.SlugField(max_length=155, null=False, blank=False)
 

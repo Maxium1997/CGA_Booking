@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 from registration.definition import Gender, Privilege, Identity
-from rank.models import Rank, Service, Branch
+from rank.models import Service, Branch, MilitaryService, MilitaryBranch,  Rank
 # Create your models here.
 
 
@@ -25,9 +25,11 @@ class User(AbstractUser):
 class Officer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     serve_state = models.PositiveSmallIntegerField(null=True)
-    military_service = models.PositiveSmallIntegerField(null=True)
+    military_service_state = models.PositiveSmallIntegerField(null=True)
     service = models.ForeignKey(Service, on_delete=models.SET_NULL, null=True)
     branch = models.ForeignKey(Branch, on_delete=models.SET_NULL, null=True)
+    military_service = models.ForeignKey(MilitaryService, on_delete=models.SET_NULL, null=True)
+    military_branch = models.ForeignKey(MilitaryBranch, on_delete=models.SET_NULL, null=True)
     rank = models.ForeignKey(Rank, on_delete=models.SET_NULL, null=True)
     level = models.PositiveSmallIntegerField(default=1, null=True, blank=True)
     date_of_enlist = models.DateField(null=True)

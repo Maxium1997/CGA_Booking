@@ -57,7 +57,7 @@ class OwnedHotelView(ListView):
 class HotelDetailView(View):
     def get(self, request, slug):
         hotel = get_object_or_404(Hotel, slug=slug)
-        template = 'hotel/detail.html'
+        template = 'hotel/index.html'
         context = {
             'hotel': hotel,
             'rooms': hotel.room_set.all(),

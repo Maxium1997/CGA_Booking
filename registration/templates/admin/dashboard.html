@@ -24,9 +24,49 @@
                     <div class="card-footer">
                         <h4>Service</h4>
                         <p>services: {{ services.count }}</p>
-                        <p>branches: {{ branches.count }}</p>
-                        <p>ranks: {{ ranks.count }}</p>
                         <span style="cursor: pointer" class="btn badge-pill btn-outline-primary" onclick="window.location.href='{% url 'service_detail' %}'">Detail&raquo;</span>
+                    </div>
+                </card>
+                <card class="col-sm-12 col-md-6 col-lg-4 mt-2">
+                    <div class="card-footer">
+                        <h4>Military Services</h4>
+                        <ul>
+                            {% for military_service in military_services %}
+                            <li>{{ military_service }}</li>
+                            {% endfor %}
+                        </ul>
+                        <ul class="nav" id="dashboardTab" role="tablist">
+                            <li class="nav-item">
+                                <i class="nav-link btn badge-pill btn-outline-success m-1" data-toggle="modal" data-target="#add-military-service-form-modal">Add+</i>
+                            </li>
+                            <li class="nav-item">
+                                <i class="nav-link btn badge-pill btn-outline-primary m-1" onclick="window.location.href='{% url 'military_service_detail' %}'">Detail&raquo;</i>
+                            </li>
+                        </ul>
+                        <div class="modal fade" id="add-military-service-form-modal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <form action="{% url 'military_service_addition' %}" method="post">
+                                        {% csrf_token %}
+                                        <div class="modal-header text-center" style="width: 100%">
+                                            <h5 class="modal-title" id="ModalLongTitle">Military Service Addition Form</h5>
+                                        </div>
+
+                                        <div class="text-center" id="modal-menu" style="width: 100%">
+                                            {{ military_service_addition_form.name.label }}
+                                            {{ military_service_addition_form.name }}
+                                            {{ military_service_addition_form.slug.label }}
+                                            {{ military_service_addition_form.slug }}
+                                        </div>
+
+                                        <div class="modal-footer" style="width: 100%">
+                                            <button type="submit" class="btn btn-outline-primary">Submit</button>
+                                            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </card>
             </div>

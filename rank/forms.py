@@ -1,7 +1,7 @@
 from django import forms
 from django.utils.text import slugify
 
-from rank.models import Service, Branch
+from rank.models import Service, Branch, MilitaryService, MilitaryBranch, Rank
 
 
 class ServiceForm(forms.ModelForm):
@@ -22,14 +22,25 @@ class ServiceForm(forms.ModelForm):
         return service
 
 
+class MilitaryServiceForm(ServiceForm):
+    class Meta:
+        model = MilitaryService
+        fields = ['name', 'slug']
+
+
 class BranchForm(ServiceForm):
     class Meta:
         model = Branch
         fields = ['name', 'slug']
 
-    def save(self, commit=True):
-        branch = super().save(commit=False)
-        branch.slug = slugify(self.cleaned_data['slug'])
-        if commit:
-            branch.save()
-        return branch
+
+class MilitaryBranchForm(ServiceForm):
+    class Meta:
+        model = MilitaryBranch
+        fields = ['name', 'slug']
+
+
+class RankForm(ServiceForm):
+    class Meta:
+        model = Rank
+        fields = ['name', 'slug']

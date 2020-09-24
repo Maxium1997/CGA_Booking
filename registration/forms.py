@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
 from registration.models import User, Officer
-from registration.definition import Privilege, Identity, Gender, ServeState, MilitaryService
+from registration.definition import Privilege, Identity, Gender, ServeState, MilitaryServiceState
 
 
 class TravelerRegisterForm(UserCreationForm):
@@ -67,16 +67,24 @@ class AccountChangeForm(UserChangeForm):
 
 
 class OfficerForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(OfficerForm, self).__init__(*args, **kwargs)
+        self.fields['service'].required = False
+        self.fields['branch'].required = False
+        self.fields['military_service'].required = False
+        self.fields['military_branch'].required = False
+        self.fields['rank'].required = False
+
     SERVE_STATE = [('0', 'Select your serve state')] + [(str(_.value[0]), _.value[1]) for _ in ServeState.__members__.values()]
     serve_state = forms.ChoiceField(required=True,
                                     choices=SERVE_STATE,
                                     widget=forms.Select(attrs={'class': 'form-control'}))
-    MILITARY_SERVICE = [('0', 'Select your military service')] + [(str(_.value[0]), _.value[1]) for _ in MilitaryService.__members__.values()]
-    military_service = forms.ChoiceField(required=True,
-                                         choices=MILITARY_SERVICE,
-                                         widget=forms.Select(attrs={'class': 'form-control'}))
+    MILITARY_SERVICE_STATE = [('0', 'Select your military service')] + [(str(_.value[0]), _.value[1]) for _ in MilitaryServiceState.__members__.values()]
+    military_service_state = forms.ChoiceField(required=True,
+                                               choices=MILITARY_SERVICE_STATE,
+                                               widget=forms.Select(attrs={'class': 'form-control'}))
     level = forms.IntegerField(required=False,
-                               widget=forms.NumberInput(attrs={'class': 'form-control'}))
+                               widget=forms.NumberInput(attrs={'style': 'width: 20%'}))
     date_of_enlist = forms.DateField(required=False,
                                      widget=forms.DateInput(attrs={'class': 'form-control'}),
                                      help_text="Date Format: YYYY-MM-DD")

@@ -9,7 +9,7 @@ from registration.models import User, Officer
 from registration.definition import Identity
 from registration.forms import TravelerRegisterForm, ProprietorRegisterForm, AccountChangeForm
 from registration.forms import OfficerForm, AttachmentForm
-from rank.models import Service, Branch, Rank
+from rank.models import Service, Branch, MilitaryService, Rank
 # from rank.forms import RankForm
 # Create your views here.
 
@@ -50,11 +50,8 @@ class DashboardView(View):
     def get(self, request):
         template = 'admin/dashboard.html'
         context = {'users': User.objects.all(),
-                   # 'travelers': User.objects.filter(identity=Identity.Traveler.value[0]),
-                   # 'proprietors': User.objects.filter(identity=Identity.Proprietor.value[0]),
                    'services': Service.objects.all(),
-                   'branches': Branch.objects.all(),
-                   'ranks': Rank.objects.all()}
+                   'military_services': MilitaryService.objects.all()}
 
         return render(request, template, context)
 

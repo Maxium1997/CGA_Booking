@@ -25,7 +25,7 @@ class ServeState(Enum):
     Discharged = (4, 'Discharged', '除役')
 
 
-class MilitaryService(Enum):
+class MilitaryServiceState(Enum):
     Obligatory = (1, 'Obligatory military service', '義務役')
     Regular = (2, 'Service for regulars', '常備役')
     Voluntary = (3, 'Voluntary military service', '志願役')

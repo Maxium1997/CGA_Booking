@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+
+{% block title %}Detail｜MilitaryService{% endblock %}
+
+{% block direction_content %}
+    <a href="{% url 'dashboard' %}">/Dashboard</a>
+    <u>/MilitaryService</u>
+    <u>/Detail</u>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class="table-dark">
+                            <tr class="text-center">
+                                <td style="width: 10%"></td>
+                                <td style="width: 20%">Name</td>
+                                <td style="width: 50%">Slug</td>
+                                <td style="width: 20%">Features</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for military_service in military_services %}
+                            <tr class="text-center">
+                                <td class="align-middle"></td>
+                                <td class="align-middle">{{ military_service.name }}</td>
+                                <td class="align-middle">{{ military_service.slug }}</td>
+                                <td class="align-middle">
+                                    <i class="nav-link btn badge-pill btn-outline-primary m-1" data-toggle="modal" data-target="#add-{{ military_service }}-branch-form-modal">Branch+</i>
+                                    <i class="nav-link btn badge-pill btn-outline-info m-1" data-toggle="modal" data-target="#add-{{ military_service }}-rank-form-modal">Rank+</i>
+                                </td>
+                                <!-- military branch addition form -->
+                                <div class="modal fade" id="add-{{ military_service }}-branch-form-modal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <form action="{% url 'military_branch_addition' military_service.slug %}" method="post">
+                                                {% csrf_token %}
+                                                <div class="modal-header text-center" style="width: 100%">
+                                                    <h5 class="modal-title" id="ModalLongTitle">{{ military_service.slug|title }} Branch Addition Form</h5>
+                                                </div>
+
+                                                <div class="text-center" id="modal-menu" style="width: 100%">
+                                                    {{ military_branch_addition_form.name.label }}
+                                                    {{ military_branch_addition_form.name }}
+                                                    {{ military_branch_addition_form.slug.label }}
+                                                    {{ military_branch_addition_form.slug }}
+                                                </div>
+
+                                                <div class="modal-footer" style="width: 100%">
+                                                    <button type="submit" class="btn btn-outline-primary">Submit</button>
+                                                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- military rank addition form -->
+                                <div class="modal fade" id="add-{{ military_service }}-rank-form-modal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <form action="{% url 'rank_addition' military_service.slug %}" method="post">
+                                                {% csrf_token %}
+                                                <div class="modal-header text-center" style="width: 100%">
+                                                    <h5 class="modal-title" id="ModalLongTitle">{{ military_service.slug|title }} Branch Addition Form</h5>
+                                                </div>
+
+                                                <div class="text-center" id="modal-menu" style="width: 100%">
+                                                    {{ military_branch_addition_form.name.label }}
+                                                    {{ military_branch_addition_form.name }}
+                                                    {{ military_branch_addition_form.slug.label }}
+                                                    {{ military_branch_addition_form.slug }}
+                                                </div>
+
+                                                <div class="modal-footer" style="width: 100%">
+                                                    <button type="submit" class="btn btn-outline-primary">Submit</button>
+                                                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td colspan="3">
+                                    {% for military_branch in military_service.militarybranch_set.all %}
+                                    <i class="badge badge-pill badge-secondary">{{ military_branch.name }}{{ military_branch.slug }}</i>
+                                    {% empty %}
+                                    <i>No branch recently.</i>
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td colspan="3">
+                                    {% for rank in military_service.rank_set.all %}
+                                    <i class="badge badge-pill badge-danger">{{ rank.name }}{{ rank.slug }}</i>
+                                    {% empty %}
+                                    <i>No rank recently.</i>
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            <tr>
+                                <td colspan="4">
+                                    <i class="nav-link btn badge-pill btn-outline-success m-1" data-toggle="modal" data-target="#add-service-form-modal">Add+</i>
+                                </td>
+                                <!-- service addition form -->
+                                <div class="modal fade" id="add-service-form-modal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <form action="{% url 'service_addition' %}" method="post">
+                                                {% csrf_token %}
+                                                <div class="modal-header text-center" style="width: 100%">
+                                                    <h5 class="modal-title" id="ModalLongTitle">Service Addition Form</h5>
+                                                </div>
+
+                                                <div class="text-center" id="modal-menu" style="width: 100%">
+                                                    {{ service_addition_form.name.label }}
+                                                    {{ service_addition_form.name }}
+                                                    {{ service_addition_form.slug.label }}
+                                                    {{ service_addition_form.slug }}
+                                                </div>
+
+                                                <div class="modal-footer" style="width: 100%">
+                                                    <button type="submit" class="btn btn-outline-primary">Submit</button>
+                                                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
