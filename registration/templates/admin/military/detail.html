@@ -58,7 +58,7 @@
                                     </div>
                                 </div>
                                 <!-- military rank addition form -->
-                                <div class="modal fade" id="add-{{ military_service }}-rank-form-modal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+                                <div class="modal fade" id="add-{{ military_service }}-rank-form-modal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true"military_>
                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
                                             <form action="{% url 'rank_addition' military_service.slug %}" method="post">
@@ -119,10 +119,10 @@
                                                 </div>
 
                                                 <div class="text-center" id="modal-menu" style="width: 100%">
-                                                    {{ service_addition_form.name.label }}
-                                                    {{ service_addition_form.name }}
-                                                    {{ service_addition_form.slug.label }}
-                                                    {{ service_addition_form.slug }}
+                                                    {{ military_service_addition_form.name.label }}
+                                                    {{ military_service_addition_form.name }}
+                                                    {{ military_service_addition_form.slug.label }}
+                                                    {{ military_service_addition_form.slug }}
                                                 </div>
 
                                                 <div class="modal-footer" style="width: 100%">
