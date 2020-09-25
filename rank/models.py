@@ -30,7 +30,7 @@ class MilitaryService(models.Model):
 
 class MilitaryBranch(models.Model):
     military_service = models.ForeignKey(MilitaryService, on_delete=models.PROTECT)
-    name = models.CharField(max_length=10, null=False, blank=False, unique=True)
+    name = models.CharField(max_length=10, null=False, blank=False)
     slug = models.SlugField(max_length=155, null=False, blank=False)
 
     def __str__(self):
@@ -38,8 +38,9 @@ class MilitaryBranch(models.Model):
 
 
 class Rank(models.Model):
+    equivalent_NATO_code = models.CharField(max_length=10, default='')
     military_service = models.ForeignKey(MilitaryService, on_delete=models.PROTECT, default=None)
-    name = models.CharField(max_length=10, null=False, blank=False, unique=True)
+    name = models.CharField(max_length=10, null=False, blank=False)
     slug = models.SlugField(max_length=155, null=False, blank=False)
 
     def __str__(self):

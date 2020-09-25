@@ -46,8 +46,7 @@ class OwnedHotelView(ListView):
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.identity != Identity.Proprietor.value[0]:
-            messages.warning(request, "Request Reject, you are not proprietor")
-            return redirect('hotels')
+            raise PermissionDenied
         return super(OwnedHotelView, self).dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
@@ -57,7 +56,7 @@ class OwnedHotelView(ListView):
 class HotelDetailView(View):
     def get(self, request, slug):
         hotel = get_object_or_404(Hotel, slug=slug)
-        template = 'hotel/index.html'
+        template = 'hotel/detail.html'
         context = {
             'hotel': hotel,
             'rooms': hotel.room_set.all(),

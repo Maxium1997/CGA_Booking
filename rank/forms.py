@@ -5,21 +5,19 @@ from rank.models import Service, Branch, MilitaryService, MilitaryBranch, Rank
 
 
 class ServiceForm(forms.ModelForm):
-    name = forms.CharField(required=True,
-                           widget=forms.TextInput(attrs={'class': 'form-control'}))
-    slug = forms.SlugField(required=True,
-                           widget=forms.TextInput(attrs={'class': 'form-control'}))
+    name = forms.CharField(required=True)
+    slug = forms.SlugField(required=True)
 
     class Meta:
         model = Service
         fields = ['name', 'slug']
 
     def save(self, commit=True):
-        service = super().save(commit=False)
-        service.slug = slugify(self.cleaned_data['slug'])
+        self_object = super().save(commit=False)
+        self_object.slug = slugify(self.cleaned_data['slug'].strip())
         if commit:
-            service.save()
-        return service
+            self_object.save()
+        return self_object
 
 
 class MilitaryServiceForm(ServiceForm):
@@ -43,4 +41,4 @@ class MilitaryBranchForm(ServiceForm):
 class RankForm(ServiceForm):
     class Meta:
         model = Rank
-        fields = ['name', 'slug']
+        fields = ['equivalent_NATO_code', 'name', 'slug']

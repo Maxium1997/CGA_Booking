@@ -134,7 +134,7 @@ class RoomDetailView(View):
         except FileNotFoundError:
             pass
 
-        template = 'room/index.html'
+        template = 'room/detail.html'
         context = {'hotel': hotel,
                    'room': room,
                    'rooms': hotel.room_set.all(),
