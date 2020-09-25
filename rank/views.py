@@ -4,7 +4,9 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.core.exceptions import PermissionDenied
 from django.views.generic import TemplateView, CreateView, View, DetailView
+from django.views.generic.edit import UpdateView
 
+from registration.decorator import superuser_check
 from rank.models import Service, Branch, MilitaryService, MilitaryBranch, Rank
 from rank.forms import ServiceForm, BranchForm, MilitaryServiceForm, MilitaryBranchForm, RankForm
 
@@ -13,7 +15,7 @@ from rank.forms import ServiceForm, BranchForm, MilitaryServiceForm, MilitaryBra
 
 @method_decorator(login_required, name='dispatch')
 class ServiceDetailView(TemplateView):
-    template_name = 'admin/service/detail.html'
+    template_name = 'service/detail.html'
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_superuser:
@@ -30,7 +32,7 @@ class ServiceDetailView(TemplateView):
 
 @method_decorator(login_required, name='dispatch')
 class MilitaryServiceDetailView(TemplateView):
-    template_name = 'admin/military/detail.html'
+    template_name = 'military/detail.html'
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_superuser:
@@ -46,71 +48,100 @@ class MilitaryServiceDetailView(TemplateView):
         return context
 
 
+@superuser_check()
 def service_addition(request):
-    if request.user.is_superuser:
-        if request.POST:
-            service_addition_form = ServiceForm(request.POST)
-            if service_addition_form.is_valid():
-                service_addition_form.save()
-                messages.success(request, "Added Successfully.")
-                return redirect('service_detail')
-    else:
-        raise PermissionDenied
-    return redirect('index')
+    if request.POST:
+        service_addition_form = ServiceForm(request.POST)
+        if service_addition_form.is_valid():
+            service_addition_form.save()
+            messages.success(request, "Added Successfully.")
+            return redirect('service_detail')
 
 
+@superuser_check()
 def branch_addition(request, slug):
     service = get_object_or_404(Service, slug=slug)
-    if request.user.is_superuser:
-        if request.POST:
-            branch_addition_form = BranchForm(request.POST)
-            if branch_addition_form.is_valid():
-                new_branch = branch_addition_form.save(commit=False)
-                new_branch.service = service
-                new_branch.save()
-                messages.success(request, "Added Successfully.")
-                return redirect('service_detail')
-    else:
-        raise PermissionDenied
+    if request.POST:
+        branch_addition_form = BranchForm(request.POST)
+        if branch_addition_form.is_valid():
+            new_branch = branch_addition_form.save(commit=False)
+            new_branch.service = service
+            new_branch.save()
+            messages.success(request, "Added Successfully.")
+            return redirect('service_detail')
 
 
+@superuser_check()
 def military_service_addition(request):
-    if request.user.is_superuser:
-        if request.POST:
-            military_service_addition_form = MilitaryServiceForm(request.POST)
-            if military_service_addition_form.is_valid():
-                military_service_addition_form.save()
-                messages.success(request, "Added Successfully.")
-                return redirect('military_service_detail')
-    else:
-        raise PermissionDenied
+    if request.POST:
+        military_service_addition_form = MilitaryServiceForm(request.POST)
+        if military_service_addition_form.is_valid():
+            military_service_addition_form.save()
+            messages.success(request, "Added Successfully.")
+            return redirect('military_service_detail')
 
 
+@superuser_check()
 def military_branch_addition(request, slug):
     military_service = get_object_or_404(MilitaryService, slug=slug)
-    if request.user.is_superuser:
-        if request.POST:
-            military_branch_addition_form = MilitaryBranchForm(request.POST)
-            if military_branch_addition_form.is_valid():
-                new_branch = military_branch_addition_form.save(commit=False)
-                new_branch.military_service = military_service
-                new_branch.save()
-                messages.success(request, "Added Successfully.")
-                return redirect('military_service_detail')
-    else:
-        raise PermissionDenied
+    if request.POST:
+        military_branch_addition_form = MilitaryBranchForm(request.POST)
+        if military_branch_addition_form.is_valid():
+            new_branch = military_branch_addition_form.save(commit=False)
+            new_branch.military_service = military_service
+            new_branch.save()
+            messages.success(request, "Added Successfully.")
+            return redirect('military_service_detail')
 
 
+@superuser_check()
 def rank_addition(request, slug):
     military_service = get_object_or_404(MilitaryService, slug=slug)
-    if request.user.is_superuser:
-        if request.POST:
-            rank_addition_form = RankForm(request.POST)
-            if rank_addition_form.is_valid():
-                new_rank = rank_addition_form.save(commit=False)
-                new_rank.military_service = military_service
-                new_rank.save()
-                messages.success(request, "Added Successfully.")
-                return redirect('military_service_detail')
-    else:
-        raise PermissionDenied
+    if request.POST:
+        rank_addition_form = RankForm(request.POST)
+        if rank_addition_form.is_valid():
+            new_rank = rank_addition_form.save(commit=False)
+            new_rank.military_service = military_service
+            new_rank.save()
+            messages.success(request, "Added Successfully.")
+            return redirect('military_service_detail')
+
+
+@method_decorator(login_required, name='dispatch')
+class MilitaryBranchUpdateView(UpdateView):
+    model = MilitaryBranch
+    fields = ['name', 'slug']
+    template_name = 'military/branch_update.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_superuser:
+            raise PermissionDenied
+        return super(MilitaryBranchUpdateView, self).dispatch(request, *args, **kwargs)
+
+
+@superuser_check()
+def military_branch_delete(request, slug):
+    military_branch = get_object_or_404(MilitaryBranch, slug=slug)
+    military_branch.delete()
+    messages.success(request, "Deleted Successfully.")
+    return redirect('military_service_detail')
+
+
+@method_decorator(login_required, name='dispatch')
+class RankUpdateView(UpdateView):
+    model = Rank
+    fields = ['equivalent_NATO_code', 'name', 'slug']
+    template_name = 'military/rank_update.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_superuser:
+            raise PermissionDenied
+        return super(RankUpdateView, self).dispatch(request, *args, **kwargs)
+
+
+@superuser_check()
+def rank_delete(request, slug):
+    rank = get_object_or_404(Rank, slug=slug)
+    rank.delete()
+    messages.success(request, "Deleted Successfully.")
+    return redirect('military_service_detail')

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}{% endblock %}
+
+{% block direction_content %}
+    <a href="{% url 'dashboard' %}">/Dashboard</a>
+    <a href="{% url 'military_service_detail' %}">/MilitaryService /Detail</a>
+    <u>/Update - {{ rank }}</u>
+{% endblock %}
+
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Update">
+        <button type="button" onclick="window.location.href='{% url 'rank_delete' rank.slug %}'">Delete</button>
+        <button type="button" onclick="history.back()">Cancel</button>
+    </form>
+{% endblock %}

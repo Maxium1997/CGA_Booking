@@ -1,7 +1,8 @@
 from django.urls import path, include
 
-from rank.views import ServiceDetailView, MilitaryServiceDetailView
+from rank.views import ServiceDetailView, MilitaryServiceDetailView, MilitaryBranchUpdateView, RankUpdateView
 from rank.views import service_addition, branch_addition, military_service_addition, military_branch_addition, rank_addition
+from rank.views import military_branch_delete, rank_delete
 
 urlpatterns = [
     path('service/', include([
@@ -21,6 +22,18 @@ urlpatterns = [
                     path('addition', rank_addition, name='rank_addition'),
                 ]))
             ])),
+        ])),
+        path('branch/', include([
+            path('<slug>/', include([
+                path('update', MilitaryBranchUpdateView.as_view(), name='military_branch_update'),
+                path('delete', military_branch_delete, name='military_branch_delete'),
+            ]))
+        ])),
+        path('rank/', include([
+            path('<slug>/', include([
+                path('update', RankUpdateView.as_view(), name='rank_update'),
+                path('delete', rank_delete, name='rank_delete'),
+            ]))
         ]))
     ]))
 ]

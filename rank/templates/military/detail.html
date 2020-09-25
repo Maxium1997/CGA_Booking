@@ -4,8 +4,7 @@
 
 {% block direction_content %}
     <a href="{% url 'dashboard' %}">/Dashboard</a>
-    <u>/MilitaryService</u>
-    <u>/Detail</u>
+    <u>/MilitaryService /Detail</u>
 {% endblock %}
 
 {% block content %}
@@ -81,25 +80,7 @@
                                 <td></td>
                                 <td colspan="3">
                                     {% for military_branch in military_service.militarybranch_set.all %}
-                                    <i class="btn badge badge-pill btn-outline-secondary" data-toggle="modal" data-target="#{{ military_branch }}-change-form-modal">{{ military_branch.name }}{{ military_branch.slug }}</i>
-                                    <div class="modal fade" id="{{ military_branch }}-change-form-modal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                            <div class="modal-content">
-                                                    <div class="modal-header" style="width: 100%">
-                                                        <h5 class="modal-title" id="ModalLongTitle">{{ military_branch.slug|title }} Features</h5>
-                                                    </div>
-
-                                                    <div class="text-center" id="modal-menu" style="width: 100%">
-                                                        <p><button type="submit" class="btn btn-outline-primary mt-4">Update</button></p>
-                                                        <p><button type="submit" class="btn btn-outline-danger">Delete</button></p>
-                                                    </div>
-
-                                                    <div class="modal-footer" style="width: 100%">
-                                                        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
-                                                    </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <i class="btn badge badge-pill btn-outline-secondary" onclick="window.location.href='{% url 'military_branch_update' military_branch.slug %}'">{{ military_branch.name }}{{ military_branch.slug }}</i>
                                     {% empty %}
                                     <i>No branch recently.</i>
                                     {% endfor %}
@@ -109,7 +90,7 @@
                                 <td></td>
                                 <td colspan="3">
                                     {% for rank in military_service.rank_set.all %}
-                                    <i class="btn badge badge-pill btn-outline-danger">{{ rank.equivalent_NATO_code }}{{ rank.name }}{{ rank.slug }}</i>
+                                    <i class="btn badge badge-pill btn-outline-danger" onclick="window.location.href='{% url 'rank_update' rank.slug %}'">{{ rank.equivalent_NATO_code }}{{ rank.name }}{{ rank.slug }}</i>
                                     {% empty %}
                                     <i>No rank recently.</i>
                                     {% endfor %}
