@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 from registration.definition import Gender, Privilege, Identity
-from rank.models import Service, Branch, MilitaryService, MilitaryBranch,  Rank
+from rank.models import Service, Branch, MilitaryService, MilitaryBranch, Rank
 # Create your models here.
 
 

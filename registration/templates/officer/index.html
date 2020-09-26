@@ -12,7 +12,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
-                <form action="{% url 'officer_change' %}" method="post">
+                <form name="officer_change_form" action="{% url 'officer_change' %}" method="post">
                     {% csrf_token %}
                     <div class="card">
                         <div class="card-body">
@@ -120,4 +120,9 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        function submit(){
+            document.forms["officer_change_form"].submit();
+        }
+    </script>
 {% endblock %}

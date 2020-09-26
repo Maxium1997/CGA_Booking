@@ -20,15 +20,15 @@ class ServiceForm(forms.ModelForm):
         return self_object
 
 
-class MilitaryServiceForm(ServiceForm):
-    class Meta:
-        model = MilitaryService
-        fields = ['name', 'slug']
-
-
 class BranchForm(ServiceForm):
     class Meta:
         model = Branch
+        fields = ['name', 'slug']
+
+
+class MilitaryServiceForm(ServiceForm):
+    class Meta:
+        model = MilitaryService
         fields = ['name', 'slug']
 
 

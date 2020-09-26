@@ -4,6 +4,8 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from registration.models import User, Officer
 from registration.definition import Privilege, Identity, Gender, ServeState, MilitaryServiceState
 
+from rank.models import Service, Branch, MilitaryService, MilitaryBranch, Rank
+
 
 class TravelerRegisterForm(UserCreationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
@@ -68,12 +70,25 @@ class AccountChangeForm(UserChangeForm):
 
 class OfficerForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
+        try:
+            service = kwargs.pop('service')
+            military_service = kwargs.pop('military_service')
+        except KeyError:
+            service = None
+            military_service = None
         super(OfficerForm, self).__init__(*args, **kwargs)
-        self.fields['service'].required = False
-        self.fields['branch'].required = False
-        self.fields['military_service'].required = False
-        self.fields['military_branch'].required = False
-        self.fields['rank'].required = False
+        self.fields['service'] = forms.ModelChoiceField(required=False,
+                                                        queryset=Service.objects.all(),
+                                                        widget=forms.Select(attrs={'onchange': 'submit()'}))
+        self.fields['branch'] = forms.ModelChoiceField(required=False,
+                                                       queryset=Branch.objects.filter(service=service))
+        self.fields['military_service'] = forms.ModelChoiceField(required=False,
+                                                                 queryset=MilitaryService.objects.all(),
+                                                                 widget=forms.Select(attrs={'onchange': 'submit()'}))
+        self.fields['military_branch'] = forms.ModelChoiceField(required=False,
+                                                                queryset=MilitaryBranch.objects.filter(military_service=military_service))
+        self.fields['rank'] = forms.ModelChoiceField(required=False,
+                                                     queryset=Rank.objects.filter(military_service=military_service))
 
     SERVE_STATE = [('0', 'Select your serve state')] + [(str(_.value[0]), _.value[1]) for _ in ServeState.__members__.values()]
     serve_state = forms.ChoiceField(required=True,

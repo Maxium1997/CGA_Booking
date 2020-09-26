@@ -116,7 +116,9 @@ class OfficerIndexView(TemplateView):
         try:
             officer = Officer.objects.get(user=self.request.user)
             kwargs['officer'] = officer
-            kwargs['officer_form'] = OfficerForm(instance=officer)
+            kwargs['officer_form'] = OfficerForm(instance=officer,
+                                                 service=self.request.user.officer.service,
+                                                 military_service=self.request.user.officer.military_service)
         except:
             new_officer = Officer.objects.create(user=self.request.user)
             kwargs['officer'] = new_officer
@@ -133,16 +135,24 @@ def officer_change(request):
     officer = request.user.officer
     template = 'officer/index.html'
     if request.POST:
-        officer_form = OfficerForm(request.POST, instance=officer)
+        officer_form = OfficerForm(request.POST,
+                                   instance=officer,
+                                   service=request.user.officer.service,
+                                   military_service=request.user.officer.military_service)
         if officer_form.is_valid():
             officer_form.save()
-            messages.success(request, "Officer Change Successfully.")
+            # messages.success(request, "Officer Change Successfully.")
             return redirect(request.META.get('HTTP_REFERER'))
         else:
             messages.warning(request, "Maybe some data format is invalid, please check again.")
-            officer_form = OfficerForm(request.POST, instance=officer)
+            officer_form = OfficerForm(request.POST,
+                                       instance=officer,
+                                       service=request.user.officer.service,
+                                       military_service=request.user.officer.military_service)
     else:
-        officer_form = OfficerForm(instance=officer)
+        officer_form = OfficerForm(instance=officer,
+                                   service=request.user.officer.service,
+                                   military_service=request.user.officer.military_service)
 
     context = {'officer_form': officer_form}
     return render(request, template, context)
