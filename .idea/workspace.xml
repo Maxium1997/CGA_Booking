@@ -2,17 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b2ae6215-e0bf-44df-aae2-2373e83c0974" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/rank/templates/service/branch_update.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rank/templates/service/update.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rank/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/rank/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rank/templates/military/branch_update.html" beforeDir="false" afterPath="$PROJECT_DIR$/rank/templates/military/branch_update.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rank/templates/military/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/rank/templates/military/detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rank/templates/military/rank_update.html" beforeDir="false" afterPath="$PROJECT_DIR$/rank/templates/military/rank_update.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rank/templates/service/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/rank/templates/service/detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rank/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/rank/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rank/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/rank/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/registration/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/registration/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CGA_Booking/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/CGA_Booking/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,7 +109,7 @@
       <workItem from="1599098467410" duration="38036000" />
       <workItem from="1600171513509" duration="25168000" />
       <workItem from="1600826157621" duration="9166000" />
-      <workItem from="1600940372220" duration="17867000" />
+      <workItem from="1600940372220" duration="18027000" />
     </task>
     <servers />
   </component>
