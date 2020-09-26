@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
-{% block title %}Military Branch Update{% endblock %}
+{% block title %}Branch Update{% endblock %}
 
 {% block direction_content %}
     <a href="{% url 'dashboard' %}">/Dashboard</a>
-    <a href="{% url 'military_service_detail' %}">/MilitaryService /Detail</a>
-    <u>/Update - {{ militarybranch }}</u>
+    <a href="{% url 'service_detail' %}">/Service /Detail</a>
+    <u>/Update - {{ branch }}</u>
 {% endblock %}
 
 {% block content %}
@@ -13,7 +13,7 @@
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit" class="btn btn-outline-primary">Update</button>
-        <button type="button" class="btn btn-outline-danger" onclick="window.location.href='{% url 'military_branch_delete' militarybranch.military_service.slug militarybranch.pk %}'">Delete</button>
+        <button type="button" class="btn btn-outline-danger">Delete</button>
         <button type="button" class="btn btn-outline-secondary" onclick="history.back()">Cancel</button>
     </form>
 {% endblock %}

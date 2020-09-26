@@ -28,6 +28,9 @@ class TravelerRegisterView(CreateView):
         auth.login(self.request, user)
         return redirect('user_change')
 
+    def get_success_url(self):
+        return redirect('user_change')
+
 
 class ProprietorRegisterView(CreateView):
     model = User
@@ -37,6 +40,9 @@ class ProprietorRegisterView(CreateView):
     def form_valid(self, form):
         user = form.save()
         auth.login(self.request, user)
+        return redirect('user_change')
+
+    def get_success_url(self):
         return redirect('user_change')
 
 
