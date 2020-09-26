@@ -120,8 +120,8 @@ class MilitaryBranchUpdateView(UpdateView):
 
 
 @superuser_check()
-def military_branch_delete(request, slug):
-    military_branch = get_object_or_404(MilitaryBranch, slug=slug)
+def military_branch_delete(request, slug, pk):
+    military_branch = get_object_or_404(MilitaryBranch, pk=pk)
     military_branch.delete()
     messages.success(request, "Deleted Successfully.")
     return redirect('military_service_detail')
@@ -140,8 +140,8 @@ class RankUpdateView(UpdateView):
 
 
 @superuser_check()
-def rank_delete(request, slug):
-    rank = get_object_or_404(Rank, slug=slug)
+def rank_delete(request, slug, pk):
+    rank = get_object_or_404(Rank, pk=pk)
     rank.delete()
     messages.success(request, "Deleted Successfully.")
     return redirect('military_service_detail')

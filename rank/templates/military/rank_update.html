@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}{% endblock %}
+{% block title %}Rank Update{% endblock %}
 
 {% block direction_content %}
     <a href="{% url 'dashboard' %}">/Dashboard</a>
@@ -13,7 +13,7 @@
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Update">
-        <button type="button" onclick="window.location.href='{% url 'rank_delete' rank.slug %}'">Delete</button>
+        <button type="button" onclick="window.location.href='{% url 'rank_delete' rank.military_service.slug rank.pk %}'">Delete</button>
         <button type="button" onclick="history.back()">Cancel</button>
     </form>
 {% endblock %}

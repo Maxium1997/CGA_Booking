@@ -17,23 +17,21 @@ urlpatterns = [
             path('detail', MilitaryServiceDetailView.as_view(), name='military_service_detail'),
             path('addition', military_service_addition, name='military_service_addition'),
             path('<slug>/', include([
-                path('addition', military_branch_addition, name='military_branch_addition'),
+                path('branch/', include([
+                    path('addition', military_branch_addition, name='military_branch_addition'),
+                    path('<pk>/', include([
+                        path('update', MilitaryBranchUpdateView.as_view(), name='military_branch_update'),
+                        path('delete', military_branch_delete, name='military_branch_delete'),
+                    ]))
+                ])),
                 path('rank/', include([
                     path('addition', rank_addition, name='rank_addition'),
-                ]))
+                    path('<pk>/', include([
+                        path('update', RankUpdateView.as_view(), name='rank_update'),
+                        path('delete', rank_delete, name='rank_delete'),
+                    ]))
+                ])),
             ])),
         ])),
-        path('branch/', include([
-            path('<slug>/', include([
-                path('update', MilitaryBranchUpdateView.as_view(), name='military_branch_update'),
-                path('delete', military_branch_delete, name='military_branch_delete'),
-            ]))
-        ])),
-        path('rank/', include([
-            path('<slug>/', include([
-                path('update', RankUpdateView.as_view(), name='rank_update'),
-                path('delete', rank_delete, name='rank_delete'),
-            ]))
-        ]))
     ]))
 ]

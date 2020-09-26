@@ -15,7 +15,6 @@
                     <table class="table">
                         <thead class="table-dark">
                             <tr class="text-center">
-                                <td style="width: 10%"></td>
                                 <td style="width: 20%">Name</td>
                                 <td style="width: 30%">Slug</td>
                                 <td style="width: 40%">Features</td>
@@ -24,7 +23,6 @@
                         <tbody>
                             {% for military_service in military_services %}
                             <tr class="text-center">
-                                <td class="align-middle"></td>
                                 <td class="align-middle">{{ military_service.name }}</td>
                                 <td class="align-middle">{{ military_service.slug }}</td>
                                 <td class="align-middle">
@@ -77,20 +75,18 @@
                                 </div>
                             </div>
                             <tr>
-                                <td></td>
                                 <td colspan="3">
                                     {% for military_branch in military_service.militarybranch_set.all %}
-                                    <i class="btn badge badge-pill btn-outline-secondary" onclick="window.location.href='{% url 'military_branch_update' military_branch.slug %}'">{{ military_branch.name }}{{ military_branch.slug }}</i>
+                                    <i class="btn badge badge-pill btn-outline-secondary" onclick="window.location.href='{% url 'military_branch_update' military_service.slug military_branch.pk %}'">{{ military_branch.name }}{{ military_branch.slug }}</i>
                                     {% empty %}
                                     <i>No branch recently.</i>
                                     {% endfor %}
                                 </td>
                             </tr>
                             <tr>
-                                <td></td>
                                 <td colspan="3">
                                     {% for rank in military_service.rank_set.all %}
-                                    <i class="btn badge badge-pill btn-outline-danger" onclick="window.location.href='{% url 'rank_update' rank.slug %}'">{{ rank.equivalent_NATO_code }}{{ rank.name }}{{ rank.slug }}</i>
+                                    <i class="btn badge badge-pill btn-outline-danger" onclick="window.location.href='{% url 'rank_update' military_service.slug rank.pk %}'">{{ rank.equivalent_NATO_code }}{{ rank.name }}{{ rank.slug }}</i>
                                     {% empty %}
                                     <i>No rank recently.</i>
                                     {% endfor %}
