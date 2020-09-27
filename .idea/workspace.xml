@@ -2,13 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b2ae6215-e0bf-44df-aae2-2373e83c0974" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/contact/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/contact/admin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/contact/apps.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/contact/migrations/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/contact/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/contact/tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/contact/views.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/image/Republic_of_China_Coast_Guard_Logo.svg.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/image/bed.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/image/files.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/image/suitcase.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/contact_form.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CGA_Booking/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/CGA_Booking/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rank/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/rank/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/registration/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/registration/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/registration/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/registration/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/registration/templates/officer/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/registration/templates/officer/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/registration/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/registration/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/room/templates/hotel/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/room/templates/hotel/detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/room/templates/room/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/room/templates/room/detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/footer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,8 +34,8 @@
       <list>
         <option value="CSS File" />
         <option value="JavaScript File" />
-        <option value="HTML File" />
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -115,7 +126,7 @@
       <workItem from="1600171513509" duration="25168000" />
       <workItem from="1600826157621" duration="9166000" />
       <workItem from="1600940372220" duration="23001000" />
-      <workItem from="1601141054108" duration="1587000" />
+      <workItem from="1601141054108" duration="8438000" />
     </task>
     <servers />
   </component>
@@ -150,9 +161,9 @@
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="683" y="52" width="508" height="760" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1600960294114" />
-    <state x="421" y="18" width="838" height="1032" key="search.everywhere.popup" timestamp="1598628774698">
+    <state x="421" y="18" width="838" height="1032" key="search.everywhere.popup" timestamp="1601176375940">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state x="421" y="18" width="838" height="1032" key="search.everywhere.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1598628774698" />
+    <state x="421" y="18" width="838" height="1032" key="search.everywhere.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1601176375940" />
   </component>
 </project>

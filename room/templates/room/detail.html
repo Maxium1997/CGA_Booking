@@ -134,6 +134,48 @@
             </div>
         </div>
     </div>
+    <div class="container">
+        <div class="row">
+            <h3>{{ hotel.name }} Other Rooms</h3>
+            <div class="table-responsive" id="other-related-room-block">
+                <table class="table">
+                    <tr class="text-center">
+                        <td></td>
+                        {% for room in rooms %}
+                            <td class="align-middle">
+                                {% if room.photo %}
+                                    <img class="card-img-top mt-2 mb-2" src="{{ room.photo.url }}" alt="{{ room.name }}" >
+                                {% else %}
+                                    <img src="{% static 'image/file_not_found/file_not_found.jpg' %}" width="200" height="200">
+                                {% endif %}
+                            </td>
+                        {% endfor %}
+                    </tr>
+                    <tr class="text-center">
+                        <td>Name</td>
+                        {% for room in rooms %}
+                            <td class="align-middle">{{ room.name }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr class="text-center">
+                        <td>Price<br>(per/night)</td>
+                        {% for room in rooms %}
+                            <td class="align-middle">{{ room.dormitory.get_price }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr class="text-center">
+                        <td></td>
+                        {% for room in rooms %}
+                            <td class="align-middle">
+                                <button type="button" class="btn btn-outline-primary" onclick="window.location.href='{% url 'room_detail' hotel.slug room.pk %}'">View</button>
+                            </td>
+                        {% endfor %}
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
     <style>
         .room-photo img{
             width: 40%;
@@ -141,6 +183,10 @@
         }
         #photo-list-item img{
             width: 60%;
+            height: auto;
+        }
+        #other-related-room-block table > tbody > tr > td > img{
+            width: 200px;
             height: auto;
         }
     </style>

@@ -56,37 +56,37 @@
     </div>
     <div class="container">
         <div class="row">
-            <h3>Other Rooms</h3>
+            <h3>Other Hotels</h3>
             <div class="table-responsive" id="other-related-hotel-block">
                 <table class="table">
                     <tr class="text-center">
                         <td></td>
                         {% for hotel in hotels %}
-                            <td><img src="{{ hotel.external_appearance.url }}"></td>
+                            <td class="align-middle"><img src="{{ hotel.external_appearance.url }}"></td>
                         {% endfor %}
                     </tr>
                     <tr class="text-center">
-                        <td>Name</td>
+                        <td class="align-middle">Name</td>
                         {% for hotel in hotels %}
-                            <td>{{ hotel.name }}</td>
+                            <td class="align-middle">{{ hotel.name }}</td>
                         {% endfor %}
                     </tr>
                     <tr class="text-center">
-                        <td>Region</td>
+                        <td class="align-middle">Region</td>
                         {% for hotel in hotels %}
-                            <td>{{ hotel.address|region }}</td>
+                            <td class="align-middle">{{ hotel.address|region }}</td>
                         {% endfor %}
                     </tr>
                     <tr class="text-center">
-                        <td>Lowest Price</td>
+                        <td class="align-middle">Lowest Price</td>
                         {% for hotel in hotels %}
-                            <td>{{ hotel|lowest_price }}</td>
+                            <td class="align-middle">{{ hotel|lowest_price }}</td>
                         {% endfor %}
                     </tr>
                     <tr class="text-center">
-                        <td></td>
+                        <td class="align-middle"></td>
                         {% for hotel in hotels %}
-                            <td>
+                            <td class="align-middle">
                                 <button type="button" class="btn btn-outline-primary" onclick="window.location.href='{% url 'hotel_detail' hotel.slug %}'">View</button>
                             </td>
                         {% endfor %}
