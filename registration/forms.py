@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
-from registration.models import User, Officer
+from registration.models import User, Officer, Experience, Education, Work
 from registration.definition import Privilege, Identity, Gender, ServeState, MilitaryServiceState
 
 from rank.models import Service, Branch, MilitaryService, MilitaryBranch, Rank
@@ -117,3 +117,22 @@ class OfficerForm(forms.ModelForm):
 
 class AttachmentForm(forms.Form):
     attachment = forms.ImageField(required=False)
+
+
+class ExperienceForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user')
+        self.fields['user'] = user
+        super(ExperienceForm, self).__init__(*args, **kwargs)
+
+
+class EducationForm(ExperienceForm):
+    class Meta:
+        model = Education
+        fields = ['class_name', 'started_date', 'finished_date']
+
+
+class WorkForm(ExperienceForm):
+    class Meta:
+        model = Work
+        fields = ['position', 'started_date', 'finished_date']

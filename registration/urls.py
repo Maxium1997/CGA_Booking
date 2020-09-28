@@ -12,6 +12,9 @@ from registration.views import officer_change, military_ID_card_front_upload, mi
 urlpatterns = [
     path('admin/', include([
         path('dashboard', DashboardView.as_view(), name='dashboard'),
+        path('dashboard/', include([
+            path('', include('proclamation.urls'))
+        ])),
         path('users', UserDetailView.as_view(), name='user_detail'),
         path('', include('rank.urls'))
     ])),

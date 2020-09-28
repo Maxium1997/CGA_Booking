@@ -64,3 +64,20 @@ class Officer(models.Model):
                                            photo,
                                            save=True)
         self.save()
+
+
+class Experience(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    started_date = models.DateField()
+    finished_date = models.DateField()
+
+    def get_year(self):
+        return self.finished_date.year
+
+
+class Education(Experience):
+    class_name = models.CharField(max_length=20, null=False, blank=False)
+
+
+class Work(Experience):
+    position = models.CharField(max_length=20, null=False, blank=False)

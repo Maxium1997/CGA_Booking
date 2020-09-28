@@ -12,11 +12,16 @@ from booking.models import Booking, Guest
 from booking.forms import BookingForm, GuestInfoForm
 from booking.definition import Use, State
 from booking.decorator import check_time_is_valid, calculate_booking_price, guest_form_to_Guest
+from proclamation.models import Proclamation
 # Create your views here.
 
 
 class IndexView(TemplateView):
     template_name = 'index.html'
+
+    def get_context_data(self, **kwargs):
+        kwargs['proclamations'] = Proclamation.objects.all()[:8]
+        return super(IndexView, self).get_context_data(**kwargs)
 
 
 @method_decorator(login_required, name='dispatch')

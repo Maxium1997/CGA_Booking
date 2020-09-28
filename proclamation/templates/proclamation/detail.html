@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load proclamation_filters %}
+
+{% block title %}Detail｜Proclamation{% endblock %}
+
+{% block direction_content %}
+    {% if request.user.is_superuser %}
+        <a href="{% url 'dashboard' %}">/Dashboard</a>
+        <a href="{% url 'proclamation_index' %}">/Proclamation</a>
+        <u>/Detail</u>
+    {% else %}
+        <u>/News</u>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <h6>{{ proclamation }}</h6>
+    {% if request.user.is_superuser %}<a href="{% url 'proclamation_update' proclamation.pk %}">edit</a>{% endif %}
+    <p>{{ proclamation.content|linebreaksbr }}</p>
+    <ul>
+        <li>Announced Date: {{ proclamation.created_time|date:'Y/m/d, H:i' }}</li>
+        <li>Announcer: {{ proclamation.created_by }}</li>
+        <li>Phone: {{ proclamation.created_by.phone_number }}</li>
+        <li>Updated Time: {{ proclamation.updated_time|date:'Y/m/d, H:i' }}</li>
+        <li>Last Update: {{ proclamation.updated_by }}</li>
+    </ul>
+{% endblock %}

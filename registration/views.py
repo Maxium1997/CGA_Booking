@@ -10,6 +10,7 @@ from registration.definition import Identity
 from registration.forms import TravelerRegisterForm, ProprietorRegisterForm, AccountChangeForm
 from registration.forms import OfficerForm, AttachmentForm
 from rank.models import Service, Branch, MilitaryService, Rank
+from proclamation.models import Proclamation
 # from rank.forms import RankForm
 # Create your views here.
 
@@ -57,7 +58,8 @@ class DashboardView(View):
         template = 'admin/dashboard.html'
         context = {'users': User.objects.all(),
                    'services': Service.objects.all(),
-                   'military_services': MilitaryService.objects.all()}
+                   'military_services': MilitaryService.objects.all(),
+                   'proclamations': Proclamation.objects.all()}
 
         return render(request, template, context)
 

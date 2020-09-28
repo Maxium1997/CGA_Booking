@@ -24,7 +24,6 @@ urlpatterns = [
                     path('edition', RoomEditionView.as_view(), name='room_edition'),
                     path('detail', RoomDetailView.as_view(), name='room_detail'),
                     path('booking', BookingView.as_view(), name='booking'),
-
                     path('photo/', include([
                         path('upload', room_photo_upload, name='room_photo_upload'),
                     ])),

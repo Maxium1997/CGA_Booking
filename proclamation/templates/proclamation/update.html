@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load proclamation_filters %}
+
+{% block title %}Update｜Proclamation{% endblock %}
+
+{% block direction_content %}
+    <a href="{% url 'dashboard' %}">/Dashboard</a>
+    <a href="{% url 'proclamation_index' %}">/Proclamation</a>
+    <u>/Update</u>
+{% endblock %}
+
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <ul>
+            <li>Announced Date: {{ proclamation.created_time|date:'Y/m/d, H:i' }}</li>
+            <li>Announcer: {{ proclamation.created_by }}</li>
+            <li>Phone: {{ proclamation.created_by.phone_number }}</li>
+            <li>Updated Time: {{ proclamation.updated_time|date:'Y/m/d, H:i' }}</li>
+            <li>Last Update: {{ proclamation.updated_by }}</li>
+        </ul>
+
+        <button type="submit" class="btn btn-outline-success">Submit</button>
+        <button type="button" class="btn btn-outline-secondary" onclick="history.back()">Cancel</button>
+    </form>
+{% endblock %}

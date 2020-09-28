@@ -1,19 +1,18 @@
 {% extends 'base.html' %}
 
-{% block title %}Branch Update{% endblock %}
+{% block title %}Creation｜Proclamation{% endblock %}
 
 {% block direction_content %}
     <a href="{% url 'dashboard' %}">/Dashboard</a>
-    <a href="{% url 'service_index' %}">/Service</a>
-    <u>/Update - {{ branch }}</u>
+    <a href="{% url 'proclamation_index' %}">/Proclamation</a>
+    <u>/Creation</u>
 {% endblock %}
 
 {% block content %}
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="btn btn-outline-primary">Update</button>
-        <button type="button" class="btn btn-outline-danger">Delete</button>
+        <button type="submit" class="btn btn-outline-primary">Submit</button>
         <button type="button" class="btn btn-outline-secondary" onclick="history.back()">Cancel</button>
     </form>
 {% endblock %}

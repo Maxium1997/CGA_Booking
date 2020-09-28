@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load proclamation_filters %}
+
+{% block title %}Index｜Proclamation{% endblock %}
+
+{% block direction_content %}
+    <a href="{% url 'dashboard' %}">/Dashboard</a>
+    <u>/Proclamation</u>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="table-dark">
+                        <tr class="text-center">
+                            <td style="width: 20%">Title</td>
+                            <td style="width: 10%">Public</td>
+                            <td style="width: 50%">Content</td>
+                            <td style="width: 10%">Created</td>
+                            <td style="width: 10%">Announcer</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for proclamation in proclamations %}
+                        <tr class="text-center" style="cursor: pointer" onclick="window.location.href='{% url 'proclamation_detail' proclamation.pk %}'">
+                            <td class="align-middle">{{ proclamation.title|linebreaksbr }}</td>
+                            <td class="align-middle">{{ proclamation.is_public }}</td>
+                            <td class="align-middle">{{ proclamation.content|in_short:50 }}</td>
+                            <td class="align-middle">{{ proclamation.created_time|date:'Y/m/d, H:i' }}</td>
+                            <td class="align-middle">{{ proclamation.created_by }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr class="text-center">
+                            <td colspan="5">No public proclamation recently.</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr class="text-center">
+                            <td colspan="5">Not yet. <a href="{% url 'proclamation_creation' %}">Make a new announcement</a></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -6,7 +6,7 @@ from rank.views import service_delete, branch_delete, military_branch_delete, ra
 
 urlpatterns = [
     path('service/', include([
-        path('detail', ServiceDetailView.as_view(), name='service_detail'),
+        path('index', ServiceDetailView.as_view(), name='service_index'),
         path('addition', service_addition, name='service_addition'),
         path('<slug>/', include([
             path('addition', branch_addition, name='branch_addition'),
@@ -22,7 +22,7 @@ urlpatterns = [
     ])),
     path('military/', include([
         path('service/', include([
-            path('detail', MilitaryServiceDetailView.as_view(), name='military_service_detail'),
+            path('index', MilitaryServiceDetailView.as_view(), name='military_service_index'),
             path('addition', military_service_addition, name='military_service_addition'),
             path('<slug>/', include([
                 path('branch/', include([

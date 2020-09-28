@@ -18,6 +18,7 @@
                     {% endif %}
                     <li class="p-3 border-bottom" style="cursor: pointer" onclick="window.location.href='{% url 'user_change' %}'">User Change</li>
                     <li class="p-3 border-bottom" style="cursor: pointer" onclick="window.location.href='{% url 'officer_index' %}'">I am officer</li>
+                    <li class="p-3 border-bottom" style="cursor: pointer" onclick="window.location.href='#my-experience'">My Experience</li>
                     {% if request.user|is_proprietor %}
                     <li class="p-3 border-bottom" style="cursor: pointer" onclick="window.location.href='{% url 'my_hotels' %}'">My hotels</li>
                     {% endif %}

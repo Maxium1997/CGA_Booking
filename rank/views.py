@@ -16,7 +16,7 @@ from rank.forms import ServiceForm, BranchForm, MilitaryServiceForm, MilitaryBra
 
 @method_decorator(login_required, name='dispatch')
 class ServiceDetailView(TemplateView):
-    template_name = 'service/detail.html'
+    template_name = 'service/index.html'
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_superuser:
@@ -102,7 +102,7 @@ def branch_delete(request, slug, pk):
 
 @method_decorator(login_required, name='dispatch')
 class MilitaryServiceDetailView(TemplateView):
-    template_name = 'military/detail.html'
+    template_name = 'military/index.html'
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_superuser:

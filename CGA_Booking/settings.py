@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'registration',
     'room',
     'booking',
+    'proclamation',
     'rank',
 ]
 

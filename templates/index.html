@@ -5,8 +5,8 @@
 {% block title %}Index{% endblock %}
 
 {% block main %}
-    <div class="container">
-        <div class="row" style="height: 30rem;">
+    <div class="container" id="start-logo">
+        <div class="row" style="height: 30rem">
             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 text-center">
                 <span class="lead" style="font-size: 50px">CGA Booking</span><br>
                 <span style="font-size: 10px">Design by DW, Su</span>
@@ -23,40 +23,66 @@
             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 mt-4 text-center">
                 <img src="{% static 'image/bed.png' %}" width="150px">
                 <p class="h3 mt-4">
-                    For official business trips, family travel or duty guidance.
+                    For official , family or guidance.
                 </p>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 mt-4 text-center">
                 <img src="{% static 'image/files.png' %}" width="150px">
                 <p class="h3 mt-4">
-                   About yourself basic  and official work.
+                   About yourself.
                 </p>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 mt-4 text-center">
-                <img src="{% static 'image/suitcase.png' %}" width="175px">
+                <img src="{% static 'image/suitcase.png' %}" width="150px">
                 <p class="h3 mt-4">
-                    Located at famous tourism.
+                    Famous tourism.
                 </p>
             </div>
         </div>
     </div>
 
-    <div class="container mt-4">
+    <div class="container-fluid mt-4">
         <div class="row">
-            <div class="col-lg-12 text-center">
-                <h1>About Us</h1>
-            </div>
             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 text-center">
-                <img src="{% static 'image/Republic_of_China_Coast_Guard_Logo.svg.png' %}" width="50%">
+                <div class="text-center">
+                    <h1>News</h1>
+                </div>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <ul class="text-left" style="font-size: 0.8em">
+                            {% for proclamation in proclamations %}
+                                <li class="mt-2"><i>{{ proclamation.updated_time|date:"Y/m/d" }} </i><a href="{% url 'proclamation_detail' proclamation.pk %}">{{ proclamation.title }}</a>{% if proclamation.is_new %}<i class="badge badge-pill badge-danger">New!</i>{% endif %}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 text-center" style="cursor: pointer" onclick="window.location.href='https://www.cga.gov.tw/GipOpen/wSite/mp?mp=9995'">
-                <a style="font-size: 2.5em">海洋委員會東部分署</a><br>
-                <a style="font-size: 1em">Eastern Branch, Coast Guard Administration, Ocean Affairs Council</a>
+            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 text-center" id="about">
+                <div class="text-center">
+                    <h1>About</h1>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 text-center" style="cursor: pointer" onclick="window.location.href='https://www.cga.gov.tw/GipOpen/wSite/mp?mp=9995'">
+                            <img src="{% static 'image/Republic_of_China_Coast_Guard_Logo.svg.png' %}" width="50%">
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 text-center" style="cursor: pointer" onclick="window.location.href='https://www.cga.gov.tw/GipOpen/wSite/mp?mp=9995'">
+                            <a class="h3">海洋委員會東部分署</a><br>
+                            <a class="h6">Eastern Branch, Coast Guard Administration, Ocean Affairs Council</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     <style>
-        div{
+        #start-logo{
+            height: 30rem;
+        }
+        #start-logo div{
+            align-items:center;
+        }
+        #about div{
             align-items:center;
         }
     </style>

@@ -24,7 +24,7 @@
                     <div class="card-footer">
                         <h4>Service</h4>
                         <p>services: {{ services.count }}</p>
-                        <span style="cursor: pointer" class="btn badge-pill btn-outline-primary" onclick="window.location.href='{% url 'service_detail' %}'">Detail&raquo;</span>
+                        <span style="cursor: pointer" class="btn badge-pill btn-outline-primary" onclick="window.location.href='{% url 'service_index' %}'">Detail&raquo;</span>
                     </div>
                 </card>
                 <card class="col-sm-12 col-md-6 col-lg-4 mt-2">
@@ -37,9 +37,16 @@
                         </ul>
                         <ul class="nav" id="dashboardTab" role="tablist">
                             <li class="nav-item">
-                                <i class="nav-link btn badge-pill btn-outline-primary m-1" onclick="window.location.href='{% url 'military_service_detail' %}'">Detail&raquo;</i>
+                                <i class="nav-link btn badge-pill btn-outline-primary m-1" onclick="window.location.href='{% url 'military_service_index' %}'">Detail&raquo;</i>
                             </li>
                         </ul>
+                    </div>
+                </card>
+                <card class="col-sm-12 col-md-6 col-lg-4 mt-2">
+                    <div class="card-footer">
+                        <h4>Proclamation</h4>
+                        <p>counts: {{ proclamations.count }}</p>
+                        <span style="cursor: pointer" class="btn badge-pill btn-outline-primary" onclick="window.location.href='{% url 'proclamation_index' %}'">Detail&raquo;</span>
                     </div>
                 </card>
             </div>
