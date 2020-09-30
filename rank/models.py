@@ -9,7 +9,7 @@ class Service(models.Model):
     slug = models.SlugField(max_length=155, null=False, blank=False, unique=True)
 
     def get_absolute_url(self):
-        return reverse('service_detail')
+        return reverse('service_index')
 
     def __str__(self):
         return self.name
@@ -21,7 +21,7 @@ class Branch(models.Model):
     slug = models.SlugField(max_length=155, null=False, blank=False)
 
     def get_absolute_url(self):
-        return reverse('service_detail')
+        return reverse('service_index')
 
     def __str__(self):
         return self.name
@@ -41,7 +41,7 @@ class MilitaryBranch(models.Model):
     slug = models.SlugField(max_length=155, null=False, blank=False)
 
     def get_absolute_url(self):
-        return reverse('military_service_detail')
+        return reverse('military_service_index')
 
     def __str__(self):
         return self.name
@@ -54,7 +54,7 @@ class Rank(models.Model):
     slug = models.SlugField(max_length=155, null=False, blank=False)
 
     def get_absolute_url(self):
-        return reverse('military_service_detail')
+        return reverse('military_service_index')
 
     def __str__(self):
         return self.name

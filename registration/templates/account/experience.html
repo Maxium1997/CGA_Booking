@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load registration_filters %}
+
+{% block title %}Index｜Experience{% endblock %}
+
+{% block direction_content %}
+    <u>/Experience</u>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <h1>Education</h1>
+                <ul>
+                    {% for exp in edu_exps %}
+                    <li>{{ exp.class_name }}{{ exp.finished_date|year_class }}年班<button type="button" class="btn badge badge-pill badge-danger" onclick="window.location.href='{% url 'edu_exp_delete' exp.pk %}'">-</button></li>
+                    {% empty %}
+                    <li>No exp recently.</li>
+                    {% endfor %}
+                    <form class="mt-4" action="{% url 'edu_exp_addition' %}" method="post">
+                        {% csrf_token %}
+                        <card>
+                            <div class="card-footer">
+                                {{ edu_form.as_p }}
+                                <p><i style="color: red">Date Format: YYYY-MM-DD</i></p>
+                                <button type="submit" class="btn btn-outline-primary">Add+</button>
+                            </div>
+                        </card>
+                    </form>
+                </ul>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <h1>Work</h1>
+                <ul>
+                    {% for exp in work_exps %}
+                    <li>{{ exp.position }}{{ exp.started_date|date:'Y/m/d' }}～{{ exp.finished_date|date:'Y/m/d' }}<button type="button" class="btn badge badge-pill badge-danger" onclick="window.location.href='{% url 'work_exp_delete' exp.pk %}'">-</button></li>
+                    {% empty %}
+                    <li>No exp recently.</li>
+                    {% endfor %}
+                    <form class="mt-4" action="{% url 'work_exp_addition' %}" method="post">
+                        {% csrf_token %}
+                        <card>
+                            <div class="card-footer">
+                                {{ work_form.as_p }}
+                                <p><i style="color: red">Date Format: YYYY-MM-DD</i></p>
+                                <button type="submit" class="btn btn-outline-primary">Add+</button>
+                            </div>
+                        </card>
+                    </form>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

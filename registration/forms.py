@@ -121,9 +121,12 @@ class AttachmentForm(forms.Form):
 
 class ExperienceForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
-        user = kwargs.pop('user')
-        self.fields['user'] = user
+        try:
+            user = kwargs.pop('user')
+        except KeyError:
+            user = None
         super(ExperienceForm, self).__init__(*args, **kwargs)
+        self.fields['finished_date'].required = False
 
 
 class EducationForm(ExperienceForm):

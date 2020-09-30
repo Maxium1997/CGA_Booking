@@ -8,6 +8,9 @@ from registration.views import user_change
 from registration.views import OfficerIndexView
 from registration.views import officer_change, military_ID_card_front_upload, military_ID_card_back_upload, \
     badge_front_upload, badge_back_upload
+from registration.models import Education, Work
+from registration.views import ExperienceIndexView
+from registration.views import edu_exp_addition, work_exp_addition, edu_exp_delete, work_exp_delete
 
 urlpatterns = [
     path('admin/', include([
@@ -42,6 +45,22 @@ urlpatterns = [
                     path('back', badge_back_upload, name='badge_back_upload'),
                 ])),
             ])),
+        ])),
+
+        path('experience/', include([
+            path('index', ExperienceIndexView.as_view(), name='experience_index'),
+            path('education/', include([
+                path('addition', edu_exp_addition, name='edu_exp_addition'),
+                path('<pk>/', include([
+                    path('delete', edu_exp_delete, name='edu_exp_delete')
+                ]))
+            ])),
+            path('work/', include([
+                path('addition', work_exp_addition, name='work_exp_addition'),
+                path('<pk>/', include([
+                    path('delete', work_exp_delete, name='work_exp_delete')
+                ]))
+            ]))
         ])),
     ])),
 ]

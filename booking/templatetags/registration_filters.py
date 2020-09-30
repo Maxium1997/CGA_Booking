@@ -1,4 +1,5 @@
 from django import template
+from datetime import datetime, timedelta
 
 from registration.models import User
 from registration.definition import Privilege, Identity, Gender
@@ -38,3 +39,8 @@ def readableGender(gender_value):
     for gender in Gender.__members__.values():
         if gender_value == gender.value[0]:
             return gender.value[1]
+
+
+@register.filter(name='year_class')
+def year_class(date: datetime):
+    return date.year - 1911

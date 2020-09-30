@@ -69,15 +69,18 @@ class Officer(models.Model):
 class Experience(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     started_date = models.DateField()
-    finished_date = models.DateField()
-
-    def get_year(self):
-        return self.finished_date.year
+    finished_date = models.DateField(null=True)
 
 
 class Education(Experience):
     class_name = models.CharField(max_length=20, null=False, blank=False)
 
+    class Meta:
+        ordering = ('finished_date',)
+
 
 class Work(Experience):
     position = models.CharField(max_length=20, null=False, blank=False)
+
+    class Meta:
+        ordering = ('started_date',)
