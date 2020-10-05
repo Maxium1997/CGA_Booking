@@ -6,9 +6,17 @@ from booking.definition import Use
 
 
 class BookingForm(forms.Form):
-    unit_of_applicant = forms.CharField(required=True,
-                                        max_length=50,
-                                        widget=forms.TextInput(attrs={'class': 'form-control'}))
+    def __init__(self, *args, **kwargs):
+        try:
+            applicant = kwargs.pop('applicant')
+        except KeyError:
+            applicant = None
+        super(BookingForm, self).__init__(*args, **kwargs)
+        self.fields['unit_of_applicant'] = forms.CharField(required=True,
+                                                           max_length=50,
+                                                           widget=forms.TextInput(attrs={'class': 'form-control'}))
+        if applicant.officer.branch:
+            self.fields['unit_of_applicant'].initial = applicant.officer.branch.name
 
     USE_CHOICES = [('', 'Select your use')] + [(str(_.value[0]), _.value[1]) for _ in Use.__members__.values()]
     use = forms.ChoiceField(required=True,

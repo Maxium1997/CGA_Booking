@@ -14,19 +14,33 @@
             {% csrf_token %}
                 <div class="card">
                     <div class="card-body">
-                        {{ account_change_form.first_name.label }}
-                        {{ account_change_form.first_name }}
-                        {{ account_change_form.last_name.label }}
-                        {{ account_change_form.last_name }}
-                        {{ account_change_form.email.label }}
-                        {{ account_change_form.email }}
-                        {{ account_change_form.gender.label }}
-                        {{ account_change_form.gender }}
-                        {{ account_change_form.phone_number.label }}
-                        {{ account_change_form.phone_number }}
-                        {{ account_change_form.birthday.label }}
-                        {{ account_change_form.birthday }}
-                        <i style="color: red">{{ account_change_form.birthday.help_text }}</i>
+                        <p>
+                            {{ account_change_form.first_name.label }}
+                            {{ account_change_form.first_name }}
+                        </p>
+                        <p>
+                            {{ account_change_form.last_name.label }}
+                            {{ account_change_form.last_name }}
+                        </p>
+                        <p>
+                            {{ account_change_form.email.label }}
+                            {{ account_change_form.email }}
+                        </p>
+                        <p>
+                            {{ account_change_form.gender.label }}
+                            {{ account_change_form.gender }}
+                        </p>
+                        <p>
+                            {{ account_change_form.phone_number.label }}
+                            {{ account_change_form.phone_number }}
+                            {{ account_change_form.phone_number.errors }}
+                        </p>
+                        <p>
+                            {{ account_change_form.birthday.label }}
+                            {{ account_change_form.birthday }}
+                            <i style="color: red">{{ account_change_form.birthday.help_text }}</i>
+                            {{ account_change_form.birthday.errors }}
+                        </p>
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn btn-outline-primary">Submit</button>

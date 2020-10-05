@@ -13,6 +13,7 @@ from booking.forms import BookingForm, GuestInfoForm
 from booking.definition import Use, State
 from booking.decorator import check_time_is_valid, calculate_booking_price, guest_form_to_Guest
 from proclamation.models import Proclamation
+from booking.mail import booking_notification_mail
 # Create your views here.
 
 
@@ -36,7 +37,7 @@ class BookingView(View):
         context = {'hotel': hotel,
                    'room': room,
                    'uses': Use.__members__.values(),
-                   'booking_form': BookingForm(),
+                   'booking_form': BookingForm(applicant=self.request.user),
                    'guest_info_forms': guest_info_forms}
 
         return render(request, template, context)
@@ -77,6 +78,7 @@ class BookingView(View):
                 new_booking.save()
 
                 messages.success(request, "Booked Successfully.")
+                booking_notification_mail(hotel.owner, new_booking)
             return redirect('my_bookings')
         else:
             guest_info_forms = [GuestInfoForm(request.POST, prefix=str(x)) for x in range(5)]

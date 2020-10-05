@@ -105,7 +105,7 @@ class OfficerForm(forms.ModelForm):
                                      help_text="Date Format: YYYY-MM-DD")
     date_of_retire = forms.DateField(required=False,
                                      widget=forms.DateInput(attrs={'class': 'form-control'}),
-                                     help_text="Date Format: YYYY-MM-DD")
+                                     help_text="<i style=\"color: red;\">Date Format: YYYY-MM-DD</i>")
 
     class Meta:
         model = Officer

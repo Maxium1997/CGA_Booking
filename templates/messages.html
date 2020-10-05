@@ -1,5 +1,5 @@
 <div id="prompt_bar" class="text-center">
-    {% if messages %}
+    {% if messages and errors %}
         {% for message in messages %}
             {% if message.tags == 'success' %}
                 <div id="prompt" class="card my-4 text-center alert-success prompt">{{ message }}</div>
@@ -9,8 +9,17 @@
                 <div id="prompt" class="card my-4 text-center alert-danger prompt">{{ message }}</div>
             {% endif %}
         {% endfor %}
-    {% endif %}
-    {% if form.errors %}
+    {% elif messages %}
+        {% for message in messages %}
+            {% if message.tags == 'success' %}
+                <div id="prompt" class="card my-4 text-center alert-success prompt">{{ message }}</div>
+            {% elif message.tags == 'warning' %}
+                <div id="prompt" class="card my-4 text-center alert-warning prompt">{{ message }}</div>
+            {% elif message.tags == 'error' %}
+                <div id="prompt" class="card my-4 text-center alert-danger prompt">{{ message }}</div>
+            {% endif %}
+        {% endfor %}
+    {% elif errors %}
         {% for field in form %}
             {% for error in field.errors %}
                 <div id="prompt" class="card my-4 text-left alert-danger prompt">{{ error|escape }}</div>
