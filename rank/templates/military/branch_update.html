@@ -9,11 +9,27 @@
 {% endblock %}
 
 {% block content %}
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-outline-primary">Update</button>
-        <button type="button" class="btn btn-outline-danger" onclick="window.location.href='{% url 'military_branch_delete' militarybranch.military_service.slug militarybranch.pk %}'">Delete</button>
-        <button type="button" class="btn btn-outline-secondary" onclick="history.back()">Cancel</button>
-    </form>
+    <div class="container">
+        <div class="row">
+            <form class="col-xs-12 col-sm-12 col-md-8 col-lg-6" method="post">
+                {% csrf_token %}
+                <h3>Form</h3>
+                <div class="card-footer">
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-outline-primary">Update</button>
+                    <button type="button" class="btn btn-outline-danger" onclick="window.location.href='{% url 'military_branch_delete' militarybranch.military_service.slug militarybranch.pk %}'">Delete</button>
+                    <button type="button" class="btn btn-outline-secondary" onclick="history.back()">Cancel</button>
+                </div>
+            </form>
+            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+                <h3>More Info</h3>
+                <div class="card-footer">
+                    <ul>
+                        <li>Part of：{{ militarybranch.military_service }}({{ militarybranch.military_service.slug }})</li>
+                        <li>Officer Count：{{ militarybranch.officer_set.count }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

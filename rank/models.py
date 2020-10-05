@@ -31,6 +31,9 @@ class MilitaryService(models.Model):
     name = models.CharField(max_length=10, null=False, blank=False, unique=True)
     slug = models.SlugField(max_length=155, null=False, blank=False, unique=True)
 
+    def get_absolute_url(self):
+        return reverse('military_service_index')
+
     def __str__(self):
         return self.name
 
@@ -48,7 +51,7 @@ class MilitaryBranch(models.Model):
 
 
 class Rank(models.Model):
-    equivalent_NATO_code = models.CharField(max_length=10, default='')
+    equivalent_NATO_code = models.CharField(max_length=10)
     military_service = models.ForeignKey(MilitaryService, on_delete=models.PROTECT, default=None)
     name = models.CharField(max_length=10, null=False, blank=False)
     slug = models.SlugField(max_length=155, null=False, blank=False)

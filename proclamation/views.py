@@ -58,7 +58,14 @@ class ProclamationUpdateView(UpdateView):
     template_name = 'proclamation/update.html'
     fields = ['title', 'content']
 
+    def dispatch(self, request, *args, **kwargs):
+        obj = super(ProclamationUpdateView, self).get_object()
+        if not obj.created_by == self.request.user or obj.updated_by == self.request.user:
+            raise PermissionDenied
+        return super(ProclamationUpdateView, self).dispatch(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         obj = super(ProclamationUpdateView, self).get_object()
         kwargs['form'] = ProclamationForm(instance=obj)
+        kwargs['result'] = obj.created_by == self.request.user
         return super(ProclamationUpdateView, self).get_context_data(**kwargs)

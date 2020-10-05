@@ -18,6 +18,22 @@
         </div>
     </div>
 
+    <!-- News Block -->
+    <div class="container mt-4">
+        <div class="text-center">
+            <h1>News</h1>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 text-center">
+                <ul class="text-left" style="font-size: 0.8em">
+                    {% for proclamation in proclamations %}
+                        <li class="mt-2"><i>{{ proclamation.updated_time|date:"Y/m/d" }} </i><a href="{% url 'proclamation_detail' proclamation.pk %}">{{ proclamation.title }}</a>{% if proclamation.is_new %}<i class="badge badge-pill badge-danger">N</i>{% endif %}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
     <div class="container-fluid mt-4 bg-light">
         <div class="row justify-content-center">
             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 mt-4 text-center">
@@ -41,37 +57,17 @@
         </div>
     </div>
 
-    <div class="container-fluid mt-4">
+    <div class="container-fluid mt-4" id="about">
+        <div class="text-center">
+            <h1>About</h1>
+        </div>
         <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 text-center">
-                <div class="text-center">
-                    <h1>News</h1>
-                </div>
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <ul class="text-left" style="font-size: 0.8em">
-                            {% for proclamation in proclamations %}
-                                <li class="mt-2"><i>{{ proclamation.updated_time|date:"Y/m/d" }} </i><a href="{% url 'proclamation_detail' proclamation.pk %}">{{ proclamation.title }}</a>{% if proclamation.is_new %}<i class="badge badge-pill badge-danger">New!</i>{% endif %}</li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 text-center" style="cursor: pointer" onclick="window.location.href='https://www.cga.gov.tw/GipOpen/wSite/mp?mp=9995'">
+                <img src="{% static 'image/Republic_of_China_Coast_Guard_Logo.svg.png' %}" width="30%">
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 text-center" id="about">
-                <div class="text-center">
-                    <h1>About</h1>
-                </div>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 text-center" style="cursor: pointer" onclick="window.location.href='https://www.cga.gov.tw/GipOpen/wSite/mp?mp=9995'">
-                            <img src="{% static 'image/Republic_of_China_Coast_Guard_Logo.svg.png' %}" width="50%">
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 text-center" style="cursor: pointer" onclick="window.location.href='https://www.cga.gov.tw/GipOpen/wSite/mp?mp=9995'">
-                            <a class="h3">海洋委員會東部分署</a><br>
-                            <a class="h6">Eastern Branch, Coast Guard Administration, Ocean Affairs Council</a>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 text-center" style="cursor: pointer" onclick="window.location.href='https://www.cga.gov.tw/GipOpen/wSite/mp?mp=9995'">
+                <a class="h3">海洋委員會東部分署</a><br>
+                <a class="h6">Eastern Branch, Coast Guard Administration, Ocean Affairs Council</a>
             </div>
         </div>
     </div>

@@ -15,10 +15,9 @@
                 <table class="table">
                     <thead class="table-dark">
                         <tr class="text-center">
-                            <td style="width: 20%">Title</td>
+                            <td style="width: 40%">Title</td>
                             <td style="width: 10%">Public</td>
-                            <td style="width: 50%">Content</td>
-                            <td style="width: 10%">Created</td>
+                            <td style="width: 20%">Created</td>
                             <td style="width: 10%">Announcer</td>
                         </tr>
                     </thead>
@@ -27,7 +26,6 @@
                         <tr class="text-center" style="cursor: pointer" onclick="window.location.href='{% url 'proclamation_detail' proclamation.pk %}'">
                             <td class="align-middle">{{ proclamation.title|linebreaksbr }}</td>
                             <td class="align-middle">{{ proclamation.is_public }}</td>
-                            <td class="align-middle">{{ proclamation.content|in_short:50 }}</td>
                             <td class="align-middle">{{ proclamation.created_time|date:'Y/m/d, H:i' }}</td>
                             <td class="align-middle">{{ proclamation.created_by }}</td>
                         </tr>

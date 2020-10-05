@@ -18,7 +18,7 @@
                 {% for hotel in hotels %}
                     <div class="col-sm-12 mt-4">
                         <div class="card shadow" style="cursor: pointer;" onclick="window.location.href='{% url 'hotel_detail' hotel.slug %}'">
-                            <div class="container">
+                            <div class="container" id="hotel-concept">
                                 <div class="row">
                                     <div class="col-sm-4">
                                         {% if hotel.external_appearance %}
@@ -48,6 +48,9 @@
         img{
             width: 20%;
             height: auto;
+        }
+        #hotel-concept div{
+            align-items:center;
         }
     </style>
 {% endblock %}

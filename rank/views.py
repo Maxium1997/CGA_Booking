@@ -4,7 +4,7 @@ from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.core.exceptions import PermissionDenied
-from django.views.generic import TemplateView, CreateView, View, DetailView
+from django.views.generic import TemplateView, CreateView, View, DetailView, DeleteView
 from django.views.generic.edit import UpdateView
 
 from registration.decorator import superuser_check
@@ -41,7 +41,7 @@ def service_addition(request):
                 messages.success(request, "Added Successfully.")
             except ValueError:
                 pass
-    return redirect('service_detail')
+    return redirect('service_index')
 
 
 @superuser_check()
@@ -57,7 +57,7 @@ def branch_addition(request, slug):
                 messages.success(request, "Added Successfully.")
             except ValueError:
                 pass
-    return redirect('service_detail')
+    return redirect('service_index')
 
 
 @method_decorator(login_required, name='dispatch')
@@ -71,13 +71,21 @@ class ServiceUpdateView(UpdateView):
             raise PermissionDenied
         return super(ServiceUpdateView, self).dispatch(request, *args, **kwargs)
 
+    def get_context_data(self, **kwargs):
+        obj = super(ServiceUpdateView, self).get_object()
+        kwargs['form'] = ServiceForm(instance=obj)
+        return super(ServiceUpdateView, self).get_context_data(**kwargs)
+
 
 @superuser_check()
 def service_delete(request, slug):
     service = get_object_or_404(Service, slug=slug)
-    service.delete()
-    messages.success(request, "Deleted Successfully.")
-    return redirect('service_detail')
+    if service.branch_set.count() != 0:
+        messages.error(request, "Branch set is not blank, delete rejected.")
+    else:
+        service.delete()
+        messages.success(request, "Deleted Successfully.")
+    return redirect('service_index')
 
 
 @method_decorator(login_required, name='dispatch')
@@ -91,13 +99,21 @@ class BranchUpdateView(UpdateView):
             raise PermissionDenied
         return super(BranchUpdateView, self).dispatch(request, *args, **kwargs)
 
+    def get_context_data(self, **kwargs):
+        obj = super(BranchUpdateView, self).get_object()
+        kwargs['form'] = BranchForm(instance=obj)
+        return super(BranchUpdateView, self).get_context_data(**kwargs)
+
 
 @superuser_check()
 def branch_delete(request, slug, pk):
-    branch = get_object_or_404(Service, pk=pk)
-    branch.delete()
-    messages.success(request, "Deleted Successfully.")
-    return redirect('service_detail')
+    branch = get_object_or_404(Branch, pk=pk)
+    if branch.officer_set.count() != 0:
+        messages.error(request, "Officer set is not blank, delete rejected.")
+    else:
+        branch.delete()
+        messages.success(request, "Deleted Successfully.")
+    return redirect('service_index')
 
 
 @method_decorator(login_required, name='dispatch')
@@ -128,7 +144,7 @@ def military_service_addition(request):
                 messages.success(request, "Added Successfully.")
             except ValueError:
                 pass
-    return redirect('military_service_detail')
+    return redirect('military_service_index')
 
 
 @superuser_check()
@@ -144,7 +160,7 @@ def military_branch_addition(request, slug):
                 messages.success(request, "Added Successfully.")
             except ValueError:
                 pass
-    return redirect('military_service_detail')
+    return redirect('military_service_index')
 
 
 @superuser_check()
@@ -160,7 +176,7 @@ def rank_addition(request, slug):
                 messages.success(request, "Added Successfully.")
             except ValueError:
                 pass
-    return redirect('military_service_detail')
+    return redirect('military_service_index')
 
 
 @method_decorator(login_required, name='dispatch')
@@ -174,13 +190,21 @@ class MilitaryBranchUpdateView(UpdateView):
             raise PermissionDenied
         return super(MilitaryBranchUpdateView, self).dispatch(request, *args, **kwargs)
 
+    def get_context_data(self, **kwargs):
+        obj = super(MilitaryBranchUpdateView, self).get_object()
+        kwargs['form'] = BranchForm(instance=obj)
+        return super(MilitaryBranchUpdateView, self).get_context_data(**kwargs)
+
 
 @superuser_check()
 def military_branch_delete(request, slug, pk):
     military_branch = get_object_or_404(MilitaryBranch, pk=pk)
-    military_branch.delete()
-    messages.success(request, "Deleted Successfully.")
-    return redirect('military_service_detail')
+    if military_branch.officer_set.count() != 0:
+        messages.error(request, "Officer set is not blank, delete rejected.")
+    else:
+        military_branch.delete()
+        messages.success(request, "Deleted Successfully.")
+    return redirect('military_service_index')
 
 
 @method_decorator(login_required, name='dispatch')
@@ -194,10 +218,18 @@ class RankUpdateView(UpdateView):
             raise PermissionDenied
         return super(RankUpdateView, self).dispatch(request, *args, **kwargs)
 
+    def get_context_data(self, **kwargs):
+        obj = super(RankUpdateView, self).get_object()
+        kwargs['form'] = RankForm(instance=obj)
+        return super(RankUpdateView, self).get_context_data(**kwargs)
+
 
 @superuser_check()
 def rank_delete(request, slug, pk):
     rank = get_object_or_404(Rank, pk=pk)
-    rank.delete()
-    messages.success(request, "Deleted Successfully.")
-    return redirect('military_service_detail')
+    if rank.officer_set.count() != 0:
+        messages.error(request, "Officer set is not blank, delete rejected.")
+    else:
+        rank.delete()
+        messages.success(request, "Deleted Successfully.")
+    return redirect('military_service_index')

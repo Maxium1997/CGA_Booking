@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 from registration.models import User
 # Create your models here.
@@ -19,6 +20,9 @@ class Hotel(models.Model):
                                       photo,
                                       save=True)
         self.save()
+
+    def get_absolute_url(self):
+        return reverse('my_hotels')
 
     def __str__(self):
         return self.name

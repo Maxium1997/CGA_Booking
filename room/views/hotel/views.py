@@ -1,7 +1,6 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import ListView, CreateView, View
+from django.shortcuts import render, redirect
+from django.views.generic import ListView, CreateView, UpdateView, DetailView
 from django.contrib.auth.decorators import login_required
-from django.contrib import messages
 from django.utils.decorators import method_decorator
 from django.core.exceptions import PermissionDenied
 
@@ -53,46 +52,29 @@ class OwnedHotelView(ListView):
         return Hotel.objects.filter(owner=self.request.user)
 
 
-class HotelDetailView(View):
-    def get(self, request, slug):
-        hotel = get_object_or_404(Hotel, slug=slug)
-        template = 'hotel/detail.html'
-        context = {
-            'hotel': hotel,
-            'rooms': hotel.room_set.all(),
-            'hotels': Hotel.objects.exclude(id=hotel.id)[:4],
-        }
-        return render(request, template, context)
+class HotelDetailView(DetailView):
+    model = Hotel
+    template_name = 'hotel/detail.html'
+
+    def get_context_data(self, **kwargs):
+        obj = super(HotelDetailView, self).get_object()
+        kwargs['hotels'] = Hotel.objects.exclude(name=obj.name)[:4]
+        return super(HotelDetailView, self).get_context_data(**kwargs)
 
 
 @method_decorator(login_required, name='dispatch')
-class HotelEditionView(View):
+class HotelEditionView(UpdateView):
+    model = Hotel
+    template_name = 'hotel/edition.html'
+    fields = ['external_appearance', 'name', 'slug', 'address', 'phone', 'website', 'introduction']
+
     def dispatch(self, request, *args, **kwargs):
-        if request.user.identity != Identity.Proprietor.value[0]:
+        obj = super(HotelEditionView, self).get_object()
+        if obj.owner != request.user:
             raise PermissionDenied
         return super(HotelEditionView, self).dispatch(request, *args, **kwargs)
 
-    def get(self, request, slug):
-        hotel = get_object_or_404(Hotel, slug=slug)
-
-        if hotel.owner != request.user:
-            messages.error(request, "Permission Denied. You are not this hotel owner.")
-            return redirect('hotels')
-
-        template = 'hotel/edition.html'
-        context = {'hotel': hotel,
-                   'form': HotelForm(instance=hotel)}
-
-        return render(request, template, context)
-
-    def post(self, request, slug):
-        hotel = get_object_or_404(Hotel, slug=slug)
-
-        if hotel.owner != request.user:
-            messages.error(request, "Permission Denied. You are not this hotel owner.")
-            return redirect('hotels')
-
-        hotel = HotelForm(request.POST, request.FILES, instance=hotel).save(commit=False)
-        hotel.photo_upload(hotel.external_appearance)
-        messages.success(request, "Successfully Edit.")
-        return redirect('my_hotels')
+    def get_context_data(self, **kwargs):
+        obj = super(HotelEditionView, self).get_object()
+        kwargs['form'] = HotelForm(instance=obj)
+        return super(HotelEditionView, self).get_context_data(**kwargs)

@@ -1,6 +1,7 @@
 from django.urls import path, include
 
-from rank.views import ServiceDetailView, MilitaryServiceDetailView, ServiceUpdateView, BranchUpdateView, MilitaryBranchUpdateView, RankUpdateView
+from rank.views import ServiceDetailView, MilitaryServiceDetailView
+from rank.views import ServiceUpdateView, BranchUpdateView, MilitaryBranchUpdateView, RankUpdateView
 from rank.views import service_addition, branch_addition, military_service_addition, military_branch_addition, rank_addition
 from rank.views import service_delete, branch_delete, military_branch_delete, rank_delete
 

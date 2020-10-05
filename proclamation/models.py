@@ -26,7 +26,7 @@ class Proclamation(models.Model):
         return self.title
 
     def is_new(self):
-        return True if self.updated_time - datetime.now() < timedelta(days=3) else False
+        return True if self.updated_time - datetime.now() > timedelta(days=-3) else False
 
     def get_absolute_url(self):
         return reverse('proclamation_index')

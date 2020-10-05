@@ -14,20 +14,7 @@
         <h3>Hotel Edition</h3>
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            <p>External Appearance</p>
-            <p>{{ form.external_appearance }}</p>
-            <p>Name
-            {{ form.name }}</p>
-            <p>Slug
-            {{ form.slug }}</p>
-            <p>Address
-            {{ form.address }}</p>
-            <p>Phone
-            {{ form.phone }}</p>
-            <p>Website
-            {{ form.website }}</p>
-            <p>Introduction
-            {{ form.introduction }}</p>
+            {{ form.as_p }}
 
             <div class="float-right">
                 <button type="submit" class="btn btn-success">Update</button>

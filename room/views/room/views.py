@@ -117,30 +117,26 @@ class OwnedRoomView(View):
         return render(request, template, context)
 
 
-class RoomDetailView(View):
-    def get(self, request, slug, pk):
-        hotel = get_object_or_404(Hotel, slug=slug)
-        room = get_object_or_404(Room, pk=pk)
+class RoomDetailView(DetailView):
+    model = Room
+    template_name = 'room/detail.html'
 
+    def get_context_data(self, **kwargs):
+        obj = super(RoomDetailView, self).get_object()
         photo_path_list = []
 
-        album_path = MEDIA_ROOT + 'hotels/' + hotel.name + '/' + room.name
+        album_path = MEDIA_ROOT + 'hotels/' + obj.hotel.name + '/' + obj.name
 
         try:
             for file in listdir(album_path):
                 if file.endswith('.jpg') or file.endswith('.jpeg') or file.endswith('.png'):
                     photo_path_list.append(
-                        '/' + MEDIA_ROOT.split('/')[-2] + '/hotels/' + hotel.name + '/' + room.name + '/' + file)
+                        '/' + MEDIA_ROOT.split('/')[-2] + '/hotels/' + obj.hotel.name + '/' + obj.name + '/' + file)
         except FileNotFoundError:
             pass
-
-        template = 'room/detail.html'
-        context = {'hotel': hotel,
-                   'room': room,
-                   'rooms': hotel.room_set.all(),
-                   'photo_list': photo_path_list}
-
-        return render(request, template, context)
+        kwargs['hotel'] = obj.hotel
+        kwargs['photo_list'] = photo_path_list
+        return super(RoomDetailView, self).get_context_data(**kwargs)
 
 
 @login_required

@@ -141,7 +141,7 @@
                 <table class="table">
                     <tr class="text-center">
                         <td></td>
-                        {% for room in rooms %}
+                        {% for room in hotel.room_set.all %}
                             <td class="align-middle">
                                 {% if room.photo %}
                                     <img class="card-img-top mt-2 mb-2" src="{{ room.photo.url }}" alt="{{ room.name }}" >
@@ -153,19 +153,19 @@
                     </tr>
                     <tr class="text-center">
                         <td>Name</td>
-                        {% for room in rooms %}
+                        {% for room in hotel.room_set.all %}
                             <td class="align-middle">{{ room.name }}</td>
                         {% endfor %}
                     </tr>
                     <tr class="text-center">
                         <td>Price<br>(per/night)</td>
-                        {% for room in rooms %}
+                        {% for room in hotel.room_set.all %}
                             <td class="align-middle">{{ room.dormitory.get_price }}</td>
                         {% endfor %}
                     </tr>
                     <tr class="text-center">
                         <td></td>
-                        {% for room in rooms %}
+                        {% for room in hotel.room_set.all %}
                             <td class="align-middle">
                                 <button type="button" class="btn btn-outline-primary" onclick="window.location.href='{% url 'room_detail' hotel.slug room.pk %}'">View</button>
                             </td>

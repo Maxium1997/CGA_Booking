@@ -19,5 +19,6 @@ class ProclamationForm(forms.ModelForm):
         obj = super(ProclamationForm, self).save(commit=False)
         if self.cleaned_data['is_public']:
             obj.created_by = announcer
+            obj.updated_by = announcer
             obj.save()
         return obj

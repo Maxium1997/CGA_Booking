@@ -5,8 +5,12 @@ from rank.models import Service, Branch, MilitaryService, MilitaryBranch, Rank
 
 
 class ServiceForm(forms.ModelForm):
-    name = forms.CharField(required=True)
-    slug = forms.SlugField(required=True)
+    def __init__(self, *args, **kwargs):
+        super(ServiceForm, self).__init__(*args, **kwargs)
+        self.fields['name'] = forms.CharField(required=True,
+                                              widget=forms.TextInput(attrs={'class': 'form-control badge-pill'}))
+        self.fields['slug'] = forms.CharField(required=True,
+                                              widget=forms.TextInput(attrs={'class': 'form-control badge-pill'}))
 
     class Meta:
         model = Service
@@ -39,6 +43,15 @@ class MilitaryBranchForm(ServiceForm):
 
 
 class RankForm(ServiceForm):
+    def __init__(self, *args, **kwargs):
+        super(ServiceForm, self).__init__(*args, **kwargs)
+        self.fields['equivalent_NATO_code'] = forms.CharField(required=True,
+                                                              widget=forms.TextInput(attrs={'class': 'form-control badge-pill'}))
+        self.fields['name'] = forms.CharField(required=True,
+                                              widget=forms.TextInput(attrs={'class': 'form-control badge-pill'}))
+        self.fields['slug'] = forms.CharField(required=True,
+                                              widget=forms.TextInput(attrs={'class': 'form-control badge-pill'}))
+
     class Meta:
         model = Rank
         fields = ['equivalent_NATO_code', 'name', 'slug']
