@@ -9,7 +9,7 @@ register = template.Library()
 def readableUse(use_value: int):
     for use in Use.__members__.values():
         if use_value == use.value[0]:
-            return use.value[1]
+            return use.value[2]
 
 
 @register.filter(name='readableState')

@@ -46,7 +46,7 @@ class BookingView(View):
         hotel = get_object_or_404(Hotel, slug=slug)
         room = get_object_or_404(Room, pk=pk)
 
-        booking_form = BookingForm(request.POST)
+        booking_form = BookingForm(request.POST, applicant=self.request.user)
 
         if check_time_is_valid(room, booking_form['check_in_time'].data, booking_form['days'].data):
             if booking_form.is_valid():
@@ -89,7 +89,7 @@ class BookingView(View):
             context = {'hotel': hotel,
                        'room': room,
                        'uses': Use.__members__.values(),
-                       'booking_form': BookingForm(request.POST),
+                       'booking_form': BookingForm(request.POST, applicant=self.request.user),
                        'guest_info_forms': guest_info_forms}
 
             return render(request, template, context)
@@ -102,13 +102,13 @@ class MyBookingsView(View):
 
         if request.user.identity == Identity.Traveler.value[0]:
             all_bookings = Booking.objects.filter(applicant=request.user).\
-                order_by('check_in_time', 'state', 'booked_room')
+                order_by('-check_in_time', 'state', 'booked_room')
             future_bookings = Booking.objects.filter(applicant=request.user, check_in_time__gt=datetime.now()).exclude(state=State.Canceled.value[0]).\
-                order_by('check_in_time', 'state', 'booked_room')
-            past_bookings = Booking.objects.filter(applicant=request.user, check_out_time__lt=datetime.now()).\
-                order_by('check_in_time', 'state', 'booked_room')
+                order_by('-check_in_time', 'state', 'booked_room')
+            past_bookings = Booking.objects.filter(applicant=request.user, check_out_time__lt=datetime.now()).exclude(state=State.Canceled.value[0]).\
+                order_by('-check_in_time', 'state', 'booked_room')
             canceled_bookings = Booking.objects.filter(applicant=request.user, state=State.Canceled.value[0]).\
-                order_by('check_in_time', 'booked_room')
+                order_by('-check_in_time', 'booked_room')
 
         elif request.user.identity == Identity.Proprietor.value[0]:
             all_bookings = Booking.objects.filter(booked_room__hotel__owner=request.user).\

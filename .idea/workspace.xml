@@ -2,13 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b2ae6215-e0bf-44df-aae2-2373e83c0974" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/booking/mail.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/room/templates/hotel/transfer.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/booking/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/booking/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/booking/mail.py" beforeDir="false" afterPath="$PROJECT_DIR$/booking/mail.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/booking/templates/booking/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/booking/templates/booking/detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/booking/templatetags/booking_filters.py" beforeDir="false" afterPath="$PROJECT_DIR$/booking/templatetags/booking_filters.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/booking/views/booking/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/booking/views/booking/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/registration/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/registration/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/registration/templates/account/user_change.html" beforeDir="false" afterPath="$PROJECT_DIR$/registration/templates/account/user_change.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/messages.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/messages.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proclamation/templates/proclamation/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/proclamation/templates/proclamation/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/room/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/room/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/room/templates/hotel/owned.html" beforeDir="false" afterPath="$PROJECT_DIR$/room/templates/hotel/owned.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/room/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/room/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/room/views/hotel/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/room/views/hotel/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,8 +27,8 @@
       <list>
         <option value="CSS File" />
         <option value="JavaScript File" />
-        <option value="HTML File" />
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -116,7 +120,7 @@
       <workItem from="1600826157621" duration="9166000" />
       <workItem from="1600940372220" duration="23001000" />
       <workItem from="1601141054108" duration="35218000" />
-      <workItem from="1601487241021" duration="17938000" />
+      <workItem from="1601487241021" duration="25282000" />
     </task>
     <servers />
   </component>

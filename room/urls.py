@@ -1,6 +1,6 @@
 from django.urls import path, include
 
-from room.views.hotel.views import HotelsView, HotelCreationView, OwnedHotelView, HotelDetailView, HotelEditionView
+from room.views.hotel.views import HotelsView, HotelCreationView, OwnedHotelView, HotelDetailView, HotelEditionView, HotelTransferView
 from room.views.room.views import RoomCreationView, RoomEditionView, OwnedRoomView, RoomDetailView
 from room.views.room.views import room_photo_upload
 
@@ -13,6 +13,7 @@ urlpatterns = [
         path('owned', OwnedHotelView.as_view(), name='my_hotels'),
 
         path('<slug:slug>/', include([
+            path('transfer', HotelTransferView.as_view(), name='hotel_transfer'),
             path('edition', HotelEditionView.as_view(), name='hotel_edition'),
             path('detail', HotelDetailView.as_view(), name='hotel_detail'),
 

@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from django.views.generic import ListView, CreateView, UpdateView, DetailView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -6,7 +7,7 @@ from django.core.exceptions import PermissionDenied
 
 from registration.definition import Identity
 from room.models import Hotel
-from room.forms import HotelForm
+from room.forms import HotelForm, HotelTransferForm
 # Create your views here.
 
 
@@ -78,3 +79,14 @@ class HotelEditionView(UpdateView):
         obj = super(HotelEditionView, self).get_object()
         kwargs['form'] = HotelForm(instance=obj)
         return super(HotelEditionView, self).get_context_data(**kwargs)
+
+
+@method_decorator(login_required, name='dispatch')
+class HotelTransferView(UpdateView):
+    model = Hotel
+    template_name = 'hotel/transfer.html'
+    fields = ['owner']
+
+    def get_context_data(self, **kwargs):
+        kwargs['form'] = HotelTransferForm(hotel=self.get_object())
+        return super(HotelTransferView, self).get_context_data(**kwargs)

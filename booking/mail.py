@@ -8,7 +8,7 @@ from registration.models import User
 from booking.models import Booking
 from proclamation.models import Proclamation
 
-strAccount = "cga.easter.branch@gmail.com"      # 備援信箱：tryitnotareal1997@gmail.com
+strAccount = "cga.eastern.branch@gmail.com"      # 備援信箱：wei860925@gmail.com
 strPassword = "Cga00000"
 
 

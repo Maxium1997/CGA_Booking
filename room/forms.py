@@ -1,5 +1,7 @@
 from django import forms
 
+from registration.models import User
+from registration.definition import Identity
 from room.models import Hotel, Room, Dormitory
 
 
@@ -27,6 +29,23 @@ class HotelForm(forms.ModelForm):
     class Meta:
         model = Hotel
         fields = ['external_appearance', 'name', 'slug', 'address', 'phone', 'website', 'introduction']
+
+
+class HotelTransferForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        try:
+            hotel = kwargs.pop('hotel')
+        except KeyError:
+            hotel = None
+        super(HotelTransferForm, self).__init__(*args, **kwargs)
+        self.fields['owner'] = forms.ModelChoiceField(required=True,
+                                                      queryset=User.objects.filter(identity=Identity.Proprietor.value[0]),
+                                                      widget=forms.Select(attrs={'class': 'form-control'}),
+                                                      initial=hotel.owner)
+
+    class Meta:
+        model = Hotel
+        fields = ['owner']
 
 
 class RoomForm(forms.ModelForm):
