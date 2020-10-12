@@ -60,7 +60,16 @@
                         <div class="card-body">
                             <h6>Front</h6>
                             {% if officer.attachment_of_military_ID_card_front %}
-                                <img src="{{ officer.attachment_of_military_ID_card_front.url }}" width="15%">
+                                <img src="{{ officer.attachment_of_military_ID_card_front.url }}" width="15%" style="cursor: pointer;" data-toggle="modal" data-target="#MICFront">
+                                <div class="modal fade" id="MICFront" tabindex="-1" role="dialog" aria-labelledby="MICFrontTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div id="modal-menu" style="width: 100%">
+                                                <img src="{{ officer.attachment_of_military_ID_card_front.url }}" width="100%">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             {% endif %}
                             {{ attachment_of_military_ID_card_front_form }}
                         </div>
@@ -75,7 +84,16 @@
                         <div class="card-body">
                             <h6>Back</h6>
                             {% if officer.attachment_of_military_ID_card_back %}
-                                <img src="{{ officer.attachment_of_military_ID_card_back.url }}" width="15%">
+                                <img src="{{ officer.attachment_of_military_ID_card_back.url }}" width="15%" style="cursor: pointer;" data-toggle="modal" data-target="#MICBack">
+                                <div class="modal fade" id="MICBack" tabindex="-1" role="dialog" aria-labelledby="MICBackTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div id="modal-menu" style="width: 100%">
+                                                <img src="{{ officer.attachment_of_military_ID_card_back.url }}" width="100%">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             {% endif %}
                             {{ attachment_of_military_ID_card_back_form }}
                         </div>
@@ -93,7 +111,16 @@
                         <div class="card-body">
                             <h6>Front</h6>
                             {% if officer.attachment_of_badge_front %}
-                                <img src="{{ officer.attachment_of_badge_front.url }}" width="15%">
+                                <img src="{{ officer.attachment_of_badge_front.url }}" width="15%" style="cursor: pointer;" data-toggle="modal" data-target="#BadgeFront">
+                                <div class="modal fade" id="BadgeFront" tabindex="-1" role="dialog" aria-labelledby="BadgeFrontTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div id="modal-menu" style="width: 100%">
+                                                <img src="{{ officer.attachment_of_badge_front.url }}" width="100%">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             {% endif %}
                             {{ attachment_of_badge_front_form }}
                         </div>
@@ -108,7 +135,16 @@
                         <div class="card-body">
                             <h6>Back</h6>
                             {% if officer.attachment_of_badge_back %}
-                                <img src="{{ officer.attachment_of_badge_back.url }}" width="15%">
+                                <img src="{{ officer.attachment_of_badge_back.url }}" width="15%" style="cursor: pointer;" data-toggle="modal" data-target="#BadgeBack">
+                                <div class="modal fade" id="BadgeBack" tabindex="-1" role="dialog" aria-labelledby="BadgeBackTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div id="modal-menu" style="width: 100%">
+                                                <img src="{{ officer.attachment_of_badge_back.url }}" width="100%">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             {% endif %}
                             {{ attachment_of_badge_back_form }}
                         </div>

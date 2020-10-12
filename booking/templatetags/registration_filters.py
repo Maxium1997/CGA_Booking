@@ -43,4 +43,7 @@ def readableGender(gender_value):
 
 @register.filter(name='year_class')
 def year_class(date: datetime):
-    return date.year - 1911
+    try:
+        return date.year - 1911
+    except AttributeError:
+        pass

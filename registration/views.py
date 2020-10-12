@@ -95,7 +95,7 @@ def user_change(request):
             messages.success(request, "User Change Successfully.")
             return redirect('index')
         else:
-            messages.warning(request, "Maybe some data format is invalid, please check again.")
+            messages.error(request, "User Change Error.")
             user_change_form = AccountChangeForm(request.POST, instance=user)
     else:
         user_change_form = AccountChangeForm(instance=user)
@@ -280,12 +280,7 @@ def edu_exp_delete(request, pk):
         messages.success(request, "Delete Successfully.")
     else:
         raise PermissionDenied
-    context = {'edu_exps': Education.objects.filter(user=user),
-               'work_exps': Work.objects.filter(user=user),
-               'edu_form': EducationForm,
-               'work_form': WorkForm}
-    template = 'account/experience.html'
-    return render(request, template, context)
+    return redirect('experience_index')
 
 
 @login_required
@@ -297,9 +292,4 @@ def work_exp_delete(request, pk):
         messages.success(request, "Delete Successfully.")
     else:
         raise PermissionDenied
-    context = {'edu_exps': Education.objects.filter(user=user),
-               'work_exps': Work.objects.filter(user=user),
-               'edu_form': EducationForm,
-               'work_form': WorkForm}
-    template = 'account/experience.html'
-    return render(request, template, context)
+    return redirect('experience_index')
