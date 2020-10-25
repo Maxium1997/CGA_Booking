@@ -1,7 +1,7 @@
 from django import forms
 from datetime import datetime, timedelta
 
-from booking.models import Booking, Guest
+from registration.definition import ServeState
 from booking.definition import Use
 
 
@@ -16,9 +16,10 @@ class BookingForm(forms.Form):
                                                            max_length=50,
                                                            widget=forms.TextInput(attrs={'class': 'form-control'}))
         if applicant.officer:
-            self.fields['unit_of_applicant'].initial = applicant.officer.branch.name
-        else:
-            pass
+            if applicant.officer.serve_state == ServeState.Active.value[0]:
+                self.fields['unit_of_applicant'].initial = applicant.officer.branch.name
+            else:
+                self.fields['unit_of_applicant'].initial = "Retirement"
 
     USE_CHOICES = [('', 'Select your use')] + [(str(_.value[0]), _.value[1]) for _ in Use.__members__.values()]
     use = forms.ChoiceField(required=True,
