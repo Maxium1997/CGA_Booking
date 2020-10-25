@@ -28,19 +28,23 @@ class IndexView(TemplateView):
 @method_decorator(login_required, name='dispatch')
 class BookingView(View):
     def get(self, request, slug, pk):
-        hotel = get_object_or_404(Hotel, slug=slug)
-        room = get_object_or_404(Room, pk=pk)
+        try:
+            hotel = get_object_or_404(Hotel, slug=slug)
+            room = get_object_or_404(Room, pk=pk)
 
-        guest_info_forms = [GuestInfoForm(prefix=str(x)) for x in range(5)]
+            guest_info_forms = [GuestInfoForm(prefix=str(x)) for x in range(5)]
 
-        template = 'booking.html'
-        context = {'hotel': hotel,
-                   'room': room,
-                   'uses': Use.__members__.values(),
-                   'booking_form': BookingForm(applicant=self.request.user),
-                   'guest_info_forms': guest_info_forms}
+            template = 'booking.html'
+            context = {'hotel': hotel,
+                       'room': room,
+                       'uses': Use.__members__.values(),
+                       'booking_form': BookingForm(applicant=self.request.user),
+                       'guest_info_forms': guest_info_forms}
 
-        return render(request, template, context)
+            return render(request, template, context)
+        except:
+            messages.warning(request, "Please update your officer information first.")
+            return redirect('officer_index')
 
     def post(self, request, slug, pk):
         hotel = get_object_or_404(Hotel, slug=slug)
