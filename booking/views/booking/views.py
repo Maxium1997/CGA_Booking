@@ -34,14 +34,11 @@ class BookingView(View):
             hotel = get_object_or_404(Hotel, slug=slug)
             room = get_object_or_404(Room, pk=pk)
 
-            guest_info_forms = [GuestInfoForm(prefix=str(x)) for x in range(5)]
-
             template = 'booking.html'
             context = {'hotel': hotel,
                        'room': room,
                        'uses': Use.__members__.values(),
-                       'booking_form': BookingForm(applicant=self.request.user),
-                       'guest_info_forms': guest_info_forms}
+                       'booking_form': BookingForm(applicant=self.request.user)}
 
             return render(request, template, context)
         except:
@@ -62,41 +59,19 @@ class BookingView(View):
                                                      check_in_time=datetime.strptime((booking_form['check_in_time'].data+" 15:00"), '%Y-%m-%d %H:%M'),
                                                      check_out_time=datetime.strptime((booking_form['check_in_time'].data+" 12:00"), '%Y-%m-%d %H:%M') + timedelta(days=int(booking_form['days'].data)),
                                                      booked_room=room)
-
-                guest_info_forms = [GuestInfoForm(request.POST, prefix=str(x)) for x in range(5)]
-
-                for guest_info_form in guest_info_forms:
-                    guest_form_to_Guest(guest_info_form, new_booking)
-
-                    if new_booking.guest_set.all().count() == 0:
-                        applicant = new_booking.applicant
-                        guest = Guest.objects.create(booking_source=new_booking,
-                                                     name=applicant.get_full_name(),
-                                                     ID_Number=applicant.ID_Number,
-                                                     relationship='Self',
-                                                     gender=applicant.gender,
-                                                     date_of_birth=applicant.birthday,
-                                                     phone=applicant.phone_number)
-                        guest.save()
-
-                total_price = calculate_booking_price(new_booking)
-                new_booking.total_price = total_price
                 new_booking.save()
 
                 messages.success(request, "Booked Successfully.")
-                booking_notification_mail(hotel.owner, new_booking)
-            return redirect('my_bookings')
+                # booking_notification_mail(hotel.owner, new_booking)
+            return redirect('guest_edit', pk=new_booking.pk)
         else:
-            guest_info_forms = [GuestInfoForm(request.POST, prefix=str(x)) for x in range(5)]
-
             messages.warning(request, "Time Conflict.")
 
             template = 'booking.html'
             context = {'hotel': hotel,
                        'room': room,
                        'uses': Use.__members__.values(),
-                       'booking_form': BookingForm(request.POST, applicant=self.request.user),
-                       'guest_info_forms': guest_info_forms}
+                       'booking_form': BookingForm(request.POST, applicant=self.request.user)}
 
             return render(request, template, context)
 

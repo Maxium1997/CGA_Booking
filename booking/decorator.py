@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from django.core.exceptions import ValidationError
 from room.models import Room
 from booking.models import Booking, Guest
 from booking.definition import Use
@@ -67,16 +68,19 @@ def guest_form_to_Guest(guest_info_form: GuestInfoForm, booking: Booking):
 
     if all(data):
         try:
-            new_guest = Guest.objects.create(booking_source=booking,
-                                             name=guest_info_form['name'].data,
-                                             ID_Number=guest_info_form['ID_Number'].data,
-                                             rank=guest_info_form['rank'].data,
-                                             relationship=guest_info_form['relationship'].data,
-                                             gender=guest_info_form['gender'].data,
-                                             date_of_birth=guest_info_form['date_of_birth'].data,
-                                             phone=guest_info_form['phone'].data,
-                                             license_plate=guest_info_form['license_plate'].data)
-            new_guest.save()
+            try:
+                new_guest = Guest.objects.create(booking_source=booking,
+                                                 name=guest_info_form['name'].data,
+                                                 ID_Number=guest_info_form['ID_Number'].data,
+                                                 rank=guest_info_form['rank'].data,
+                                                 relationship=guest_info_form['relationship'].data,
+                                                 gender=guest_info_form['gender'].data,
+                                                 date_of_birth=guest_info_form['date_of_birth'].data,
+                                                 phone=guest_info_form['phone'].data,
+                                                 license_plate=guest_info_form['license_plate'].data)
+                new_guest.save()
+            except ValidationError:
+                return False
         except ValueError:
             pass
         return True

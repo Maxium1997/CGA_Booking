@@ -48,7 +48,8 @@ def guest_addition(request, pk):
 
     guest_info_form = GuestInfoForm(request.POST)
     if guest_form_to_Guest(guest_info_form, booking):
-        calculate_booking_price(booking)
+        booking.total_price = calculate_booking_price(booking)
+        booking.save()
         messages.success(request, "Guest Added Successfully.")
         return redirect('guest_edit', pk=pk)
     else:

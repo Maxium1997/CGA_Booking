@@ -3,6 +3,12 @@
 
 {% block title %}Guest Edit{% endblock %}
 
+{% block direction_content %}
+    <u>/Accounts</u>
+    <a href="{% url 'my_bookings' %}">/My Bookings</a>
+    <u>/Guest Edit</u>
+{% endblock %}
+
 {% block content %}
     <div class="col-sm-12">
         <div class="table-responsive">

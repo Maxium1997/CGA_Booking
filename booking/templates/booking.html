@@ -1,135 +1,82 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Booking｜{{ room.name }}｜{{ hotel.name }}{% endblock %}
+{% block title %}Booking{% endblock %}
 
-{% block main %}
-    {% if messages %}
-        {% for message in messages %}
-            {% if message.tags == 'success' %}
-                <div id="prompt" class="card my-4 text-left alert-success prompt">
-                    <a class="card-header"><i class="fa fa-window-close" aria-hidden="true"> {{ message }}</i></a>
+{% block direction_content %}
+    <a href="{% url 'hotels' %}">/Hotels</a>
+    <a href="{% url 'hotel_detail' hotel.slug %}">/{{ hotel.name }}</a>
+    <a href="{% url 'room_detail' hotel.slug room.pk %}">/{{ room.name }}</a>
+    <u>/booking</u>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <h3>Booking</h3>
+                <div class="room-photo">
+                    {% if room.photo %}
+                        <img class="card-img-top mt-2 mb-2" src="{{ room.photo.url }}" alt="{{ room.name }}" >
+                    {% else %}
+                        <img src="{% static 'image/file_not_found/file_not_found.jpg' %}" alt="{{ room.name }}">
+                    {% endif %}
                 </div>
-            {% elif message.tags == 'warning' %}
-                <div id="prompt" class="card my-4 text-left alert-warning prompt">
-                    <a class="card-header"><i class="fa fa-window-close" aria-hidden="true"> {{ message }}</i></a>
-                </div>
-            {% elif message.tags == 'error' %}
-                <div id="prompt" class="card my-4 text-left alert-danger prompt">
-                    <a class="card-header"><i class="fa fa-window-close" aria-hidden="true"> {{ message }}</i></a>
-                </div>
-            {% endif %}
-        {% endfor %}
-    {% endif %}
-    <div class="col-sm-12">
-        <form method="post">
-            {% csrf_token %}
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <h3>Booking</h3>
-                        <div class="room-photo">
-                            {% if room.photo %}
-                                <img class="card-img-top mt-2 mb-2" src="{{ room.photo.url }}" alt="{{ room.name }}" >
-                            {% else %}
-                                <img src="{% static 'image/file_not_found/file_not_found.jpg' %}" alt="{{ room.name }}">
-                            {% endif %}
-                        </div>
-                        <div class="room-info">
-                            <p>
-                                <strong>Room</strong>: {{ hotel.name }} - {{ room.name }}<br>
-                                <strong>Single Bed</strong>: {{ room.single_bed }}<br>
-                                <strong>Double Bed</strong>: {{ room.double_bed }}
-                            </p>
-                            <table class="table-responsive-sm">
-                                <thead class="text-center table-dark">
-                                    <tr>
-                                        <td style="width: 20%">Washing fee</td>
-                                        <td style="width: 20%">Usage fee</td>
-                                        <td style="width: 20%">Utility bill</td>
-                                    </tr>
-                                </thead>
-                                <tbody class="text-center table-active">
-                                    <tr>
-                                        <td>{{ room.dormitory.washing_fee }}</td>
-                                        <td>{{ room.dormitory.usage_fee }}</td>
-                                        <td>{{ room.dormitory.utility_bill }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <h3>Application Form</h3>
-                        <p class="border-bottom pb-1">
-                            <strong>Unit of Applicant</strong>
-                            {{ booking_form.unit_of_applicant }}
-                        </p>
-                        <p class="border-bottom pb-1">
-                            <strong>Use</strong>
-                            {{ booking_form.use }}
-                        </p>
-                        <p class="border-bottom pb-1">
-                            <strong>Check in Time</strong><br>
-                            {{ booking_form.check_in_time }}
-                        </p>
-                        <p class="border-bottom pb-1">
-                            <strong>Days</strong>
-                            {{ booking_form.days }}
-                        </p>
-                        <p style="font-size: 10px">
-                            {{ tmp_str }}
-                        </p>
-                    </div>
+                <div class="room-info">
+                    <p>
+                        <strong>Room</strong>: {{ hotel.name }} - {{ room.name }}<br>
+                        <strong>Single Bed</strong>: {{ room.single_bed }}<br>
+                        <strong>Double Bed</strong>: {{ room.double_bed }}
+                    </p>
+                    <table class="table-responsive-sm">
+                        <thead class="text-center table-dark">
+                            <tr>
+                                <td style="width: 20%">Washing fee</td>
+                                <td style="width: 20%">Usage fee</td>
+                                <td style="width: 20%">Utility bill</td>
+                            </tr>
+                        </thead>
+                        <tbody class="text-center table-active">
+                            <tr>
+                                <td>{{ room.dormitory.washing_fee }}</td>
+                                <td>{{ room.dormitory.usage_fee }}</td>
+                                <td>{{ room.dormitory.utility_bill }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <h3>Guest Information Form</h3>
-                        <i style="color: red;">Every guests must input the full information, or the guest will not be add into the guest list.</i><br>
-                        <i style="color: orange">If you don't want to offer the information, please input "-"</i>
-                        <div class="table-responsive-sm" style="font-size: 0.5em">
-                            {{ guest_info_form }}
-                            <table class="table">
-                                <thead class="text-center">
-                                    <tr>
-                                        <td>Name</td>
-                                        <td>ID Number</td>
-                                        <td>Rank</td>
-                                        <td>Relationship</td>
-                                        <td>Gender</td>
-                                        <td>Birthday</td>
-                                        <td>Phone</td>
-                                        <td>License Plate</td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                {% for guest_info_form in guest_info_forms %}
-                                    <tr>
-                                        <td>{{ guest_info_form.name }}</td>
-                                        <td>{{ guest_info_form.ID_Number }}</td>
-                                        <td>{{ guest_info_form.rank }}</td>
-                                        <td>{{ guest_info_form.relationship }}</td>
-                                        <td>{{ guest_info_form.gender }}</td>
-                                        <td>{{ guest_info_form.date_of_birth }}</td>
-                                        <td>{{ guest_info_form.phone }}</td>
-                                        <td>{{ guest_info_form.license_plate }}</td>
-                                    </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
 
-                            <div>
-                                <button type="submit" class="btn btn-outline-success">Submit</button>
-                                <button type="button" class="btn btn-outline-default" onclick="history.go(-1);">Cancel</button>
-                            </div>
-                        </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <form method="post">
+                    {% csrf_token %}
+                    <h3>Application Form</h3>
+                    <p class="border-bottom pb-1">
+                        <strong>Unit of Applicant</strong>
+                        {{ booking_form.unit_of_applicant }}
+                    </p>
+                    <p class="border-bottom pb-1">
+                        <strong>Use</strong>
+                        {{ booking_form.use }}
+                    </p>
+                    <p class="border-bottom pb-1">
+                        <strong>Check in Time</strong><br>
+                        {{ booking_form.check_in_time }}
+                    </p>
+                    <p class="border-bottom pb-1">
+                        <strong>Days</strong>
+                        {{ booking_form.days }}
+                    </p>
+
+                    <div class="table-responsive-sm" style="font-size: 0.5em">
+                        <button type="submit" class="btn btn-outline-success">Submit</button>
+                        <button type="button" class="btn btn-outline-dark" onclick="history.go(-1);">Cancel</button>
                     </div>
-                </div>
+                </form>
             </div>
-        </form>
+        </div>
     </div>
+
     <style>
         .room-photo img{
             width: 70%;
@@ -142,9 +89,10 @@
             border-radius: 4px;
         }
     </style>
+
     <script type="text/javascript">
-    setTimeout(function(){
-        $('.prompt').hide()
-    }, 5000)
-</script>
+        setTimeout(function(){
+            $('.prompt').hide()
+        }, 5000)
+    </script>
 {% endblock %}
