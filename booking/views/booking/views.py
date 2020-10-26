@@ -5,7 +5,9 @@ from django.views.generic import TemplateView, View, DetailView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib import messages
+from django.db.models import Q
 
+from registration.models import User
 from registration.definition import Identity
 from room.models import Hotel, Room
 from booking.models import Booking, Guest
@@ -105,33 +107,20 @@ class MyBookingsView(View):
         template = 'booking/my_bookings.html'
 
         if request.user.identity == Identity.Traveler.value[0]:
-            all_bookings = Booking.objects.filter(applicant=request.user).\
-                order_by('-check_in_time', 'state', 'booked_room')
-            future_bookings = Booking.objects.filter(applicant=request.user, check_in_time__gt=datetime.now()).exclude(state=State.Canceled.value[0]).\
-                order_by('-check_in_time', 'state', 'booked_room')
-            past_bookings = Booking.objects.filter(applicant=request.user, check_out_time__lt=datetime.now()).exclude(state=State.Canceled.value[0]).\
-                order_by('-check_in_time', 'state', 'booked_room')
-            canceled_bookings = Booking.objects.filter(applicant=request.user, state=State.Canceled.value[0]).\
-                order_by('-check_in_time', 'booked_room')
-
-        elif request.user.identity == Identity.Proprietor.value[0]:
-            all_bookings = Booking.objects.filter(booked_room__hotel__owner=request.user).\
-                order_by('state', 'booked_room', 'check_in_time')
-            future_bookings = Booking.objects.filter(booked_room__hotel__owner=request.user, check_in_time__gt=datetime.now()).exclude(state=State.Canceled.value[0]).\
-                order_by('state', 'booked_room', 'check_in_time')
-            past_bookings = Booking.objects.filter(booked_room__hotel__owner=request.user, check_out_time__lt=datetime.now()).\
-                order_by('state', 'booked_room', 'check_in_time')
-            canceled_bookings = Booking.objects.filter(booked_room__hotel__owner=request.user, state=State.Canceled.value[0]).\
-                order_by('booked_room', 'check_in_time')
-
+            all_bookings = Booking.objects.filter(applicant=request.user)
         else:
-            messages.warning(request, "Unknown User.")
-            return redirect('index')
+            all_bookings = Booking.objects.filter(booked_room__hotel__owner=request.user)
 
-        context = {'all_bookings': all_bookings,
-                   'future_bookings': future_bookings,
+        future_bookings = all_bookings.filter(check_in_time__gt=datetime.now()).exclude(state=State.Canceled.value[0])
+        past_bookings = all_bookings.filter(check_out_time__lt=datetime.now(), state=State.CheckedOut.value[0])
+        canceled_bookings = all_bookings.filter(state=State.Canceled.value[0])
+        other_bookings = all_bookings.filter(check_out_time__lt=datetime.now()).exclude(Q(state=State.Canceled.value[0])|
+                                                                                        Q(state=State.CheckedOut.value[0]))
+
+        context = {'future_bookings': future_bookings,
                    'past_bookings': past_bookings,
                    'canceled_bookings': canceled_bookings,
+                   'other_bookings': other_bookings,
                    'State': State.__members__}
 
         return render(request, template, context)
@@ -183,3 +172,19 @@ def booking_cancel(request, pk):
     else:
         messages.warning(request, "You have no permission to cancel the booking.")
     return redirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required
+def booking_collection(request):
+    user = User.objects.get(username=request.user.username)
+    if user.identity == Identity.Traveler.value[0]:
+        all_bookings = Booking.objects.filter(applicant=request.user)
+    else:
+        all_bookings = Booking.objects.filter(booked_room__hotel__owner=request.user)
+
+    for booking in all_bookings:
+        if booking.check_out_time < datetime.now() and booking.state != State.CheckedOut.value[0]:
+            booking.state = State.Canceled.value[0]
+            booking.save()
+
+    return redirect('my_bookings')

@@ -1,7 +1,7 @@
 from django.urls import path, include
 
 from booking.views.booking.views import IndexView, MyBookingsView, BookingDetailView
-from booking.views.booking.views import booking_paid, booking_check_out, booking_cancel
+from booking.views.booking.views import booking_paid, booking_check_out, booking_cancel, booking_collection
 from booking.views.guest.views import GuestMemberEditionView
 from booking.views.guest.views import guest_addition, guest_remove
 
@@ -22,6 +22,7 @@ urlpatterns = [
                     path('remove/<guest_pk>', guest_remove, name='guest_remove'),
                 ]))
             ])),
+            path('collection', booking_collection, name='booking_collection'),
         ])),
     ])),
 ]
