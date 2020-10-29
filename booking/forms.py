@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 
 from registration.definition import ServeState
 from booking.definition import Use
+from booking.models import Guest
 
 
 class BookingForm(forms.Form):
@@ -43,27 +44,32 @@ class BookingForm(forms.Form):
         fields = ['unit_of_applicant', 'use', 'check_in_time', 'days']
 
 
-class GuestInfoForm(forms.Form):
+class GuestInfoForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        self.booking_source = kwargs.pop('booking_source')
+        super(GuestInfoForm, self).__init__(*args, **kwargs)
+
     name = forms.CharField(required=False,
-                           widget=forms.TextInput)
+                           widget=forms.TextInput(attrs={'class': 'form-control'}))
     ID_Number = forms.CharField(required=False,
-                                widget=forms.TextInput)
+                                widget=forms.TextInput(attrs={'class': 'form-control'}))
     rank = forms.CharField(required=False,
-                           widget=forms.TextInput)
+                           widget=forms.TextInput(attrs={'class': 'form-control'}))
     relationship = forms.CharField(required=False,
-                                   widget=forms.TextInput)
+                                   widget=forms.TextInput(attrs={'class': 'form-control'}))
 
     GENDER_CHOICES = [('', 'Select your gender'), (1, 'Male'), (2, 'Female')]
     gender = forms.ChoiceField(required=False,
                                choices=GENDER_CHOICES,
-                               widget=forms.Select)
+                               widget=forms.Select(attrs={'class': 'form-control'}))
     date_of_birth = forms.DateField(required=False,
-                                    widget=forms.TextInput(attrs={'placeholder': 'YYYY-MM-DD'}),
-                                    help_text="<br><i style=\"color: red\">This column data format: YYYY-MM-DD</i>")
+                                    widget=forms.TextInput(attrs={'class': 'form-control',
+                                                                  'placeholder': 'YYYY-MM-DD'}))
     phone = forms.CharField(required=False,
-                            widget=forms.TextInput)
+                            widget=forms.TextInput(attrs={'class': 'form-control'}))
     license_plate = forms.CharField(required=False,
-                                    widget=forms.TextInput)
+                                    widget=forms.TextInput(attrs={'class': 'form-control'}))
 
     class Meta:
+        model = Guest
         fields = ['name', 'ID_Number', 'rank', 'relationship', 'gender', 'date_of_birth', 'phone', 'license_plate']

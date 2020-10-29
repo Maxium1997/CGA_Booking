@@ -19,7 +19,7 @@
                     {% if room.photo %}
                         <img class="card-img-top mt-2 mb-2" src="{{ room.photo.url }}" alt="{{ room.name }}" >
                     {% else %}
-                        <img src="{% static 'image/file_not_found/file_not_found.jpg' %}" alt="{{ room.name }}">
+                        <img src="{% static 'image/file_not_found.png' %}" alt="{{ room.name }}">
                     {% endif %}
                 </div>
                 <div class="room-info">
@@ -36,7 +36,7 @@
                                 <td style="width: 20%">Utility bill</td>
                             </tr>
                         </thead>
-                        <tbody class="text-center table-active">
+                        <tbody class="text-center table-light">
                             <tr>
                                 <td>{{ room.dormitory.washing_fee }}</td>
                                 <td>{{ room.dormitory.usage_fee }}</td>
@@ -69,8 +69,8 @@
                     </p>
 
                     <div class="table-responsive-sm" style="font-size: 0.5em">
-                        <button type="submit" class="btn btn-outline-success">Submit</button>
-                        <button type="button" class="btn btn-outline-dark" onclick="history.go(-1);">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="button" class="btn btn-light" onclick="history.go(-1);">Cancel</button>
                     </div>
                 </form>
             </div>

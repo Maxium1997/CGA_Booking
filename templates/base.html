@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,16 +19,17 @@
 <body>
     {% include 'messages.html' %}
 
-    {% block main%}
-        <div class="container">
-            <div class="d-flex flex-row">
-                <div class="p-1">
-                    <a href="{% url 'index' %}">/Index</a>
-                    {% block direction_content %}
-                    {% endblock %}
-                </div>
+    <div class="container">
+        <div class="d-flex flex-row">
+            <div class="p-1">
+                <a href="{% url 'index' %}">/Index</a>
+                {% block direction_content %}
+                {% endblock %}
             </div>
         </div>
+    </div>
+
+    {% block main%}
         <div class="container-fluid">
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 mt-2">
@@ -46,5 +48,17 @@
         </div>
     {% endblock %}
 </body>
+
+{% block style %}
+    <style>
+        body{
+            background-image: url("{% static 'image/index/stylish-colorful-wave-modern-background-design.jpg' %}");
+            background-size: 100%;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+    </style>
+{% endblock %}
+
 
 </html>

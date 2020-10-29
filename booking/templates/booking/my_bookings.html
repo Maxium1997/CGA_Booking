@@ -10,7 +10,7 @@
     <u>/My Bookings</u>
 {% endblock %}
 
-{% block content %}
+{% block main %}
     <div class="container">
         <ul class="nav nav-tabs" id="dashboardTab" role="tablist">
             <li class="nav-item">
@@ -282,10 +282,10 @@
                                             {% if booking.booked_room.photo %}
                                                 <img class="card-img-top mt-2 mb-2" src="{{ booking.booked_room.photo.url }}" alt="{{ booking.booked_room.name }}" >
                                             {% else %}
-                                                <img src="{% static 'image/file_not_found/file_not_found.jpg' %}" width="200" height="200">
+                                                <img src="{% static 'image/file_not_found.png' %}" width="200" height="200">
                                             {% endif %}
                                         </div>
-                                        <div class="card-footer">
+                                        <div class="card-footer" style="font-size: 0.75rem">
                                             <p>
                                                 <strong>{{ booking.booked_room.hotel.name }}｜{{ booking.booked_room.name }}</strong><br>
                                                 <strong>Check In</strong>: {{ booking.check_in_time|date:'Y/m/d H:i' }}<br>
@@ -337,10 +337,10 @@
                                             {% if booking.booked_room.photo %}
                                                 <img class="card-img-top mt-2 mb-2" src="{{ booking.booked_room.photo.url }}" alt="{{ booking.booked_room.name }}" >
                                             {% else %}
-                                                <img src="{% static 'image/file_not_found/file_not_found.jpg' %}" width="200" height="200">
+                                                <img src="{% static 'image/file_not_found.png' %}" width="200" height="200">
                                             {% endif %}
                                         </div>
-                                        <div class="card-footer">
+                                        <div class="card-footer" style="font-size: 0.75rem">
                                             <p>
                                                 <strong>{{ booking.booked_room.hotel.name }}｜{{ booking.booked_room.name }}</strong><br>
                                                 <strong>Check In</strong>: {{ booking.check_in_time|date:'Y/m/d H:i' }}<br>
@@ -368,10 +368,10 @@
                                             {% if booking.booked_room.photo %}
                                                 <img class="card-img-top mt-2 mb-2" src="{{ booking.booked_room.photo.url }}" alt="{{ booking.booked_room.name }}" >
                                             {% else %}
-                                                <img src="{% static 'image/file_not_found/file_not_found.jpg' %}" width="200" height="200">
+                                                <img src="{% static 'image/file_not_found.png' %}" width="200" height="200">
                                             {% endif %}
                                         </div>
-                                        <div class="card-footer">
+                                        <div class="card-footer" style="font-size: 0.75rem">
                                             <p>
                                                 <strong>{{ booking.booked_room.hotel.name }}｜{{ booking.booked_room.name }}</strong><br>
                                                 <strong>Check In</strong>: {{ booking.check_in_time|date:'Y/m/d H:i' }}<br>
@@ -398,10 +398,10 @@
                                             {% if booking.booked_room.photo %}
                                                 <img class="card-img-top mt-2 mb-2" src="{{ booking.booked_room.photo.url }}" alt="{{ booking.booked_room.name }}" >
                                             {% else %}
-                                                <img src="{% static 'image/file_not_found/file_not_found.jpg' %}" width="200" height="200">
+                                                <img src="{% static 'image/file_not_found.png' %}" width="200" height="200">
                                             {% endif %}
                                         </div>
-                                        <div class="card-footer">
+                                        <div class="card-footer" style="font-size: 0.75rem">
                                             <p>
                                                 <strong>{{ booking.booked_room.hotel.name }}｜{{ booking.booked_room.name }}</strong><br>
                                                 <strong>Check In</strong>: {{ booking.check_in_time|date:'Y/m/d H:i' }}<br>

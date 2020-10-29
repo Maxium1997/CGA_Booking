@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 from registration.models import User
 from registration.definition import Gender
@@ -29,3 +30,6 @@ class Guest(models.Model):
     date_of_birth = models.DateField(auto_now=False)
     phone = models.CharField(max_length=20, null=False)
     license_plate = models.CharField(max_length=10, null=True)
+
+    def get_absolute_url(self):
+        return reverse('guest_edit', args=[self.booking_source.id])

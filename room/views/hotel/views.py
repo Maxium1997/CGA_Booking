@@ -59,7 +59,7 @@ class HotelDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         obj = super(HotelDetailView, self).get_object()
-        kwargs['hotels'] = Hotel.objects.exclude(name=obj.name)[:4]
+        kwargs['hotels'] = Hotel.objects.exclude(name=obj.name)[:3]
         return super(HotelDetailView, self).get_context_data(**kwargs)
 
 

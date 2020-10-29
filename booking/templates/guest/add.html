@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Guest Add{% endblock %}
+
+{% block direction_content %}
+    <u>/Accounts</u>
+    <a href="{% url 'my_bookings' %}">/My Bookings</a>
+    <a href="{% url 'guest_edit' booking.pk %}">/Guest</a>
+    <u>/Add</u>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-end">
+            <div class="col-xs-12 col-sm-10 col-md-3 col-lg-3 bg-danger">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-2 col-sm-2 col-md-12 col-lg-12">
+                            <div class="icons">
+                                <img src="{% static 'icons/exclamation-button.png' %}">
+                            </div>
+                        </div>
+                        <div class="col-xs-10 col-sm-10 col-md-12 col-lg-12">
+                            <p class="text-white">Every guest must input the full information or the guest will not be add into the guest list.</p>
+                            <p class="text-white">If you don't want to offer the information at the column, please input "-".</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-10 col-md-7 col-lg-5 bg-white">
+                <h1>Guest</h1>
+                <form method="post">
+                    {% csrf_token %}
+                        {{ form.as_p }}
+                    <div class="border-top">
+                        <button type="submit" class="btn btn-outline-primary m-2">Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block style %}
+    <style>
+        body{
+            background-image: url("{% static 'image/fern-leaves-circle-wooden-plate-white-wood-pannels.jpg' %}");
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+    </style>
+{% endblock %}

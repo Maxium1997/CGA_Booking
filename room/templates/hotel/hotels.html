@@ -11,46 +11,33 @@
 
 {% block content %}
     <div class="container">
-        <h1>Hotels</h1>
-        <p class="lead">Total: {{ hotels.count }}</p>
-        <div class="row">
-            {% if hotels %}
-                {% for hotel in hotels %}
-                    <div class="col-sm-12 mt-4">
-                        <div class="card shadow" style="cursor: pointer;" onclick="window.location.href='{% url 'hotel_detail' hotel.slug %}'">
-                            <div class="container" id="hotel-concept">
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        {% if hotel.external_appearance %}
-                                            <img class="card-img-top mt-2 mb-2" src="{{ hotel.external_appearance.url }}" alt="{{ hotel.name }}" >
-                                        {% else %}
-                                            <img src="{% static 'image/page_not_found404/page_not_found404.jpg' %}">
-                                        {% endif %}
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <div class="mt-2 mb-2">
-                                            <p class="h3">{{ hotel.name }}</p>
-                                            <p style="font-size: 0.95em">{{ hotel.address }}</p>
-                                            <p style="font-size: 0.95em">{{ hotel.introduction|shorten_to:120 }}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+        <div class="row justify-content-center">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <h1 class="border-bottom pb-2">Hotels</h1>
+                </div>
+            </div>
+            {% for hotel in hotels %}
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                    <div class="bg-white text-center border mb-4">
+                        {% if hotel.external_appearance %}
+                            <img class="card-img-top" src="{{ hotel.external_appearance.url }}" alt="{{ hotel.name }}" >
+                        {% else %}
+                            <img src="{% static 'image/file_not_found.png' %}">
+                        {% endif %}
+                        <div class="pb-3">
+                            <p class="text-black-50 mt-2">{{ hotel.address|region }}</p>
+                            <p class="h4 font-weight-light mt-2">{{ hotel.name }}</p>
+                            <p class="h4 font-weight-lighter mt-2 text-success">NT${{ hotel|lowest_price }}</p>
+                            <button type="button" class="btn btn-primary" onclick="window.location.href='{% url 'hotel_detail' hotel.slug %}'">More</button>
                         </div>
                     </div>
-                {% endfor %}
-            {% else %}
-                No hotel recently.
-            {% endif %}
+                </div>
+            {% endfor %}
         </div>
     </div>
-    <style>
-        img{
-            width: 20%;
-            height: auto;
-        }
-        #hotel-concept div{
-            align-items:center;
-        }
-    </style>
+
+    <div class="container">
+
+    </div>
 {% endblock %}

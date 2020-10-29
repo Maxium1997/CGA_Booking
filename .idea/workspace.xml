@@ -2,15 +2,44 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b2ae6215-e0bf-44df-aae2-2373e83c0974" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/CGA_Booking.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/CGA_Booking.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/booking/templates/guest/add.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/css/system.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/icons/exclamation-button.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/image/fern-leaves-circle-wooden-plate-white-wood-pannels.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/image/file_not_found.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/image/index/abstract-bright-yellow-grunge-background.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/image/index/businessman-planning-events-deadlines-agenda.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/image/index/stylish-colorful-wave-modern-background-design.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/booking/decorator.py" beforeDir="false" afterPath="$PROJECT_DIR$/booking/decorator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/booking/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/booking/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/booking/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/booking/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/booking/templates/booking.html" beforeDir="false" afterPath="$PROJECT_DIR$/booking/templates/booking.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/booking/templates/booking/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/booking/templates/booking/detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/booking/templates/booking/my_bookings.html" beforeDir="false" afterPath="$PROJECT_DIR$/booking/templates/booking/my_bookings.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/booking/templates/guest/edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/booking/templates/guest/edit.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/booking/views/booking/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/booking/views/booking/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/booking/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/booking/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/booking/views/guest/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/booking/views/guest/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/registration/templates/account/user_change.html" beforeDir="false" afterPath="$PROJECT_DIR$/registration/templates/account/user_change.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/registration/templates/account/officer.html" beforeDir="false" afterPath="$PROJECT_DIR$/registration/templates/account/officer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/room/templates/hotel/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/room/templates/hotel/detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/room/templates/hotel/hotels.html" beforeDir="false" afterPath="$PROJECT_DIR$/room/templates/hotel/hotels.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/room/templates/room/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/room/templates/room/detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/room/views/hotel/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/room/views/hotel/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/image/Republic_of_China_Coast_Guard_Logo.svg.png" beforeDir="false" afterPath="$PROJECT_DIR$/static/image/index/Republic_of_China_Coast_Guard_Logo.svg.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/image/bed.png" beforeDir="false" afterPath="$PROJECT_DIR$/static/image/index/bed.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/image/businessman-planning-events-deadlines-agenda/6274.eps" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/image/businessman-planning-events-deadlines-agenda/6274.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/image/businessman-planning-events-deadlines-agenda/License free.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/image/businessman-planning-events-deadlines-agenda/License premium.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/image/file_not_found/License free.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/image/file_not_found/License premium.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/image/file_not_found/file_not_found.ai" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/image/file_not_found/file_not_found.eps" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/image/file_not_found/file_not_found.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/image/files.png" beforeDir="false" afterPath="$PROJECT_DIR$/static/image/index/files.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/image/suitcase.png" beforeDir="false" afterPath="$PROJECT_DIR$/static/image/index/suitcase.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/head.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/head.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,10 +52,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="CSS File" />
         <option value="JavaScript File" />
         <option value="Python Script" />
         <option value="HTML File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -131,7 +160,8 @@
       <workItem from="1603375746484" duration="556000" />
       <workItem from="1603418313701" duration="24000" />
       <workItem from="1603608582860" duration="1734000" />
-      <workItem from="1603690497956" duration="8257000" />
+      <workItem from="1603690497956" duration="14711000" />
+      <workItem from="1603792873072" duration="18812000" />
     </task>
     <servers />
   </component>
@@ -146,10 +176,10 @@
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="525" y="257" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1597070307498" />
-    <state x="512" y="220" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1597153249033">
+    <state x="512" y="220" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1603817543457">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state x="512" y="220" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1597153249033" />
+    <state x="512" y="220" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1603817543457" />
     <state x="224" y="76" key="SettingsEditor" timestamp="1603714957623">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>

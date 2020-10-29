@@ -2,8 +2,8 @@ from django.urls import path, include
 
 from booking.views.booking.views import IndexView, MyBookingsView, BookingDetailView
 from booking.views.booking.views import booking_paid, booking_check_out, booking_cancel, booking_collection
-from booking.views.guest.views import GuestMemberEditionView
-from booking.views.guest.views import guest_addition, guest_remove
+from booking.views.guest.views import GuestMemberEditionView, GuestAdditionView
+from booking.views.guest.views import guest_remove
 
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
@@ -18,7 +18,7 @@ urlpatterns = [
                 path('cancel', booking_cancel, name='booking_cancel'),
                 path('guest/', include([
                     path('edit', GuestMemberEditionView.as_view(), name='guest_edit'),
-                    path('add', guest_addition, name='guest_addition'),
+                    path('add', GuestAdditionView.as_view(), name='guest_addition'),
                     path('remove/<guest_pk>', guest_remove, name='guest_remove'),
                 ]))
             ])),

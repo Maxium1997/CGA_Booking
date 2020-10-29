@@ -5,6 +5,12 @@
 
 {% block title %}Booking Detail{% endblock %}
 
+{% block direction_content %}
+    <u>/Accounts</u>
+    <a href="{% url 'my_bookings' %}">/My Bookings</a>
+    <u>/Detail</u>
+{% endblock %}
+
 {% block main %}
     <div class="table-responsive" style="font-family: 標楷體;">
         <h3 class="text-center">海洋委員會海巡署東部分署眷探處所住宿申請表</h3>

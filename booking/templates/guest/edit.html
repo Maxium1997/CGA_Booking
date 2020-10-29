@@ -6,7 +6,7 @@
 {% block direction_content %}
     <u>/Accounts</u>
     <a href="{% url 'my_bookings' %}">/My Bookings</a>
-    <u>/Guest Edit</u>
+    <u>/Guest</u>
 {% endblock %}
 
 {% block content %}
@@ -64,30 +64,7 @@
                     {% endfor %}
                     <tr>
                         <td colspan="8">
-                            <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#Add-Guest-Form-Modal">Add Guest</button>
-                            <div class="modal fade" id="Add-Guest-Form-Modal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <form action="{% url 'guest_addition' booking.pk %}" method="post">
-                                            {% csrf_token %}
-                                            <div class="modal-header text-center" style="width: 100%">
-                                                <h5 class="modal-title" id="ModalLongTitle">Add Guest Form</h5>
-                                            </div>
-
-                                            <div id="modal-menu" style="width: 100%">
-                                                {{ guest_info_form.as_p }}
-                                                <i style="color: red;">Every guests must input the full information, or the guest will not be add into the guest list.</i><br>
-                                                <i style="color: orange">If you don't want to offer the information, please input "-"</i>
-                                            </div>
-
-                                            <div class="modal-footer" style="width: 100%">
-                                                <button type="submit" class="btn btn-primary">Submit</button>
-                                                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
+                            <button type="button" class="btn btn-outline-primary" onclick="window.location.href='{% url 'guest_addition' booking.pk %}'">Add Guest</button>
                             <button type="button" class="btn btn-outline-success" onclick="window.location.href='{% url 'my_bookings' %}'">OK</button>
                         </td>
                     </tr>
