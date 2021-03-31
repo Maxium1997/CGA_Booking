@@ -59,11 +59,25 @@ class BookingView(View):
                                                      check_in_time=datetime.strptime((booking_form['check_in_time'].data+" 15:00"), '%Y-%m-%d %H:%M'),
                                                      check_out_time=datetime.strptime((booking_form['check_in_time'].data+" 12:00"), '%Y-%m-%d %H:%M') + timedelta(days=int(booking_form['days'].data)),
                                                      booked_room=room)
+                # To record the origin information about this booking, or if the hotel owner been changed then it will
+                # not found who is owner at that time.
+                UseList = [_ for _ in Use.__members__.values()]
+                origin_info_txt = "Unit of applicant:\t" + new_booking.unit_of_applicant + "\n" + \
+                                  "Applicant:\t" + new_booking.applicant.get_full_name() + "\n" + \
+                                  "Use:\t" + str(UseList[int(new_booking.use)-1].value[2]) + "\n" + \
+                                  "Check in time:\t" + datetime.strftime(new_booking.check_in_time, '%Y-%m-%d %H:%M') + "\n" + \
+                                  "Check out time:\t" + datetime.strftime(new_booking.check_out_time, '%Y-%m-%d %H:%M') + "\n" + \
+                                  "Room:\t" + new_booking.booked_room.__str__() + "\n" + \
+                                  "Price:\t" + str(new_booking.total_price) + "\n" + \
+                                  "Owner:\t" + new_booking.booked_room.hotel.owner.get_full_name() + "\n" + \
+                                  "Create time:\t" + datetime.strftime(new_booking.created_time, '%Y-%m-%d %H:%M')
+                new_booking.origin_info_txt = origin_info_txt
+
                 new_booking.save()
 
                 messages.success(request, "Booked Successfully.")
                 # booking_notification_mail(hotel.owner, new_booking)
-            return redirect('guest_edit', pk=new_booking.pk)
+                return redirect('guest_edit', pk=new_booking.pk)
         else:
             messages.warning(request, "Time Conflict.")
 

@@ -18,6 +18,7 @@ class Booking(models.Model):
     booked_room = models.ForeignKey(Room, on_delete=models.SET_NULL, null=True)
     created_time = models.DateTimeField(auto_now_add=True)
     total_price = models.PositiveIntegerField(default=0, null=False)
+    origin_info_txt = models.TextField(null=True)
 
 
 class Guest(models.Model):
